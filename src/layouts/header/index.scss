@@ -1,0 +1,41 @@
+.ant-menu-horizontal{
+    border-bottom: 0px !important; 
+}
+.ant-menu{
+    background-color: #0d0d0d !important;
+}
+.ant-layout-header{
+    background: #0d0d0d !important;
+}
+.ant-menu-item a{
+    color: #fff !important
+}
+.ant-layout-header{
+    line-height: 65px !important;
+}
+.ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu{
+    top: 0px !important
+}
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after, 
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after, 
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after, 
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after, 
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after, 
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after, 
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after, 
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after{
+    border-bottom: 3px solid #ff9332 !important;
+}
+.ant-layout{
+    box-shadow: 0px 1px 0px rgb(255 255 255 / 10%) !important;
+}
+.App{
+    background-color: #000;
+    color: #fff
+}
+.header{
+    position: sticky !important;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+}
