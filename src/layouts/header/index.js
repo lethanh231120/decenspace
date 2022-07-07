@@ -41,14 +41,14 @@ const items = [
 ]
 
 const Navbar = () => {
-  const [current, setCurrent] = useState('blog')
+  // const [current, setCurrent] = useState('blog')
   const [isModalSignin, setIsModalSignin] = useState(false)
   const [isModalSignup, setIsModalSignup] = useState(false)
   const { user, isAuthenticated } = useSelector(state => state.userInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const onClick = (e) => {
-    setCurrent(e.key)
+    // setCurrent(e.key)
   }
 
   const logout = async() => {
@@ -72,8 +72,8 @@ const Navbar = () => {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div className='logo' style={{ fontSize: '20px', fontWeight: '500' }}>DECENSPACE</div>
-            <Menu onClick={onClick} selectedKeys={[current]} mode='horizontal' items={items} />
+            <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>DECENSPACE</div>
+            <Menu onClick={onClick} mode='horizontal' items={items} />
           </div>
           {isAuthenticated ? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '250px' }}>
             <Typography

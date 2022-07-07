@@ -45,6 +45,7 @@ export const Signup = () => {
         style={{ width: 100 }}
         onChange={handleChangePhoneCode}
         defaultValue={phoneCode}
+        showSearch={true}
       >
         {phones && phones.map((item, index) => (
           <Option key={index} value={`${item.dial_code.slice(1)}`}>{item.dial_code}</Option>
