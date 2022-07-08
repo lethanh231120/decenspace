@@ -1,12 +1,17 @@
 import React from 'react'
 import { Table } from 'antd'
+import { usdMoneyFormat } from '../../utils/parseFloat'
 
 const Columns = [
   {
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    render: (text) => <a>{text}</a>
+    render: (text) => <a>
+      <img src='https://png.monster/wp-content/uploads/2022/02/png.monster-623.png' alt='btc logo'></img>
+      {text}
+      <span>*BTC</span>
+    </a>
   },
   {
     title: 'Amount',
@@ -30,11 +35,20 @@ const Columns = [
   }
 ]
 
-const data = []
+const data = [
+  {
+    key: '1',
+    name: 'Bitcoin',
+    amount: `${usdMoneyFormat(252958)}`,
+    price: `${usdMoneyFormat(20458.35)}`,
+    total: `${usdMoneyFormat(5167772604.76)}`,
+    change: `${usdMoneyFormat(103810204.21)}`
+  }
+]
 
 const table = () => {
   return (
-    <Table columns={Columns} dataSource={data}></Table>
+    <Table columns={Columns} dataSource={data} pagination='false'></Table>
   )
 }
 
