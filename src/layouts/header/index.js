@@ -125,6 +125,7 @@ const Navbar = () => {
         footer={null}
         onOk={() => setIsModalSignin(false)}
         onCancel={() => setIsModalSignin(false)}
+        className='model-register'
       >
         <SignIn setIsModalSignin={setIsModalSignin}/>
       </Modal>
@@ -133,6 +134,7 @@ const Navbar = () => {
         footer={null}
         onOk={() => setIsModalSignup(false)}
         onCancel={() => setIsModalSignup(false)}
+        className='model-register'
       >
         <Signup setIsModalSignup={setIsModalSignup}/>
       </Modal>

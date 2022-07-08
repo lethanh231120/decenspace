@@ -1,21 +1,19 @@
-import React, { useState } from 'react'
-import { Button, Form, Input, Image, Select } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Button, Form, Input, Image, Select, Spin } from 'antd'
 import { post } from '../../../api/BaseRequest'
-import { validateAddress, validatePhone, validateEmail, validatePassword } from '../../../utils/regex'
+import { validateAddress, validatePhone, validateEmail, validatePassword, validateMaxLength } from '../../../utils/regex'
 import phones from '../../../utils/phoneCode.json'
-
-const layout = {
-  labelCol: {
-    span: 8
-  }
-}
+import axios from 'axios'
 const { Option } = Select
 export const Signup = () => {
   const [message, setMessage] = useState()
   const [error, setError] = useState()
   const [image, setImage] = useState()
   const [open, setOpen] = useState(false)
-  const [phoneCode, setPhoneCode] = useState('+1')
+  const [countryCode, setCountryCode] = useState()
+  const [listPhoneCode, setListPhoneCode] = useState(phones)
+  const [phoneCode, setPhoneCode] = useState()
+  const [typeSearch, setTypeSearch] = useState('number')
   const onFinish = async(values) => {
     const config = {
       headers: {
@@ -39,22 +37,79 @@ export const Signup = () => {
   const handleChangePhoneCode = (value) => {
     setPhoneCode(value)
   }
+
+  const handleSearchPhoneCode = (value) => {
+    const number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    number.some((item) => {
+      if (parseInt(value.slice(0, 1)) === item) {
+        setTypeSearch('number')
+        setListPhoneCode(phones.filter((phone) => ((phone.dial_code.slice(1).slice(0, value.length) === value))))
+        return true
+      } else {
+        setTypeSearch('string')
+        setListPhoneCode(phones.filter((phone) => (phone.code.slice(0, value.length).toLowerCase() === value.toLowerCase())))
+        return false
+      }
+    })
+    // console.log(typeof value)
+    // phones.filter((item) => (
+    //   (item.dial_code.slice(1).slice(0, value.length) === value)
+    //     ? (item.dial_code.slice(1).slice(0, value.length) === value)
+    //     : (item.code.slice(0, value.length).toLowerCase() === value.toLowerCase()
+    //     )
+    // ))
+    // phones.filter((item) => (console.log(item.code.slice(0, value.length).toLowerCase() === value.toLowerCase())))
+    // phones.filter((item) => (console.log(item.code.slice(0, value.length) === value)))
+    // console.log(phones)
+    // console.log(value.toLowerCase())
+    // setListPhoneCode(phones.filter((item) => ((item.dial_code.slice(1).slice(0, value.length) === value)
+    //   ? (item.dial_code.slice(1).slice(0, value.length) === value)
+    //   : (item.code.slice(0, value.length).toLowerCase() === value.toLowerCase())
+    // )))
+    // console.log(value)
+    // setListPhoneCode(phones.filter((item) => ((item.code.slice(0, value.length).toLowerCase() === value.toLowerCase()))))
+  }
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo)
+  }
+
+  useEffect(() => {
+    axios.get(`https://ip.nf/me.json`).then(({ data }) => setCountryCode({ ...data.ip })).catch((error) => console.log(error))
+  }, [])
+
+  useEffect(() => {
+    const getPhoneCode = () => {
+      countryCode && listPhoneCode && listPhoneCode.map((item) => {
+        if (item.code === countryCode.country_code) {
+          setPhoneCode(item.dial_code.slice(1))
+        }
+      })
+    }
+    getPhoneCode()
+  }, [countryCode])
+
   const prefixSelector = (
     <Form.Item name='prefix' noStyle>
+      {console.log(listPhoneCode)}
       <Select
-        style={{ width: 100 }}
+        style={{ width: 120 }}
         onChange={handleChangePhoneCode}
-        defaultValue={phoneCode}
+        defaultValue={phoneCode !== '' ? phoneCode : ''}
         showSearch={true}
+        onSearch={handleSearchPhoneCode}
       >
-        {phones && phones.map((item, index) => (
-          <Option key={index} value={`${item.dial_code.slice(1)}`}>{item.dial_code}</Option>
+        {listPhoneCode.map((item, index) => (
+          <Option key={index} value={typeSearch === 'number' ? `${item.dial_code.slice(1)}` : item.code}>
+            <span className='country-code'>{item.code}</span>
+            <span className='country-symbol'>{item.dial_code}</span>
+          </Option>
         ))}
       </Select>
     </Form.Item>
   )
+
   return (
-    <Form {...layout} name='nest-messages' onFinish={onFinish} >
+    phoneCode !== undefined ? (<Form labelCol={{ span: 8 }} initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
       {message && message}
       {open && open}
       <div>
@@ -67,7 +122,6 @@ export const Signup = () => {
         <Input
           type='file'
           onChange={(e) => setImage(e.target.files[0])}
-        //   style={{ display: 'none' }}
         />
       </div>
       <Form.Item
@@ -104,6 +158,10 @@ export const Signup = () => {
             required: true,
             pattern: new RegExp(validatePhone),
             message: 'Format is wrong'
+          },
+          {
+            pattern: validateMaxLength,
+            message: 'Số điện thoại tối đa 12 số'
           }
         ]}
       >
@@ -142,11 +200,24 @@ export const Signup = () => {
         <Input.Password />
       </Form.Item>
       {error && error}
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+      <Form.Item>
         <Button type='primary' htmlType='submit'>
           Submit
         </Button>
       </Form.Item>
-    </Form>
+    </Form>)
+      : (<div
+        className='example'
+        style={{
+          margin: '20px 0',
+          marginBottom: '20px',
+          padding: '30px 50px',
+          textAlign: 'center',
+          background: 'rgba(0, 0, 0, 0.05)',
+          borderRadius: '4px'
+        }}
+      >
+        <Spin size='large' />
+      </div>)
   )
 }
