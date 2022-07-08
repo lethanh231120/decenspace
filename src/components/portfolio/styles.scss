@@ -1,0 +1,26 @@
+/* Css for Wallet Address */
+
+.sidebar{
+    height: 100vh
+}
+
+.panel{
+    .ant-collapse-header,p{
+         color: white !important;
+        text-align: center;
+        padding: 0 40px;
+    }
+
+    .ant-collapse-content-box{
+        padding: 0 40px;
+    }
+}
+
+
+.ant-typography{
+    display: block;
+    margin-bottom: 5px;
+    color: white !important
+}
+
+/* Css for Analyst */ 

@@ -5,7 +5,7 @@ const getUrlPrefix = () => '/'
 
 const instance = axios.create({
 //   baseURL: process.env.BASE_URL_API
-  baseURL: 'http://localhost:5000/api'
+  baseURL: 'https://do-an-tot-nghiep-lvthanh.herokuapp.com/api'
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
