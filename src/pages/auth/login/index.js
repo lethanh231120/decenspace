@@ -4,31 +4,38 @@ import { post } from '../../../api/BaseRequest'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
 import { useDispatch } from 'react-redux'
 import { getUserInfo } from '../../../redux/useInfo'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { validateEmail } from '../../../utils/regex'
+// import axios from 'axios'
 export default function SignIn({ setIsModalSignin }) {
   const [error, setError] = useState()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const {
     reset
   } = useForm({
     mode: 'onChange'
   })
   const onFinish = async(values) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
     try {
-      const data = await post('user/login', values)
+      const data = await post('accounts/login', values, config)
+      const token = data?.data[0]?.token
       reset()
-      if (data.token) {
-        await setCookie(STORAGEKEY.ACCESS_TOKEN, data.token)
+      if (token) {
+        await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
         await dispatch(getUserInfo())
         setIsModalSignin(false)
-        if (data.isAdmin === true) {
-        //   navigate('../admin')
-        } else {
-          navigate('../')
-        }
+        // if (data.isAdmin === true) {
+        // //   navigate('../admin')
+        // } else {
+        //   navigate('../')
+        // }
       }
     } catch (error) {
       error?.response?.data && setError(error.response.data.message)
