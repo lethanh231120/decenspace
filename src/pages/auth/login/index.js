@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, Modal, Typography } from 'antd'
 import { post } from '../../../api/BaseRequest'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
 import { useDispatch } from 'react-redux'
@@ -7,8 +7,12 @@ import { getUserInfo } from '../../../redux/useInfo'
 // import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { validateEmail } from '../../../utils/regex'
+import ForgotPassword from '../../../components/auth/ForgotPassword'
+import './styles.scss'
 // import axios from 'axios'
+
 export default function SignIn({ setIsModalSignin }) {
+  const [isModalForgotPassword, setIsModalForgotPassword] = useState(false)
   const [error, setError] = useState()
   const dispatch = useDispatch()
   // const navigate = useNavigate()
@@ -91,6 +95,12 @@ export default function SignIn({ setIsModalSignin }) {
         >
           <Input.Password />
         </Form.Item>
+        <Typography
+          style={{ textAlign: 'right', color: '#ffffff' }}
+          onClick={() => setIsModalForgotPassword(true) || setIsModalSignin(false)}
+        >
+          Quên mật khẩu?
+        </Typography>
         {error && error}
         <Form.Item
           wrapperCol={{
@@ -103,6 +113,15 @@ export default function SignIn({ setIsModalSignin }) {
           </Button>
         </Form.Item>
       </Form>
+      <Modal
+        className='forgot-password-modal'
+        visible={isModalForgotPassword}
+        onOk={() => setIsModalForgotPassword(false)}
+        onCancel={() => setIsModalForgotPassword(false)}
+        footer={null}
+      >
+        <ForgotPassword setIsModalForgotPassword={setIsModalForgotPassword}/>
+      </Modal>
     </div>
   )
 }

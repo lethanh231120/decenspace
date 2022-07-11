@@ -5,6 +5,7 @@ import { Layout } from 'antd'
 import 'antd/dist/antd.min.css'
 import SignIn from '../../pages/auth/login'
 import { Signup } from '../../pages/auth/register'
+import UpdatePassword from '../../components/auth/UpdatePassword'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeCookie, STORAGEKEY } from '../../utils/storage'
 import { resetUserInfo } from '../../redux/useInfo'
@@ -44,6 +45,7 @@ const Navbar = () => {
   // const [current, setCurrent] = useState('blog')
   const [isModalSignin, setIsModalSignin] = useState(false)
   const [isModalSignup, setIsModalSignup] = useState(false)
+  const [isModalPasswordUpdate, setIsModalPasswordUpdate] = useState(false)
   const { user, isAuthenticated } = useSelector(state => state.userInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -99,6 +101,7 @@ const Navbar = () => {
               // onClick={() => setIsOpen(true)}
               className='header__link'
               style={{ color: '#fff' }}
+              onClick={() => setIsModalPasswordUpdate(true)}
             >
               Change Password
             </Typography>
@@ -138,6 +141,14 @@ const Navbar = () => {
         className='model-register'
       >
         <Signup setIsModalSignup={setIsModalSignup}/>
+      </Modal>
+      <Modal
+        visible={isModalPasswordUpdate}
+        footer={null}
+        onOk={() => setIsModalPasswordUpdate(false)}
+        onCancel={() => setIsModalPasswordUpdate(false)}
+      >
+        <UpdatePassword setIsModalPasswordUpdate={setIsModalPasswordUpdate}/>
       </Modal>
     </>
   )

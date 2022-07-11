@@ -1,5 +1,5 @@
+@import "../../assets/variable.scss";
 /* Css for Wallet Address */
-
 .sidebar {
     height: 100vh;
 
@@ -92,7 +92,8 @@
                     .ant-table-content {
                         .ant-table-thead {
                             .ant-table-cell {
-                                background-color: #1a1a1a;
+                                background-color: $background-color;
+                                // background-color: #1a1a1a;
                                 color: #999999;
                                 height: 20px;
                                 pointer-events: none;
