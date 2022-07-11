@@ -11,7 +11,7 @@ const initialState = {
 export const getUserInfo = createAsyncThunk(
   'user/getInfo',
   async() => {
-    return await get('user/info')
+    return await get('accounts/profile/current-profile')
   }
 )
 
@@ -24,7 +24,7 @@ const userInfo = createSlice({
       state.message = 'loading'
     },
     [getUserInfo.fulfilled]: (state, action) => {
-      state.user = action.payload.user
+      state.user = action.payload.data
       state.isAuthenticated = true
       state.loading = false
       state.message = 'success'

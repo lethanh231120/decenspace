@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProfile } from '../../../redux/profileSlice'
-import { Form, Image, Input, Button, Select } from 'antd'
-import { put } from '../../../api/BaseRequest'
+import { getUserInfo } from '../../../redux/useInfo'
+import { Form, Input, Button, Select } from 'antd'
+import { patch } from '../../../api/BaseRequest'
 import { useNavigate } from 'react-router-dom'
 import './index.scss'
-import { validateAddress, validateEmail, validatePhone } from '../../../utils/regex'
+import { validateAddress, validatePhone } from '../../../utils/regex'
 import phones from '../../../utils/phoneCode.json'
 
 const { Option } = Select
@@ -17,15 +17,15 @@ const layout = {
 
 const EditProfile = () => {
   const [error, setError] = useState()
-  const [image, setImage] = useState()
+  // const [image, setImage] = useState()
   const [message, setMessage] = useState()
   const [open, setOpen] = useState(false)
   const [phoneCode, setPhoneCode] = useState('+1')
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { profile } = useSelector(state => state.profile)
+  const { user } = useSelector(state => state.userInfo)
   useEffect(() => {
-    dispatch(getProfile())
+    dispatch(getUserInfo())
   }, [dispatch])
 
   const handleChangePhoneCode = (value) => {
@@ -47,16 +47,22 @@ const EditProfile = () => {
   const onFinish = async(values) => {
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'multipart/form-data',
+        // 'Accept': 'application/json'
       }
     }
+    console.log(values)
     try {
-      const formData = new FormData()
-      Object.keys(values).forEach(key => formData.append(`${key}`, values[key]))
-      formData.append('image', image)
-      formData.append('isAdmin', false)
-      await put('user/profile', formData, config)
+      // const formData = new FormData()
+      // Object.keys(values).forEach(key => formData.append(`${key}`, values[key]))
+      // formData.append('image', image)
+      // formData.append('isAdmin', false)
+      await patch('accounts/profile/current-profile', {
+        name: values.name,
+        phone: values.phone,
+        address: values.address
+      }, config)
       setMessage('Cập nhật thông tin thành công')
       setOpen(true)
       navigate(-1)
@@ -71,10 +77,10 @@ const EditProfile = () => {
     <Form {...layout} name='nest-messages' onFinish={onFinish} >
       {open && open}
       <div style={{ color: '#fff' }}>{message && message}</div>
-      <div>
+      {/* <div>
         <Image
           width={200}
-          src={(profile && !image) ? profile.image : (profile && image) ? (URL.createObjectURL(image)) : profile ? profile.image : '/images/user.png'}
+          src={(user && !image) ? user.image : (user && image) ? (URL.createObjectURL(image)) : user ? user.image : '/images/user.png'}
         />
       </div>
       <div>
@@ -82,8 +88,8 @@ const EditProfile = () => {
           type='file'
           onChange={(e) => setImage(e.target.files[0])}
         />
-      </div>
-      <Form.Item
+      </div> */}
+      {/* <Form.Item
         style={{ color: '#fff' }}
         name='first_name'
         label='Họ đệm'
@@ -94,10 +100,10 @@ const EditProfile = () => {
           }
         ]}
       >
-        <Input placeholder={`${profile && profile.first_name}`}/>
-      </Form.Item>
+        <Input placeholder={`${user && user.first_name}`}/>
+      </Form.Item> */}
       <Form.Item
-        name='last_name'
+        name='name'
         label='Tên'
         rules={[
           {
@@ -106,9 +112,9 @@ const EditProfile = () => {
           }
         ]}
       >
-        <Input placeholder={`${profile && profile.last_name}`}/>
+        <Input placeholder={`${user && user.name}`}/>
       </Form.Item>
-      <Form.Item
+      {/* <Form.Item
         name='email'
         label='Email'
         rules={[
@@ -120,8 +126,8 @@ const EditProfile = () => {
           }
         ]}
       >
-        <Input placeholder={`${profile && profile.email}`}/>
-      </Form.Item>
+        <Input placeholder={`${user && user.email}`}/>
+      </Form.Item> */}
       <Form.Item
         name='phone'
         label='Phone'
@@ -135,7 +141,7 @@ const EditProfile = () => {
       >
         <Input
           addonBefore={prefixSelector}
-          placeholder={`${profile && profile.phone}`}
+          placeholder={`${user && user.phone}`}
           style={{
             width: '100%'
           }}
@@ -152,7 +158,7 @@ const EditProfile = () => {
           }
         ]}
       >
-        <Input placeholder={`${profile && profile.address}`}/>
+        <Input placeholder={`${user && user.address}`}/>
       </Form.Item>
       {error && error}
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
