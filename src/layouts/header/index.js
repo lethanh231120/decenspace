@@ -9,7 +9,7 @@ import UpdatePassword from '../../components/auth/UpdatePassword'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeCookie, STORAGEKEY } from '../../utils/storage'
 import { resetUserInfo } from '../../redux/useInfo'
-import { get } from '../../api/BaseRequest'
+// import { get } from '../../api/BaseRequest'
 
 const { Header } = Layout
 
@@ -53,9 +53,10 @@ const Navbar = () => {
     // setCurrent(e.key)
   }
 
+  console.log(user)
   const logout = async() => {
     await removeCookie(STORAGEKEY.ACCESS_TOKEN)
-    await get('user/logout')
+    // await get('user/logout')
     dispatch(resetUserInfo())
     navigate('/')
   }
@@ -90,7 +91,7 @@ const Navbar = () => {
                     className={isActive ? 'activeClassName' : ''}
                     style={{ color: '#fff' }}
                   >
-                    {user && user.first_name}{user && user.last_name}
+                    {user && user.name}
                   </div>
                 )}
               </NavLink>

@@ -24,7 +24,7 @@ const userInfo = createSlice({
       state.message = 'loading'
     },
     [getUserInfo.fulfilled]: (state, action) => {
-      state.user = action.payload.user
+      state.user = action.payload.data
       state.isAuthenticated = true
       state.loading = false
       state.message = 'success'
