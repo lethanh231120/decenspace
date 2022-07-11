@@ -11,7 +11,7 @@ const initialState = {
 export const getUserInfo = createAsyncThunk(
   'user/getInfo',
   async() => {
-    return await get('user/info')
+    return await get('accounts/profile/current-profile')
   }
 )
 

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Button, Form, Input } from 'antd'
 import { updatePassword } from '../../redux/profileSlice'
 import { validatePassword } from '../../utils/regex'
+// import { getCookie, STORAGEKEY } from '../../utils/storage'
 
 const layout = {
   labelCol: {
@@ -13,14 +14,30 @@ const layout = {
 const UpdatePassword = () => {
   const dispatch = useDispatch()
   const updatePasswordSubmit = (value) => {
-    const passwords = value.user
-    dispatch(updatePassword(passwords))
+    // const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
+    // const passwords = value.user
+    const data = {
+      email: value.email,
+      password: value.password,
+      newPassword: value.newPassword
+    }
+    dispatch(updatePassword(data))
   }
 
   return (
     <Form {...layout} name='nest-message' onFinish={updatePasswordSubmit} >
       <Form.Item
-        name={['user', 'oldPassword']}
+        name={['user', 'email']}
+        label='Email'
+        rules={[
+          {
+            required: true
+          }
+        ]}>
+        <Input/>
+      </Form.Item>
+      <Form.Item
+        name={['user', 'password']}
         label='Old Password'
         rules={[
           {
