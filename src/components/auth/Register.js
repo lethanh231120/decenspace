@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { setCookie, STORAGEKEY } from '../../utils/storage'
-import { Form, Input, Checkbox } from 'antd'
+import { Form, Input, Checkbox, Row, Col } from 'antd'
 import { post } from '../../api/BaseRequest'
 import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../redux/useInfo'
@@ -22,6 +22,9 @@ const Register = ({ setIsModalSignup }) => {
   //   upperChar: null,
   //   lowerChar: null
   // })
+
+  const [passwordValidate, setPasswordValidate] = useState([])
+  const [passwordStrengh, setPasswordStreng] = useState()
 
   const onFinish = async(values) => {
     const config = {
@@ -50,6 +53,31 @@ const Register = ({ setIsModalSignup }) => {
       error?.response?.data && setError(error.response.data.message)
     }
   }
+
+  const handlePassword = (e) => {
+    const password = e.target.value
+    setPasswordValidate([
+      {
+        check: 'minChar',
+        status: password.length > 7
+      },
+      {
+        check: 'number',
+        status: /[0-9]/.test(password)
+      },
+      {
+        check: 'upperChar',
+        status: /[A-Z]/.test(password)
+      },
+      {
+        check: 'lowerChar',
+        status: /[a-z]/.test(password)
+      }
+    ])
+  }
+  useEffect(() => {
+    setPasswordStreng((passwordValidate && passwordValidate.filter((item) => item.status === true)).length)
+  }, [passwordValidate])
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
@@ -192,6 +220,7 @@ const Register = ({ setIsModalSignup }) => {
           label='Confirm Password'
           dependencies={['password']}
           className='input-item-group'
+          onChange={handlePassword}
           rules={[
             {
               required: true,
@@ -222,6 +251,38 @@ const Register = ({ setIsModalSignup }) => {
           </div>
         </Form.Item>
         {error && error}
+        <Row className={`${passwordStrengh === 0 ? 'none-password' : ''} group-check-password`}>
+          <Col span={22} offset={1}>
+            <Row gutter={6}>
+              <Col span={6}>
+                <div
+                  className={`${passwordStrengh && passwordStrengh === 1 ? 'bad-password'
+                    : passwordStrengh === 2 ? 'weak-password'
+                      : passwordStrengh === 3 ? 'medium-password'
+                        : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                ></div>
+              </Col>
+              <Col span={6}>
+                <div
+                  className={`${passwordStrengh && passwordStrengh === 2 ? 'weak-password'
+                    : passwordStrengh === 3 ? 'medium-password'
+                      : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                ></div>
+              </Col>
+              <Col span={6}>
+                <div
+                  className={`${passwordStrengh && passwordStrengh === 3 ? 'medium-password'
+                    : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                ></div>
+              </Col>
+              <Col span={6}>
+                <div
+                  className={`${passwordStrengh && passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                ></div>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </Form>
       <div className='register-form__checkbox'>
         <Checkbox>
