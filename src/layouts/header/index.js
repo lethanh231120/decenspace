@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Layout } from 'antd'
 import 'antd/dist/antd.min.css'
 import SignIn from '../../pages/auth/login'
-import { Signup } from '../../pages/auth/register'
+import Register from '../../components/auth/Register'
 import UpdatePassword from '../../components/auth/UpdatePassword'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeCookie, STORAGEKEY } from '../../utils/storage'
@@ -52,8 +52,7 @@ const Navbar = () => {
   const onClick = (e) => {
     // setCurrent(e.key)
   }
-
-  console.log(user)
+  // console.log(user)
   const logout = async() => {
     await removeCookie(STORAGEKEY.ACCESS_TOKEN)
     // await get('user/logout')
@@ -140,7 +139,7 @@ const Navbar = () => {
         onCancel={() => setIsModalSignup(false)}
         className='model-register'
       >
-        <Signup setIsModalSignup={setIsModalSignup}/>
+        <Register setIsModalSignup={setIsModalSignup}/>
       </Modal>
       <Modal
         visible={isModalPasswordUpdate}

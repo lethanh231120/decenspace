@@ -1,5 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { get, patch } from '../api/BaseRequest'
+import { getCookie, STORAGEKEY } from '../utils/storage'
+
+const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
+
+const config = {
+  headers: {
+    'Authorization': `Bearer + ${token}`
+  }
+}
 
 export const getProfile = createAsyncThunk(
   'profile/getProfile',
@@ -11,7 +20,8 @@ export const getProfile = createAsyncThunk(
 export const updatePassword = createAsyncThunk(
   'password/updatePassword',
   async(data) => {
-    return await patch('accounts/change-password', data)
+    console.log(data)
+    return await patch('accounts/change-password', data, config)
   }
 )
 

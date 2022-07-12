@@ -29,7 +29,7 @@ export default function SignIn({ setIsModalSignin }) {
     }
     try {
       const data = await post('accounts/login', values, config)
-      const token = data?.data[0]?.token
+      const token = data?.data?.token
       reset()
       if (token) {
         await setCookie(STORAGEKEY.ACCESS_TOKEN, token)

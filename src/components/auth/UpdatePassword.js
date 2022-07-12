@@ -17,9 +17,9 @@ const UpdatePassword = () => {
     // const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
     // const passwords = value.user
     const data = {
-      email: value.email,
-      password: value.password,
-      newPassword: value.newPassword
+      email: value.user.email,
+      password: value.user.password,
+      newPassword: value.user.newPassword
     }
     dispatch(updatePassword(data))
   }
