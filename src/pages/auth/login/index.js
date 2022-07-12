@@ -32,7 +32,6 @@ export default function SignIn({ setIsModalSignin }) {
       const token = data?.data?.token
       reset()
       if (token) {
-        console.log('abc')
         await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
         await dispatch(getUserInfo())
         setIsModalSignin(false)
@@ -43,7 +42,6 @@ export default function SignIn({ setIsModalSignin }) {
         // }
       }
     } catch (error) {
-      console.log('11111111')
       error?.response?.data && setError(error.response.data.message)
     }
   }

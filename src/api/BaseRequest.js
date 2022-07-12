@@ -6,7 +6,7 @@ const getUrlPrefix = () => '/'
 const instance = axios.create({
   //   baseURL: process.env.BASE_URL_API
   // baseURL: 'https://do-an-tot-nghiep-lvthanh.herokuapp.com/api'
-  baseURL: 'https://91c3-118-70-117-216.ap.ngrok.io'
+  baseURL: 'https://1790-118-70-117-216.ap.ngrok.io'
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)

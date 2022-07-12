@@ -60,6 +60,7 @@ const Navbar = () => {
     dispatch(resetUserInfo())
     navigate('/')
   }
+  console.log(user)
 
   return (
     <>
