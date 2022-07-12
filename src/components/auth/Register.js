@@ -25,6 +25,7 @@ const Register = ({ setIsModalSignup }) => {
 
   const [passwordValidate, setPasswordValidate] = useState([])
   const [passwordStrengh, setPasswordStreng] = useState()
+  const [checked, setChecked] = useState(false)
 
   const onFinish = async(values) => {
     const config = {
@@ -300,6 +301,16 @@ const Register = ({ setIsModalSignup }) => {
           </div>
         </Form.Item>
       </Form>
+      <div className='register-form__checkbox'>
+        <Checkbox checked={checked} onChange={ ()=>{ setChecked(!checked) }}>
+          <span>Agree with <a>Privacy Policy</a></span>
+        </Checkbox>
+      </div>
+      <div className='register-form__button'>
+        <button disabled={ !checked }>
+          Sign up
+        </button>
+      </div>
       <div className='register-form__network--login'>
         <span>Or login with</span>
         <div className='register-form__network'>
