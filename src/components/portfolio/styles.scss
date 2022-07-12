@@ -1,0 +1,145 @@
+@import "../../assets/variable.scss";
+/* Css for Wallet Address */
+.sidebar {
+    height: 100vh;
+
+    .ant-row {
+        .ant-col {
+            margin: 20px;
+
+            button {
+                border-radius: 25px;
+                background-color: #ff9332;
+                color: #1a1a1a;
+                border: none;
+
+                span {
+                    font-size: 12px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .panel {
+        .ant-collapse-header,
+        p {
+            color: white !important;
+            text-align: center;
+            padding: 0 40px;
+        }
+
+        .ant-collapse-content-box {
+            padding: 0 40px;
+        }
+    }
+
+    .ant-typography {
+        display: block;
+        margin-bottom: 5px;
+        color: white !important;
+    }
+}
+/* Css for Analyst */
+
+.dashboard {
+    > .ant-row > .ant-col {
+        padding-bottom: 20px;
+    }
+
+    .main-price {
+        text-align: left;
+        font-size: 1.78947rem;
+        font-weight: 300;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+    }
+
+    .data-change {
+        text-align: left;
+
+        > span ~ span,
+        span ~ .ant-select {
+            padding-left: 5px;
+
+            > span ~ span {
+                padding-left: 1px;
+            }
+        }
+
+        .change-price-up {
+            color: #6ccf59;
+        }
+
+        .change-price-down {
+            color: #ff4d4d;
+        }
+
+        .ant-select {
+            background: transparent !important;
+        }
+    }
+
+    .ant-col {
+        .ant-table-wrapper {
+            border-top: 1px solid #999999;
+            border-bottom: none;
+            .ant-table {
+                background-color: #1a1a1a;
+
+                .ant-table-container {
+                    .ant-table-content {
+                        .ant-table-thead {
+                            .ant-table-cell {
+                                // background-color: $background-color;
+                                background-color: #1a1a1a;
+                                color: #999999;
+                                height: 20px;
+                                pointer-events: none;
+                            }
+                        }
+
+                        .ant-table-tbody {
+                            a {
+                                text-decoration: none;
+                                color: white;
+                                font-weight: 600;
+                            }
+
+                            td {
+                                color: #999999;
+
+                                a {
+                                    img {
+                                        height: 25px;
+                                        width: 25px;
+                                        margin-right: 5px;
+                                    }
+
+                                    span {
+                                        margin-left: 5px;
+                                        color: #999999;
+                                    }
+                                }
+                            }
+
+                            td:hover {
+                                background-color: #4d4d4d;
+                            }
+
+                            td:nth-child(4) {
+                                color: white;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .ant-pagination {
+                display: none;
+            }
+        }
+    }
+}

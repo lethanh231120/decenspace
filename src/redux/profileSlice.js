@@ -1,17 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { get, put } from '../api/BaseRequest'
+import { get, patch } from '../api/BaseRequest'
+import { getCookie, STORAGEKEY } from '../utils/storage'
+
+const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
+
+const config = {
+  headers: {
+    'Authorization': `Bearer + ${token}`
+  }
+}
 
 export const getProfile = createAsyncThunk(
   'profile/getProfile',
   async() => {
-    return await get('user/profile')
+    return await get('accounts/profile/current-profile')
   }
 )
 
-export const changPassword = createAsyncThunk(
-  'password/changPassword',
+export const updatePassword = createAsyncThunk(
+  'password/updatePassword',
   async(data) => {
-    return await put('user/change-password', data)
+    console.log(data)
+    return await patch('accounts/change-password', data, config)
   }
 )
 
@@ -35,13 +45,13 @@ const profileSlice = createSlice({
     },
 
     // change password
-    [changPassword.pending]: (state, action) => {
+    [updatePassword.pending]: (state, action) => {
       state.status = 'loading'
     },
-    [changPassword.fulfilled]: (state, action) => {
+    [updatePassword.fulfilled]: (state, action) => {
       state.status = 'change password successfully'
     },
-    [changPassword.rejected]: (state, action) => {
+    [updatePassword.rejected]: (state, action) => {
       state.status = 'change password fail'
     }
   }

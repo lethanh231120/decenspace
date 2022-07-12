@@ -4,11 +4,13 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Layout } from 'antd'
 import 'antd/dist/antd.min.css'
 import SignIn from '../../pages/auth/login'
-import { Signup } from '../../pages/auth/register'
+// import { Signup } from '../../pages/auth/register'
+import Register from '../../components/auth/Register'
+import UpdatePassword from '../../components/auth/UpdatePassword'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeCookie, STORAGEKEY } from '../../utils/storage'
 import { resetUserInfo } from '../../redux/useInfo'
-import { get } from '../../api/BaseRequest'
+// import { get } from '../../api/BaseRequest'
 
 const { Header } = Layout
 
@@ -44,19 +46,21 @@ const Navbar = () => {
   // const [current, setCurrent] = useState('blog')
   const [isModalSignin, setIsModalSignin] = useState(false)
   const [isModalSignup, setIsModalSignup] = useState(false)
+  const [isModalPasswordUpdate, setIsModalPasswordUpdate] = useState(false)
   const { user, isAuthenticated } = useSelector(state => state.userInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const onClick = (e) => {
     // setCurrent(e.key)
   }
-
+  // console.log(user)
   const logout = async() => {
     await removeCookie(STORAGEKEY.ACCESS_TOKEN)
-    await get('user/logout')
+    // await get('user/logout')
     dispatch(resetUserInfo())
     navigate('/')
   }
+  console.log(user)
 
   return (
     <>
@@ -88,7 +92,7 @@ const Navbar = () => {
                     className={isActive ? 'activeClassName' : ''}
                     style={{ color: '#fff' }}
                   >
-                    {user && user.first_name}{user && user.last_name}
+                    {user && user.name}
                   </div>
                 )}
               </NavLink>
@@ -98,6 +102,7 @@ const Navbar = () => {
               // onClick={() => setIsOpen(true)}
               className='header__link'
               style={{ color: '#fff' }}
+              onClick={() => setIsModalPasswordUpdate(true)}
             >
               Change Password
             </Typography>
@@ -134,9 +139,19 @@ const Navbar = () => {
         footer={null}
         onOk={() => setIsModalSignup(false)}
         onCancel={() => setIsModalSignup(false)}
-        className='model-register'
+        className='modal-register'
+        // title='REGISTER'
       >
-        <Signup setIsModalSignup={setIsModalSignup}/>
+        <Register setIsModalSignup={setIsModalSignup}/>
+        {/* <Signup setIsModalSignup={setIsModalSignup}/> */}
+      </Modal>
+      <Modal
+        visible={isModalPasswordUpdate}
+        footer={null}
+        onOk={() => setIsModalPasswordUpdate(false)}
+        onCancel={() => setIsModalPasswordUpdate(false)}
+      >
+        <UpdatePassword setIsModalPasswordUpdate={setIsModalPasswordUpdate}/>
       </Modal>
     </>
   )
