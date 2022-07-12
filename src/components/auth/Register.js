@@ -1,9 +1,228 @@
-import React from 'react'
-import { Checkbox } from 'antd'
+import React, { useState } from 'react'
+import { setCookie, STORAGEKEY } from '../../utils/storage'
+import { Form, Input, Checkbox } from 'antd'
+import { post } from '../../api/BaseRequest'
+import { useDispatch } from 'react-redux/es/exports'
+import { getUserInfo } from '../../redux/useInfo'
+import { validateEmail, validatePassword } from '../../utils/regex'
 
-const Register = () => {
+const Register = ({ setIsModalSignup }) => {
+  const [message, setMessage] = useState()
+  const [error, setError] = useState()
+  // const [image, setImage] = useState()
+  const [open, setOpen] = useState(false)
+  // const [countryCode, setCountryCode] = useState()
+  // const [listPhoneCode, setListPhoneCode] = useState(phones)
+  // const [phoneCode, setPhoneCode] = useState()
+  // const [typeSearch, setTypeSearch] = useState('number')
+  const dispatch = useDispatch()
+  // const [passwordValidate, setPasswordValidate] = useState({
+  //   minChar: null,
+  //   number: null,
+  //   upperChar: null,
+  //   lowerChar: null
+  // })
+
+  const onFinish = async(values) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+        // 'Accept': 'application/json'
+      }
+    }
+    console.log(values)
+    try {
+      // const formData = new FormData()
+      // Object.keys(values).forEach(key => formData.append(`${key}`, values[key]))
+      // formData.append('image', image)
+      // formData.append('isAdmin', false)
+      const res = await post('accounts/signup', values.user, config)
+      const token = res.data.token
+      await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
+      await dispatch(getUserInfo())
+      setMessage('Đăng ký thành công! Kiểm tra email của bạn để lấy thông tin đăng nhập')
+      setOpen(true)
+      setIsModalSignup(false)
+    } catch (error) {
+      error?.response?.data && setError(error.response.data.message)
+    }
+  }
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo)
+  }
+
   return (
     <div className='register-form'>
+      <Form
+        labelCol={{ span: 8 }}
+        layout='vertical'
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
+        {message && message}
+        {open && open}
+        {/* <div>
+          <Image
+            width={200}
+            src={image ? (URL.createObjectURL(image)) : '/images/user.png'}
+          />
+        </div>
+        <div>
+          <Input
+            type='file'
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+        </div> */}
+        {/* <Form.Item
+          name={['user', 'name']}
+          label='Name'
+          rules={[
+            {
+              required: true,
+              message: 'Please input your name!'
+            }
+          ]}
+        >
+          <Input />
+        </Form.Item> */}
+        <Form.Item
+          name={['user', 'email']}
+          label='Email'
+          className='input-item-group'
+          rules={[
+            {
+              type: 'email',
+              required: true,
+              message: 'Please input your email!',
+              pattern: new RegExp(validateEmail)
+            }
+          ]}
+          hasFeedback
+        >
+          <div className='input-item'>
+            {/* <MailOutlined className='input-item-icon'/> */}
+            <Input />
+          </div>
+          {/* <Input size='large' placeholder='large size' prefix={<MailOutlined />} /> */}
+        </Form.Item>
+        {/* <Form.Item
+          name={['user', 'phone']}
+          label='Phone'
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp(validatePhone),
+              message: 'Format is wrong'
+            },
+            {
+              pattern: validateMaxLength,
+              message: 'Số điện thoại tối đa 12 số'
+            }
+          ]}
+        >
+          <Input
+            addonBefore={prefixSelector}
+            style={{
+              width: '100%'
+            }}
+          />
+        </Form.Item> */}
+        {/* <Form.Item
+          name={['user', 'address']}
+          label='Address'
+          rules={[
+            {
+              required: true,
+              message: 'Please input your address!',
+              pattern: new RegExp(validateAddress)
+            }
+          ]}
+        >
+          <Input />
+        </Form.Item> */}
+        {/* <Form.Item
+          name='password'
+          label='Password'
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: 'Mật khẩu bao gồm cả chữ hoa, chữ thường, số và ít nhất 8 kỹ tự!',
+              pattern: new RegExp(validatePassword)
+              // pattern: new RegExp('(?=(.*[0-9]))([\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}')
+            }
+          ]}
+        >
+          <div className='input-item'>
+            <LockOutlined className='input-item-icon'/>
+            <Input.Password />
+          </div>
+        </Form.Item> */}
+
+        <Form.Item
+          name='password'
+          label='Password'
+          className='input-item-group'
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!'
+            },
+            {
+              message: 'Password at least 8 characters. number(s) and letter (S)!',
+              // message: <Tooltip placement='top' title='Password at least 8 characters. number(s) and letter (S)!'/>,
+              pattern: new RegExp(validatePassword)
+            }
+          ]}
+          hasFeedback
+        >
+          <div className='input-item'>
+            {/* <LockOutlined className='input-item-icon'/> */}
+            <Input.Password onChange={handlePassword}/>
+          </div>
+        </Form.Item>
+
+        <Form.Item
+          name='confirm'
+          label='Confirm Password'
+          dependencies={['password']}
+          className='input-item-group'
+          rules={[
+            {
+              required: true,
+              message: 'Please confirm your password!'
+            },
+            {
+              pattern: new RegExp(validateEmail),
+              message: 'Password at least 8 characters. number(s) and letter (S)!'
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve()
+                }
+
+                // return <Tooltip placement='top' title='loi roi'/>
+                return Promise.reject(
+                  new Error('The two passwords that you entered do not match!')
+                )
+              }
+            })
+          ]}
+          hasFeedback
+        >
+          <div className='input-item'>
+            {/* <LockOutlined className='input-item-icon'/> */}
+            <Input.Password />
+          </div>
+        </Form.Item>
+        {error && error}
+      </Form>
       <div className='register-form__checkbox'>
         <Checkbox>
           <span>Agree with <a>Privacy Policy</a></span>
