@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Layout } from 'antd'
 import 'antd/dist/antd.min.css'
 import SignIn from '../../pages/auth/login'
+// import { Signup } from '../../pages/auth/register'
 import Register from '../../components/auth/Register'
 import UpdatePassword from '../../components/auth/UpdatePassword'
 import { useSelector, useDispatch } from 'react-redux'
@@ -138,9 +139,10 @@ const Navbar = () => {
         onOk={() => setIsModalSignup(false)}
         onCancel={() => setIsModalSignup(false)}
         className='modal-register'
-        title='REGISTER'
+        // title='REGISTER'
       >
         <Register setIsModalSignup={setIsModalSignup}/>
+        {/* <Signup setIsModalSignup={setIsModalSignup}/> */}
       </Modal>
       <Modal
         visible={isModalPasswordUpdate}

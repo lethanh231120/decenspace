@@ -91,3 +91,35 @@
         }
     }
 }
+
+// .ant-modal-content{
+//     background-color: $modal__background--color;
+// }
+.none-password{
+    display: none;
+}
+.check-password{
+    width: 100%;
+    height: 5px;
+    padding: 0 10px;
+    background-color: $white-color;
+}
+.group-check-password{
+    padding: 20px;
+}
+.bad-password{
+    transition: all 0.2s linear;
+    background-color: $bad-password-color;
+}
+.weak-password{
+    transition: all 0.2s linear;
+    background-color: $weak-password-color;
+}
+.medium-password{
+    transition: all 0.2s linear;
+    background-color: $medium-password-color;
+}
+.strong-password{
+    transition: all 0.2s linear;
+    background-color: $strong-password-color;
+}
