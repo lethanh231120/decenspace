@@ -43,3 +43,19 @@
     z-index: 100;
     width: 100%;
 }
+.modal-register {
+    top: 100px !important;
+    & .ant-modal-header{
+        border-radius: 10px 10px;
+        text-align: center;
+        & .ant-modal-title{
+            font-size: 30px;
+            font-weight: 500;
+        }
+    }
+    .ant-modal-content{
+        // background-color: #1a1a1a !important;
+        border-radius: 10px ;
+    }
+}
+

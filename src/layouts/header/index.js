@@ -137,7 +137,8 @@ const Navbar = () => {
         footer={null}
         onOk={() => setIsModalSignup(false)}
         onCancel={() => setIsModalSignup(false)}
-        className='model-register'
+        className='modal-register'
+        title='REGISTER'
       >
         <Register setIsModalSignup={setIsModalSignup}/>
       </Modal>

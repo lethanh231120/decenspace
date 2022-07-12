@@ -1,0 +1,81 @@
+@import '../../../assets/index.scss';
+
+.input{
+    &-item{
+        display: flex;
+        &-icon {
+            font-size: 20px;
+            padding: 15px;
+            background-color: $input-icon-box-color;
+            color: $white-color;
+        }
+        & .ant-input {
+            // border-radius: 7px;
+            border: 1px solid $input-icon-box-color;
+            line-height: 2;
+        }
+        & .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper, 
+          .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover{
+            border-radius: 7px;
+            border-color: $input-icon-box-color;
+        }
+        & .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper-focused, 
+          .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:focus,
+          .ant-input-affix-wrapper-focused, .ant-input-affix-wrapper:focus {
+            box-shadow: none;
+        }
+        & .ant-input-affix-wrapper,
+          .ant-input-focused, .ant-input:focus {
+            box-shadow: none;
+            border-radius: 7px;
+        }
+        &-group{
+            & .ant-form-item-explain-error{
+                // position: absolute;
+                // z-index: 1000;
+                // top: -37px;
+                // right: 10px;
+                // border: 2px solid $input-border-color;
+                // border-radius: 5px;
+                // background-color:  $white-color;
+                // padding: 5px;
+                // &:before{
+                //     position: absolute;
+                //     z-index: -1;
+                //     content: '';
+                //     bottom: -15px;
+                //     // clip-path: polygon(50% 0%, 0 100%, 100% 100%);
+                //     border: 1px solid $input-border-color;
+                //     // border-bottom: 1px solid $white-color;
+                //     // border-right: 1px solid $white-color;
+                //     width: 15px;
+                //     height: 15px;
+                //     background-color: $white-color;
+                //     // background-color: red;
+                //     left: 30px;
+                //     transform: rotate(45deg);
+                // }
+            }
+        }
+    }
+}
+// custom svg
+// .anticon svg{
+//     display: none;
+// }
+// .ant-form-item-has-success .anticon-check-circle::before {
+//     content: " ";
+//     display: inline-block;
+//     // background: #fff
+//     //   url("../../../../public/check.png") 
+//     //   center / 14px 14px no-repeat;
+//     // width: 14px;
+//     // height: 14px;
+//     // color: $checked-icon-color;
+//     width: 20px;
+//     height: 10px;
+//     transform: rotate(-45deg);
+//     border-left: 4px solid $checked-icon-color;
+//     border-bottom: 4px solid $checked-icon-color;
+//     // background-color: $checked-icon-color;
+//   }

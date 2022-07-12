@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../../redux/useInfo'
 // import { validateAddress, validatePhone, validateEmail, validatePassword, validateMaxLength } from '../../../utils/regex'
 import { validateEmail, validatePassword } from '../../../utils/regex'
+// import { MailOutlined, LockOutlined } from '@ant-design/icons'
+import './style.scss'
 // import phones from '../../../utils/phoneCode.json'
 // import axios from 'axios'
 // const { Option } = Select
@@ -21,6 +23,13 @@ export const Signup = ({ setIsModalSignup }) => {
   // const [phoneCode, setPhoneCode] = useState()
   // const [typeSearch, setTypeSearch] = useState('number')
   const dispatch = useDispatch()
+  const [passwordValidate, setPasswordValidate] = useState({
+    minChar: null,
+    number: null,
+    upperChar: null,
+    lowerChar: null
+  })
+
   const onFinish = async(values) => {
     const config = {
       headers: {
@@ -106,10 +115,26 @@ export const Signup = ({ setIsModalSignup }) => {
   //   </Form.Item>
   // )
 
+  const handleChangePassword = (e) => {
+    const password = e.target.value
+    setPasswordValidate({
+      minChar: password.length > 7,
+      number: /[0-9]/.test(password),
+      upperChar: /[A-Z]/.test(password),
+      lowerChar: /[a-z]/.test(password)
+    })
+  }
+
+  console.log(passwordValidate)
   return (
     <>
-      {/* // phoneCode !== undefined ? (<Form labelCol={{ span: 8 }} initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}> */}
-      <Form labelCol={{ span: 8 }} initialValues={{ remember: true }} onFinish={onFinish} onFinishFailed={onFinishFailed}>
+      <Form
+        labelCol={{ span: 8 }}
+        layout='vertical'
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
         {message && message}
         {open && open}
         {/* <div>
@@ -139,6 +164,7 @@ export const Signup = ({ setIsModalSignup }) => {
         <Form.Item
           name={['user', 'email']}
           label='Email'
+          className='input-item-group'
           rules={[
             {
               type: 'email',
@@ -147,8 +173,13 @@ export const Signup = ({ setIsModalSignup }) => {
               pattern: new RegExp(validateEmail)
             }
           ]}
+          hasFeedback
         >
-          <Input />
+          <div className='input-item'>
+            {/* <MailOutlined className='input-item-icon'/> */}
+            <Input />
+          </div>
+          {/* <Input size='large' placeholder='large size' prefix={<MailOutlined />} /> */}
         </Form.Item>
         {/* <Form.Item
           name={['user', 'phone']}
@@ -185,9 +216,10 @@ export const Signup = ({ setIsModalSignup }) => {
         >
           <Input />
         </Form.Item> */}
-        <Form.Item
-          name={['user', 'password']}
+        {/* <Form.Item
+          name='password'
           label='Password'
+          hasFeedback
           rules={[
             {
               required: true,
@@ -197,8 +229,70 @@ export const Signup = ({ setIsModalSignup }) => {
             }
           ]}
         >
-          <Input.Password />
+          <div className='input-item'>
+            <LockOutlined className='input-item-icon'/>
+            <Input.Password />
+          </div>
+        </Form.Item> */}
+
+        <Form.Item
+          name='password'
+          label='Password'
+          className='input-item-group'
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!'
+            },
+            {
+              message: 'Password at least 8 characters. number(s) and letter (S)!',
+              // message: <Tooltip placement='top' title='Password at least 8 characters. number(s) and letter (S)!'/>,
+              pattern: new RegExp(validatePassword)
+            }
+          ]}
+          hasFeedback
+        >
+          <div className='input-item'>
+            {/* <LockOutlined className='input-item-icon'/> */}
+            <Input.Password onChange={handleChangePassword}/>
+          </div>
         </Form.Item>
+
+        <Form.Item
+          name='confirm'
+          label='Confirm Password'
+          dependencies={['password']}
+          className='input-item-group'
+          rules={[
+            {
+              required: true,
+              message: 'Please confirm your password!'
+            },
+            {
+              pattern: new RegExp(validateEmail),
+              message: 'Password at least 8 characters. number(s) and letter (S)!'
+            },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve()
+                }
+
+                // return <Tooltip placement='top' title='loi roi'/>
+                return Promise.reject(
+                  new Error('The two passwords that you entered do not match!')
+                )
+              }
+            })
+          ]}
+          hasFeedback
+        >
+          <div className='input-item'>
+            {/* <LockOutlined className='input-item-icon'/> */}
+            <Input.Password />
+          </div>
+        </Form.Item>
+
         {error && error}
         <Form.Item>
           <Button type='primary' htmlType='submit'>
