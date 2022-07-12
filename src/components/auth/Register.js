@@ -36,13 +36,17 @@ const Register = ({ setIsModalSignup }) => {
         // 'Accept': 'application/json'
       }
     }
-    console.log(values)
+    const data = {
+      email: values.user.email,
+      password: values.user.password
+    }
+    console.log(data)
     try {
       // const formData = new FormData()
       // Object.keys(values).forEach(key => formData.append(`${key}`, values[key]))
       // formData.append('image', image)
       // formData.append('isAdmin', false)
-      const res = await post('accounts/signup', values.user, config)
+      const res = await post('accounts/signup', data, config)
       const token = res.data.token
       await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
       await dispatch(getUserInfo())
@@ -193,7 +197,7 @@ const Register = ({ setIsModalSignup }) => {
         </Form.Item> */}
 
         <Form.Item
-          name='password'
+          name={['user', 'password']}
           label='Password'
           className='input-item-group'
           rules={[
@@ -216,9 +220,9 @@ const Register = ({ setIsModalSignup }) => {
         </Form.Item>
 
         <Form.Item
-          name='confirm'
+          name={['user', 'confirm']}
           label='Confirm Password'
-          dependencies={['password']}
+          dependencies={['user', 'password']}
           className='input-item-group'
           onChange={handlePassword}
           rules={[
@@ -227,12 +231,12 @@ const Register = ({ setIsModalSignup }) => {
               message: 'Please confirm your password!'
             },
             {
-              pattern: new RegExp(validateEmail),
+              pattern: new RegExp(validatePassword),
               message: 'Password at least 8 characters. number(s) and letter (S)!'
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
+                if (!value || getFieldValue(['user', 'password']) === value) {
                   return Promise.resolve()
                 }
 
@@ -283,17 +287,19 @@ const Register = ({ setIsModalSignup }) => {
             </Row>
           </Col>
         </Row>
+        <div className='register-form__checkbox'>
+          <Checkbox>
+            <span>Agree with <a>Privacy Policy</a></span>
+          </Checkbox>
+        </div>
+        <Form.Item>
+          <div className='register-form__button'>
+            <button htmlType='submit'>
+              Sign up
+            </button>
+          </div>
+        </Form.Item>
       </Form>
-      <div className='register-form__checkbox'>
-        <Checkbox>
-          <span>Agree with <a>Privacy Policy</a></span>
-        </Checkbox>
-      </div>
-      <div className='register-form__button'>
-        <button>
-          Sign up
-        </button>
-      </div>
       <div className='register-form__network--login'>
         <span>Or login with</span>
         <div className='register-form__network'>
