@@ -16,11 +16,13 @@ const UpdatePassword = () => {
   const updatePasswordSubmit = (value) => {
     // const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
     // const passwords = value.user
+    console.log(value)
     const data = {
       email: value.user.email,
       password: value.user.password,
       newPassword: value.user.newPassword
     }
+    console.log(data)
     dispatch(updatePassword(data))
   }
 

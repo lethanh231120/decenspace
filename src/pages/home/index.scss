@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // .ant-modal{
 //     top: 0px !important;
 //     color: #fff !important;
@@ -15,6 +16,45 @@
 //     border-radius: 19px !important;
 // }
 // .ant-modal-close{
+=======
+@import '../../assets/index.scss';
+
+.ant-modal{
+    top: 0px !important;
+    // color: #fff !important;
+    overflow: hidden !important;
+    height: 100vh;
+}
+.modal-register{
+    top: 100px !important;
+}
+.modal-style{
+    top: 150px !important
+}
+// .ant-modal-content{
+//     // background-color: #1a1a1a !important;
+//     border-radius: 19px !important;
+// }
+.ant-modal-close{
+    // color: #fff !important
+}
+.input-search input{
+    background-color: #000 !important;
+}
+.input-search .ant-input{
+    padding: 10px 15px !important;
+    border-top-left-radius: 25px !important;
+    border-bottom-left-radius: 25px !important;
+    border: 1px solid #ff9332 !important;
+    font-size: 16px !important;
+}
+.input-search .ant-input-group-addon{
+    background-color: #000 !important;
+}
+// .ant-btn{
+//     background-color: #000 !important;
+//     border:  0px !important;
+>>>>>>> a6fc7bf (create register model)
 //     color: #fff !important
 // }
 // .input-search input{
@@ -83,6 +123,7 @@
 //     background-color: #ff9332 !important;
 // }
 
+<<<<<<< HEAD
 // .ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
 //     padding: 0 10px !important;
 // }
@@ -92,3 +133,24 @@
 // .country-code{
 //     margin-right: 15px;
 // }
+=======
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+    padding: 0 10px !important;
+}
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item, .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder{
+    padding-right:  15px !important;
+}
+.country-code{
+    margin-right: 15px;
+}
+
+// .input-email{
+//     display: flex;
+//     &-icon {
+//         font-size: 20px;
+//         padding: 15px;
+//         background-color: $input-icon-box-color;
+//         color: #fff;
+//     }
+// }
+>>>>>>> a6fc7bf (create register model)
