@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import React, { useState, useEffect } from 'react'
 // import { Button, Form, Input, Image, Select, Spin } from 'antd'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
-import { Button, Form, Input } from 'antd'
+import { Button, Form, Input, Row, Col } from 'antd'
 import { post } from '../../../api/BaseRequest'
 import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../../redux/useInfo'
@@ -23,13 +23,9 @@ export const Signup = ({ setIsModalSignup }) => {
   // const [phoneCode, setPhoneCode] = useState()
   // const [typeSearch, setTypeSearch] = useState('number')
   const dispatch = useDispatch()
-  const [passwordValidate, setPasswordValidate] = useState({
-    minChar: null,
-    number: null,
-    upperChar: null,
-    lowerChar: null
-  })
+  const [passwordValidate, setPasswordValidate] = useState([])
 
+  const [passwordStrengh, setPasswordStreng] = useState()
   const onFinish = async(values) => {
     const config = {
       headers: {
@@ -115,17 +111,32 @@ export const Signup = ({ setIsModalSignup }) => {
   //   </Form.Item>
   // )
 
-  const handleChangePassword = (e) => {
+  const handlePassword = (e) => {
     const password = e.target.value
-    setPasswordValidate({
-      minChar: password.length > 7,
-      number: /[0-9]/.test(password),
-      upperChar: /[A-Z]/.test(password),
-      lowerChar: /[a-z]/.test(password)
-    })
+    setPasswordValidate([
+      {
+        check: 'minChar',
+        status: password.length > 7
+      },
+      {
+        check: 'number',
+        status: /[0-9]/.test(password)
+      },
+      {
+        check: 'upperChar',
+        status: /[A-Z]/.test(password)
+      },
+      {
+        check: 'lowerChar',
+        status: /[a-z]/.test(password)
+      }
+    ])
   }
+  useEffect(() => {
+    setPasswordStreng((passwordValidate && passwordValidate.filter((item) => item.status === true)).length)
+  }, [passwordValidate])
 
-  console.log(passwordValidate)
+  console.log(passwordStrengh)
   return (
     <>
       <Form
@@ -254,7 +265,7 @@ export const Signup = ({ setIsModalSignup }) => {
         >
           <div className='input-item'>
             {/* <LockOutlined className='input-item-icon'/> */}
-            <Input.Password onChange={handleChangePassword}/>
+            <Input.Password onChange={handlePassword}/>
           </div>
         </Form.Item>
 
@@ -289,9 +300,41 @@ export const Signup = ({ setIsModalSignup }) => {
         >
           <div className='input-item'>
             {/* <LockOutlined className='input-item-icon'/> */}
-            <Input.Password />
+            <Input.Password onChange={handlePassword}/>
           </div>
         </Form.Item>
+        <Row className='group-check-password'>
+          <Col span={22} offset={1}>
+            <Row gutter={6}>
+              <Col span={6}>
+                <div
+                  className={`${passwordStrengh && passwordStrengh === 1 ? 'bad-password'
+                    : passwordStrengh === 2 ? 'weak-password'
+                      : passwordStrengh === 3 ? 'medium-password'
+                        : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                ></div>
+              </Col>
+              <Col span={6}>
+                <div
+                  className={`${passwordStrengh && passwordStrengh === 2 ? 'weak-password'
+                    : passwordStrengh === 3 ? 'medium-password'
+                      : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                ></div>
+              </Col>
+              <Col span={6}>
+                <div
+                  className={`${passwordStrengh && passwordStrengh === 3 ? 'medium-password'
+                    : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                ></div>
+              </Col>
+              <Col span={6}>
+                <div
+                  className={`${passwordStrengh && passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                ></div>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
 
         {error && error}
         <Form.Item>

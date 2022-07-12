@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Layout } from 'antd'
 import 'antd/dist/antd.min.css'
 import SignIn from '../../pages/auth/login'
-import Register from '../../components/auth/Register'
+import { Signup } from '../../pages/auth/register'
 import UpdatePassword from '../../components/auth/UpdatePassword'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeCookie, STORAGEKEY } from '../../utils/storage'
@@ -140,7 +140,7 @@ const Navbar = () => {
         className='modal-register'
         title='REGISTER'
       >
-        <Register setIsModalSignup={setIsModalSignup}/>
+        <Signup setIsModalSignup={setIsModalSignup}/>
       </Modal>
       <Modal
         visible={isModalPasswordUpdate}
