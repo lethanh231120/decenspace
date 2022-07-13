@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { post, get, del, patch } from '../api/BaseRequest'
 import {
-  LOADDING_IMPORT_CONNECTION,
+  LOADING_IMPORT_CONNECTION,
   SUCCESS_IMPORT_CONNECTION,
   FAILED_IMPORT_CONNECTION,
   LOADING_GET_ALL_CONNECTION,
@@ -56,7 +56,7 @@ const addressSlice = createSlice({
   extraReducers: {
     // post connection wallet bitcoins
     [importConnection.pending]: (state, action) => {
-      state.status = LOADDING_IMPORT_CONNECTION
+      state.status = LOADING_IMPORT_CONNECTION
     },
     [importConnection.fulfilled]: (state, action) => {
       state.data = action.payload

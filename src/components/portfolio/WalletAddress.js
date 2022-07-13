@@ -66,11 +66,7 @@ const WalletAddress = () => {
                   key={item.id}
                 />
               ))}
-              {/* <TabPane tab='Tab 1' key='1' />
-              <TabPane tab='Tab 2' key='2' />
-              <TabPane tab='Tab 3' key='3' /> */}
             </Tabs>
-            {/* </Panel> */}
           </Collapse>
         </Col>
       </Row>

@@ -3,9 +3,9 @@ import { Typography, Image, Form, Input, Button } from 'antd'
 import ModalLoadingConnect from '../../components/modal/modal-loading-connect'
 import ModalSuccessConnect from '../../components/modal/modal-success-connect'
 // import { post } from '../../api/BaseRequest'
-import { importAddress } from '../../redux/addressSlice'
+import { importConnection } from '../../redux/addressSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { LOADDING_IMPORT_ADDRESS, SUCCESS_IMPORT_ADDRESS } from '../../constants/StatusMessageConstants'
+import { LOADING_IMPORT_CONNECTION, SUCCESS_IMPORT_CONNECTION } from '../../constants/StatusMessageConstants'
 const { Text } = Typography
 const ConnectWallet = () => {
   const [isModalLoading, setIsModalLoading] = useState(false)
@@ -13,20 +13,20 @@ const ConnectWallet = () => {
 
   const [form] = Form.useForm()
   const dispatch = useDispatch()
-  const { status } = useSelector(state => state.address)
+  const { status } = useSelector(state => state.connections)
 
   useEffect(() => {
-    if (status && status === LOADDING_IMPORT_ADDRESS) {
+    if (status && status === LOADING_IMPORT_CONNECTION) {
       setIsModalLoading(true)
     }
-    if (status && status === SUCCESS_IMPORT_ADDRESS) {
+    if (status && status === SUCCESS_IMPORT_CONNECTION) {
       setIsModalSuccess(true)
       setIsModalLoading(false)
     }
   }, [status])
 
   const onFinish = async(values) => {
-    await dispatch(importAddress(values))
+    await dispatch(importConnection(values))
   }
 
   const onFinishFailed = (errorInfo) => {
