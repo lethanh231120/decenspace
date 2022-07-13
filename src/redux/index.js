@@ -9,5 +9,5 @@ export default combineReducers({
   blogs: blogSlice,
   userInfo: userInfo,
   profile: profileSlice,
-  address: addressSlice
+  connections: addressSlice
 })
