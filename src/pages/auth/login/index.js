@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form, Input, Modal, Typography } from 'antd'
-import { post } from '../../../api/BaseRequest'
+import { post } from '../../../api/accountBaseRequest'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
 import { useDispatch } from 'react-redux'
 import { getUserInfo } from '../../../redux/useInfo'
@@ -28,7 +28,7 @@ export default function SignIn({ setIsModalSignin }) {
       }
     }
     try {
-      const data = await post('accounts/login', values, config)
+      const data = await post('accounts/signin', values, config)
       const token = data?.data?.token
       reset()
       if (token) {

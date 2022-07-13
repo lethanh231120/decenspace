@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Typography, Image, Form, Input, Button } from 'antd'
-import ModalConnect from '../../components/modal/connect-portfolio'
-import { WAITING_CONNECT } from '../../constants/TypeConstants'
+import ModalLoadingConnect from '../../components/modal/modal-loading-connect'
+import ModalSuccessConnect from '../../components/modal/modal-success-connect'
+// import { post } from '../../api/BaseRequest'
+import { importAddress } from '../../redux/addressSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { LOADDING_IMPORT_ADDRESS, SUCCESS_IMPORT_ADDRESS } from '../../constants/StatusMessageConstants'
 const { Text } = Typography
 const ConnectWallet = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [type, setType] = useState()
+  const [isModalLoading, setIsModalLoading] = useState(false)
+  const [isModalSuccess, setIsModalSuccess] = useState(false)
 
   const [form] = Form.useForm()
+  const dispatch = useDispatch()
+  const { status } = useSelector(state => state.address)
 
-  const onFinish = (values) => {
-    console.log('Success:', values)
-    setIsModalVisible(true)
-    setType(WAITING_CONNECT)
+  useEffect(() => {
+    if (status && status === LOADDING_IMPORT_ADDRESS) {
+      setIsModalLoading(true)
+    }
+    if (status && status === SUCCESS_IMPORT_ADDRESS) {
+      setIsModalSuccess(true)
+      setIsModalLoading(false)
+    }
+  }, [status])
+
+  const onFinish = async(values) => {
+    await dispatch(importAddress(values))
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -22,7 +36,7 @@ const ConnectWallet = () => {
     <div style={{ padding: '50px 0', margin: '0px auto', width: '500px' }}>
       <Typography style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontWeight: 'bold', fontSize: '30px', color: '#fff', marginRight: '10px' }}>
-            New Portfolio :
+          New Portfolio :
         </Text>
         <Image
           width={30}
@@ -38,10 +52,10 @@ const ConnectWallet = () => {
         layout='vertical'
         form={form}
       >
-        <Form.Item label='Connection Name (optional)' name='name'>
+        <Form.Item label='Connection Name (optional)' name='connectionName'>
           <Input />
         </Form.Item>
-        <Form.Item label='Wallet Address' name='addressWallet'>
+        <Form.Item label='Wallet Address' name='address'>
           <Input />
         </Form.Item>
         <Form.Item shouldUpdate >
@@ -60,11 +74,14 @@ const ConnectWallet = () => {
           )}
         </Form.Item>
       </Form>
-      <ModalConnect
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-        type={type}
-        setType={setType}
+      <ModalLoadingConnect
+        isModalLoading={isModalLoading}
+        setIsModalLoading={setIsModalLoading}
+        setIsModalSuccess={setIsModalSuccess}
+      />
+      <ModalSuccessConnect
+        isModalSuccess={isModalSuccess}
+        setIsModalSuccess={setIsModalSuccess}
       />
     </div>
   )

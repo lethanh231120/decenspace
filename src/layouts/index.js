@@ -11,6 +11,7 @@ import ProfilePage from '../pages/profile'
 import EditProfilePage from '../pages/profile/edit-profile'
 import PageNotFound from '../pages/404'
 import ConnectWalletPage from '../pages/connect-wallet'
+import ConnectPortfolioPage from '../pages/connect-portfolio'
 import { Layout } from 'antd'
 import './header/index.scss'
 const { Content } = Layout
@@ -29,6 +30,7 @@ const Router = () => {
           <Route path='profile' element={<ProfilePage />} />
           <Route path='edit-profile' element={<EditProfilePage />} />
           <Route path='connect-wallet' element={<ConnectWalletPage />} />
+          <Route path='connect-portfolio' element={<ConnectPortfolioPage />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Content>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { setCookie, STORAGEKEY } from '../../utils/storage'
 import { Form, Input, Checkbox, Row, Col } from 'antd'
-import { post } from '../../api/BaseRequest'
+import { post } from '../../api/accountBaseRequest'
 import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../redux/useInfo'
 import { validateEmail, validatePassword } from '../../utils/regex'
