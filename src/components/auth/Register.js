@@ -240,8 +240,6 @@ const Register = ({ setIsModalSignup }) => {
                 if (!value || getFieldValue(['user', 'password']) === value) {
                   return Promise.resolve()
                 }
-
-                // return <Tooltip placement='top' title='loi roi'/>
                 return Promise.reject(
                   new Error('The two passwords that you entered do not match!')
                 )
@@ -289,28 +287,18 @@ const Register = ({ setIsModalSignup }) => {
           </Col>
         </Row>
         <div className='register-form__checkbox'>
-          <Checkbox>
+          <Checkbox checked={checked} onChange={ ()=>{ setChecked(!checked) }}>
             <span>Agree with <a>Privacy Policy</a></span>
           </Checkbox>
         </div>
         <Form.Item>
           <div className='register-form__button'>
-            <button htmlType='submit'>
+            <button htmltype='submit' disabled={!checked}>
               Sign up
             </button>
           </div>
         </Form.Item>
       </Form>
-      <div className='register-form__checkbox'>
-        <Checkbox checked={checked} onChange={ ()=>{ setChecked(!checked) }}>
-          <span>Agree with <a>Privacy Policy</a></span>
-        </Checkbox>
-      </div>
-      <div className='register-form__button'>
-        <button disabled={ !checked }>
-          Sign up
-        </button>
-      </div>
       <div className='register-form__network--login'>
         <span>Or login with</span>
         <div className='register-form__network'>

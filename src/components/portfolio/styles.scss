@@ -9,7 +9,7 @@
 
             button {
                 border-radius: 25px;
-                background-color: #ff9332;
+                background-color: $orange-main-color;
                 color: #1a1a1a;
                 border: none;
 
@@ -54,6 +54,20 @@
         padding-bottom: 20px;
     }
 
+    .ant-tabs {
+        .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+            color: $orange-main-color;
+        }
+
+        .ant-tabs-tab {
+            color: #999999;
+        }
+
+        > .ant-tabs-nav::before {
+            border: none;
+        }
+    }
+
     .main-price {
         text-align: left;
         font-size: 1.78947rem;
@@ -68,7 +82,7 @@
 
         > span ~ span,
         span ~ .ant-select {
-            padding-left: 5px;
+            padding-left: 10px;
 
             > span ~ span {
                 padding-left: 1px;
@@ -76,11 +90,11 @@
         }
 
         .change-price-up {
-            color: #6ccf59;
+            color: $green-strong-password-color;
         }
 
         .change-price-down {
-            color: #ff4d4d;
+            color: $red-bad-password-color;
         }
 
         .ant-select {
@@ -104,6 +118,7 @@
                                 color: #999999;
                                 height: 20px;
                                 pointer-events: none;
+                                font-size: 10px;
                             }
                         }
 
@@ -138,6 +153,27 @@
                             td:nth-child(4) {
                                 color: white;
                                 font-weight: 600;
+                            }
+
+                            .ant-table-cell {
+                                font-size: 10px;
+                            }
+
+                            .ant-table-cell.table-name > div {
+                                display: flex;
+
+                                .table-name-content {
+                                    margin-left: 5px;
+                                    display: flex;
+                                    align-items: center;
+                                }
+                            }
+
+                            .table-icon-coin {
+                                img {
+                                    width: 35px !important;
+                                    height: 35px !important;
+                                }
                             }
                         }
                     }
