@@ -2,10 +2,11 @@
 /* Css for Wallet Address */
 .sidebar {
     height: 100vh;
+    margin-right: 40px;
 
     .ant-row {
         .ant-col {
-            margin: 20px;
+            margin-top: 40px;
 
             button {
                 border-radius: 25px;
@@ -19,30 +20,47 @@
                 }
             }
         }
-    }
 
-    .panel {
-        .ant-collapse-header,
-        p {
-            color: white !important;
-            text-align: center;
-            padding: 0 40px;
+        .ant-divider.ant-divider-horizontal {
+            background-color: #999999;
         }
 
-        .ant-collapse-content-box {
-            padding: 0 40px;
+        .ant-input-group-wrapper {
+            input {
+                background-color: transparent;
+                border-radius: 5px;
+                border-color: #999999;
+                color: #999999;
+            }
+
+            .ant-input-group-addon {
+                display: none;
+            }
         }
     }
+
+    // .panel {
+    //     .ant-collapse-header,
+    //     p {
+    //         color: white !important;
+    //         text-align: center;
+    //         padding: 0 40px;
+    //     }
+
+    //     .ant-collapse-content-box {
+    //         padding: 0 40px;
+    //     }
+    // }
 
     .ant-typography {
         display: block;
         margin-bottom: 5px;
         color: white !important;
     }
-    .ant-tabs{
+    .ant-tabs {
         color: $font__color--white;
     }
-    .ant-collapse-ghost>.ant-collapse-item>.ant-collapse-content{
+    .ant-collapse-ghost > .ant-collapse-item > .ant-collapse-content {
         height: 450px;
         overflow-y: auto;
     }
