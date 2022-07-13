@@ -9,10 +9,10 @@ import ModalEdit from '../modal/modal-edit'
 import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
 const { TabPane } = Tabs
 const WalletAddress = () => {
-  const onSearch = (value) => console.log(value)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isModalEdit, setIsModalEdit] = useState(false)
   const [dataEdit, setDataEdit] = useState(false)
+  const [searchFilter, setSearchFilter] = useState('')
   const dispatch = useDispatch()
   const { list_connection, status } = useSelector(state => state.connections)
   const { Search } = Input
@@ -21,7 +21,11 @@ const WalletAddress = () => {
     setIsModalVisible(true)
   }
 
-  console.log(list_connection)
+  const onSearch = (value) => setSearchFilter(value)
+  const filterConnection = list_connection?.filter((item)=>{
+    return item.connectionName.toLowerCase().includes(searchFilter.toLowerCase())
+  })
+
   useEffect(() => {
     dispatch(getAllConnection())
   }, [dispatch, isModalEdit, status === SUCCESS_DELETE_CONNECTION])
@@ -55,7 +59,7 @@ const WalletAddress = () => {
           <Collapse className='panel' ghost defaultActiveKey={['1']}>
             <TabPane tab='All Assets' key='all' />
             <Tabs tabPosition='left' onTabClick={handleTabClick}>
-              {list_connection && list_connection.map((item) => (
+              {filterConnection && filterConnection.map((item) => (
                 <TabPane
                   tab={
                     <div>
