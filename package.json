@@ -10,7 +10,6 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.21.4",
     "axios": "^0.27.2",
-    "dotenv": "^16.0.1",
     "moment": "^2.29.3",
     "node-sass": "^7.0.1",
     "react": "^18.2.0",
@@ -55,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "dotenv": "^16.0.1",
     "eslint": "^8.19.0",
     "eslint-plugin-react": "^7.29.2",
     "husky": "^7.0.4"
