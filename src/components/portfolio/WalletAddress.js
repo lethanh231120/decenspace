@@ -16,6 +16,7 @@ const WalletAddress = () => {
   const dispatch = useDispatch()
   const { list_connection, status } = useSelector(state => state.connections)
   const { Search } = Input
+
   const handleConnectPortfolio = () => {
     setIsModalVisible(true)
   }
