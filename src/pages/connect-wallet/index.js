@@ -5,7 +5,7 @@ import ModalSuccessConnect from '../../components/modal/modal-success-connect'
 // import { post } from '../../api/BaseRequest'
 import { importConnection } from '../../redux/addressSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { LOADDING_IMPORT_CONNECTION, SUCCESS_IMPORT_CONNECTION } from '../../constants/StatusMessageConstants'
+import { LOADING_IMPORT_CONNECTION, SUCCESS_IMPORT_CONNECTION } from '../../constants/StatusMessageConstants'
 const { Text } = Typography
 const ConnectWallet = () => {
   const [isModalLoading, setIsModalLoading] = useState(false)
@@ -16,7 +16,7 @@ const ConnectWallet = () => {
   const { status } = useSelector(state => state.connections)
 
   useEffect(() => {
-    if (status && status === LOADDING_IMPORT_CONNECTION) {
+    if (status && status === LOADING_IMPORT_CONNECTION) {
       setIsModalLoading(true)
     }
     if (status && status === SUCCESS_IMPORT_CONNECTION) {

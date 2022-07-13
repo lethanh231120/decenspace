@@ -8,10 +8,10 @@ const Portfolio = () => {
   return (
     <div>
       <Row>
-        <Col span={4}>
+        <Col span={6}>
           <WalletAddress />
         </Col>
-        <Col span={20}>
+        <Col span={18}>
           <Analyst />
         </Col>
       </Row>

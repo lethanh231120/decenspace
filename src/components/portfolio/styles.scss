@@ -2,14 +2,15 @@
 /* Css for Wallet Address */
 .sidebar {
     height: 100vh;
+    margin-right: 40px;
 
     .ant-row {
         .ant-col {
-            margin: 20px;
+            margin-top: 40px;
 
             button {
                 border-radius: 25px;
-                background-color: #ff9332;
+                background-color: $orange-main-color;
                 color: #1a1a1a;
                 border: none;
 
@@ -19,30 +20,47 @@
                 }
             }
         }
-    }
 
-    .panel {
-        .ant-collapse-header,
-        p {
-            color: white !important;
-            text-align: center;
-            padding: 0 40px;
+        .ant-divider.ant-divider-horizontal {
+            background-color: #999999;
         }
 
-        .ant-collapse-content-box {
-            padding: 0 40px;
+        .ant-input-group-wrapper {
+            input {
+                background-color: transparent;
+                border-radius: 5px;
+                border-color: #999999;
+                color: #999999;
+            }
+
+            .ant-input-group-addon {
+                display: none;
+            }
         }
     }
+
+    // .panel {
+    //     .ant-collapse-header,
+    //     p {
+    //         color: white !important;
+    //         text-align: center;
+    //         padding: 0 40px;
+    //     }
+
+    //     .ant-collapse-content-box {
+    //         padding: 0 40px;
+    //     }
+    // }
 
     .ant-typography {
         display: block;
         margin-bottom: 5px;
         color: white !important;
     }
-    .ant-tabs{
+    .ant-tabs {
         color: $font__color--white;
     }
-    .ant-collapse-ghost>.ant-collapse-item>.ant-collapse-content{
+    .ant-collapse-ghost > .ant-collapse-item > .ant-collapse-content {
         height: 450px;
         overflow-y: auto;
     }
@@ -52,6 +70,20 @@
 .dashboard {
     > .ant-row > .ant-col {
         padding-bottom: 20px;
+    }
+
+    .ant-tabs {
+        .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+            color: $orange-main-color;
+        }
+
+        .ant-tabs-tab {
+            color: #999999;
+        }
+
+        > .ant-tabs-nav::before {
+            border: none;
+        }
     }
 
     .main-price {
@@ -68,7 +100,7 @@
 
         > span ~ span,
         span ~ .ant-select {
-            padding-left: 5px;
+            padding-left: 10px;
 
             > span ~ span {
                 padding-left: 1px;
@@ -76,11 +108,11 @@
         }
 
         .change-price-up {
-            color: #6ccf59;
+            color: $green-strong-password-color;
         }
 
         .change-price-down {
-            color: #ff4d4d;
+            color: $red-bad-password-color;
         }
 
         .ant-select {
@@ -104,6 +136,7 @@
                                 color: #999999;
                                 height: 20px;
                                 pointer-events: none;
+                                font-size: 10px;
                             }
                         }
 
@@ -138,6 +171,27 @@
                             td:nth-child(4) {
                                 color: white;
                                 font-weight: 600;
+                            }
+
+                            .ant-table-cell {
+                                font-size: 10px;
+                            }
+
+                            .ant-table-cell.table-name > div {
+                                display: flex;
+
+                                .table-name-content {
+                                    margin-left: 5px;
+                                    display: flex;
+                                    align-items: center;
+                                }
+                            }
+
+                            .table-icon-coin {
+                                img {
+                                    width: 35px !important;
+                                    height: 35px !important;
+                                }
                             }
                         }
                     }

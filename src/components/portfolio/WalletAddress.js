@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Col, Row, Collapse, Tabs } from 'antd'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Button, Col, Row, Collapse, Tabs, Divider, Input } from 'antd'
 import './styles.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllConnection, deleteConnection } from '../../redux/addressSlice'
@@ -9,11 +9,13 @@ import ModalEdit from '../modal/modal-edit'
 import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
 const { TabPane } = Tabs
 const WalletAddress = () => {
+  const onSearch = (value) => console.log(value)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isModalEdit, setIsModalEdit] = useState(false)
   const [dataEdit, setDataEdit] = useState(false)
   const dispatch = useDispatch()
   const { list_connection, status } = useSelector(state => state.connections)
+  const { Search } = Input
 
   const handleConnectPortfolio = () => {
     setIsModalVisible(true)
@@ -44,6 +46,11 @@ const WalletAddress = () => {
         <Col span={24}>
           <Button onClick={handleConnectPortfolio}>CONNECT PORTFOLIO</Button>
         </Col>
+        <Divider />
+        <Search
+          placeholder= 'input search text'
+          onSearch={onSearch}
+        />
         <Col span={24}>
           <Collapse className='panel' ghost defaultActiveKey={['1']}>
             <TabPane tab='All Assets' key='all' />
@@ -60,11 +67,7 @@ const WalletAddress = () => {
                   key={item.id}
                 />
               ))}
-              {/* <TabPane tab='Tab 1' key='1' />
-              <TabPane tab='Tab 2' key='2' />
-              <TabPane tab='Tab 3' key='3' /> */}
             </Tabs>
-            {/* </Panel> */}
           </Collapse>
         </Col>
       </Row>
