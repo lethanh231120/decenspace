@@ -19,7 +19,7 @@ const WalletAddress = () => {
 
   const { list_address } = useSelector(state => state.address)
 
-  console.log(list_address)
+  // console.log(list_address)
   const handleConnectPortfolio = () => {
     setIsModalVisible(true)
   }
@@ -45,20 +45,12 @@ const WalletAddress = () => {
         />
         <Col span={24}>
           <Collapse className='panel' ghost defaultActiveKey={['1']}>
-            {/* <Panel header='Assets' key='1'> */}
-            {/* <Link to='#'>Address 1</Link>
-              <Link to='#'>Address 2</Link>
-              <Link to='#'>Address 3</Link> */}
             <TabPane tab='All Assets' key='all' />
             <Tabs tabPosition='left' onTabClick={handleTabClick}>
               {list_address && list_address.map((item) => (
                 <TabPane tab={item.connectionName} key={item.id} />
               ))}
-              {/* <TabPane tab='Tab 1' key='1' />
-              <TabPane tab='Tab 2' key='2' />
-              <TabPane tab='Tab 3' key='3' /> */}
             </Tabs>
-            {/* </Panel> */}
           </Collapse>
         </Col>
       </Row>
