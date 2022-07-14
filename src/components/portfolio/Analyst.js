@@ -1,9 +1,11 @@
 import { Col, Row, Select } from 'antd'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { usdMoneyFormat } from '../../utils/parseFloat'
 import Table from '../table'
 import './styles.scss'
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
+import { get } from '../../api/addressService'
+import { EXCHANGE } from '../../constants/TypeConstants'
 
 const { Option } = Select
 
@@ -13,12 +15,39 @@ const handleChange = (value) =>{
 
 const Analyst = () => {
   const priceChange = parseFloat('2.36')
+  const [data, setData] = useState([])
+  const [totalValue, setTotalValue] = useState(0)
+  const amountArray = []
+  useEffect(()=>{
+    const getData = async() =>{
+      const response = await get('addresses/holdings')
+      const data = response?.data
+      setData(data)
+    }
+    getData()
+  }, [])
+
+  useEffect(()=>{
+    data?.map((item)=>{
+      const amount = (item.holdings[0].holding.amount) * EXCHANGE
+      amountArray.push(amount)
+      const coinPriceByUSD = item.holdings[0].coinPriceUSD
+      let totalVal = 0
+      for (let i = 0; i < amountArray.length; i++) {
+        totalVal += amountArray[i] * coinPriceByUSD
+      }
+      setTotalValue(totalVal)
+    })
+  }, [data])
+
+  console.log(totalValue)
+
   return (
     <div className='dashboard'>
       <Row>
         <Col span={24}>
           <Col span={24}>
-            <div className='main-price'>{usdMoneyFormat(5167722604)}</div>
+            <div className='main-price'>{usdMoneyFormat(totalValue)}</div>
           </Col>
           <Col span={24}>
             <div className='data-change'>
