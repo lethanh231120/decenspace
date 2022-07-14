@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form, Input } from 'antd'
-import { updatePassword } from '../../redux/profileSlice'
-import { validatePassword } from '../../utils/regex'
-// import { getCookie, STORAGEKEY } from '../../utils/storage'
+import { updatePassword } from '../../../redux/profileSlice'
+import { validatePassword } from '../../../utils/regex'
 
 const layout = {
   labelCol: {
@@ -15,15 +14,11 @@ const UpdatePassword = ({ setIsModalPasswordUpdate }) => {
   const dispatch = useDispatch()
   const { status } = useSelector(state => state.profile)
   const updatePasswordSubmit = (value) => {
-    // const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
-    // const passwords = value.user
-    console.log(value)
     const data = {
       email: value.user.email,
       password: value.user.password,
       newPassword: value.user.newPassword
     }
-    console.log(data)
     dispatch(updatePassword(data))
   }
 

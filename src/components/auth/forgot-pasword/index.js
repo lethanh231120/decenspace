@@ -1,8 +1,8 @@
 import { Form, Input, Button, Modal } from 'antd'
 import React, { useState } from 'react'
-import { validateEmail } from '../../utils/regex'
-import ResetPassword from './ResetPassword'
-import './styles.scss'
+import { validateEmail } from '../../../utils/regex'
+import ResetPassword from '../reset-password'
+import './style.scss'
 
 const ForgotPassword = ({ setIsModalForgotPassword }) => {
   const [isModalResetPassword, setIsModalResetPassword] = useState(false)
@@ -16,15 +16,7 @@ const ForgotPassword = ({ setIsModalForgotPassword }) => {
     <div>
       <Form
         name='basic'
-        labelCol={{
-          span: 8
-        }}
-        wrapperCol={{
-          span: 16
-        }}
-        initialss={{
-          remember: true
-        }}
+        initialss={{ remember: true }}
         onFinish={onFinish}
       >
         <Form.Item
@@ -39,14 +31,9 @@ const ForgotPassword = ({ setIsModalForgotPassword }) => {
             }
           ]}
         >
-          <Input />
+          <Input placeholder='test@gmail.com'/>
         </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16
-          }}
-        >
+        <Form.Item>
           <Button type='primary' htmlType='submit'>
             Send
           </Button>

@@ -4,18 +4,17 @@ import { post } from '../../../api/accountService'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
 import { useDispatch } from 'react-redux'
 import { getUserInfo } from '../../../redux/useInfo'
-// import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { validateEmail } from '../../../utils/regex'
-import ForgotPassword from '../../../components/auth/ForgotPassword'
-import './styles.scss'
-// import axios from 'axios'
+import { validateEmail, validatePassword } from '../../../utils/regex'
+import ForgotPassword from '../forgot-pasword'
+import './style.scss'
+import { SUCCESS_REQUEST } from '../../../constants/statusCode'
 
+const { Text } = Typography
 export default function SignIn({ setIsModalSignin }) {
   const [isModalForgotPassword, setIsModalForgotPassword] = useState(false)
   const [error, setError] = useState()
   const dispatch = useDispatch()
-  // const navigate = useNavigate()
   const {
     reset
   } = useForm({
@@ -35,36 +34,20 @@ export default function SignIn({ setIsModalSignin }) {
         await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
         await dispatch(getUserInfo())
         setIsModalSignin(false)
-        // if (data.isAdmin === true) {
-        // //   navigate('../admin')
-        // } else {
-        //   navigate('../')
-        // }
       }
     } catch (error) {
-      error?.response?.data && setError(error.response.data.message)
+      error?.response?.data && setError(error.response.data.code !== SUCCESS_REQUEST && 'Incorrect email or password')
     }
-  }
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
   }
 
   return (
     <div>
       <Form
         name='basic'
-        labelCol={{
-          span: 8
-        }}
-        wrapperCol={{
-          span: 16
-        }}
-        initialss={{
-          remember: true
-        }}
+        labelCol={{ span: 8 }}
+        initialss={{ remember: true }}
+        layout='vertical'
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete='off'
       >
 
         <Form.Item
@@ -72,7 +55,7 @@ export default function SignIn({ setIsModalSignin }) {
           name='email'
           rules={[
             {
-              required: false,
+              required: true,
               type: 'email',
               message: 'Enter a valid email address!',
               pattern: new RegExp(validateEmail)
@@ -88,26 +71,23 @@ export default function SignIn({ setIsModalSignin }) {
           rules={[
             {
               required: true,
-              message: 'Mật khẩu bao gồm cả chữ hoa, chữ thường, số và ít nhất 8 kỹ tự!'
-              // pattern: new RegExp(validatePassword)
+              message: 'Please! Password at least 8 characters. number(s) and letter (S)!',
+              pattern: new RegExp(validatePassword)
             }
           ]}
         >
           <Input.Password />
         </Form.Item>
+        <Text type='danger'>{error && error}</Text>
+
         <Typography
-          style={{ textAlign: 'right', color: '#ffffff' }}
+          style={{ textAlign: 'right', color: '#000', cursor: 'pointer' }}
           onClick={() => setIsModalForgotPassword(true) || setIsModalSignin(false)}
         >
           Quên mật khẩu?
         </Typography>
-        {error && error}
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16
-          }}
-        >
+        {/* {error && error} */}
+        <Form.Item>
           <Button type='primary' htmlType='submit'>
             Submit
           </Button>
