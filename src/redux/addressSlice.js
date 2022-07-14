@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { post, get, del, patch } from '../api/BaseRequest'
+import { post, get, del, patch } from '../api/addressService'
 import {
   LOADING_IMPORT_CONNECTION,
   SUCCESS_IMPORT_CONNECTION,
@@ -18,14 +18,14 @@ import {
 export const importConnection = createAsyncThunk(
   'connections/importConnection',
   async(data) => {
-    return await post('a44a-104-28-222-73.ap.ngrok.io/addresses/import-address', data)
+    return await post('addresses/import-address', data)
   }
 )
 
 export const getAllConnection = createAsyncThunk(
   'connections/getAllConnection',
   async(data) => {
-    return await get('a44a-104-28-222-73.ap.ngrok.io/addresses/connection/current-connections', data)
+    return await get('addresses/connection/current-connections', data)
   }
 )
 
@@ -33,7 +33,7 @@ export const deleteConnection = createAsyncThunk(
   'connections/deleteConnection',
   async(id) => {
     console.log(id)
-    return await del(`a44a-104-28-222-73.ap.ngrok.io/addresses/connection/connectionId=${id}`)
+    return await del(`addresses/connection/connectionId=${id}`)
   }
 )
 
