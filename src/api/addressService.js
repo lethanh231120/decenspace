@@ -4,6 +4,7 @@ import { getCookie, STORAGEKEY } from '../utils/storage/index'
 const getUrlPrefix = () => '/'
 const instance = axios.create({
   baseURL: 'http://139.180.147.199:8081'
+  // baseURL: 'https://ca6d-118-70-117-216.ap.ngrok.io'
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)

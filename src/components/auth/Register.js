@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../redux/useInfo'
 import { validateEmail, validatePassword } from '../../utils/regex'
 
-const Register = ({ setIsModalSignup }) => {
+const Signup = ({ setIsModalSignup }) => {
   const [message, setMessage] = useState()
   const [error, setError] = useState()
   // const [image, setImage] = useState()
@@ -336,4 +336,4 @@ const Register = ({ setIsModalSignup }) => {
   )
 }
 
-export default Register
+export default Signup
