@@ -1,5 +1,5 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form, Input } from 'antd'
 import { updatePassword } from '../../redux/profileSlice'
 import { validatePassword } from '../../utils/regex'
@@ -11,8 +11,9 @@ const layout = {
   }
 }
 
-const UpdatePassword = () => {
+const UpdatePassword = ({ setIsModalPasswordUpdate }) => {
   const dispatch = useDispatch()
+  const { status } = useSelector(state => state.profile)
   const updatePasswordSubmit = (value) => {
     // const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
     // const passwords = value.user
@@ -25,6 +26,10 @@ const UpdatePassword = () => {
     console.log(data)
     dispatch(updatePassword(data))
   }
+
+  useEffect(() => {
+    setIsModalPasswordUpdate(false)
+  }, [status === 'change password successfully'])
 
   return (
     <Form {...layout} name='nest-message' onFinish={updatePasswordSubmit} >

@@ -57,7 +57,7 @@ const WalletAddress = () => {
         />
         <Col span={24}>
           <Tabs tabPosition='right' onTabClick={handleTabClick}>
-            <TabPane tab='All Assets' key='all' />
+            <TabPane tab='All Assets' key='all' style={{ textAlign: 'left', width: '100%' }}/>
             {filterConnection && filterConnection.map((item) => (
               <TabPane
                 tab={
