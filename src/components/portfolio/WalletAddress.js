@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Button, Col, Row, Collapse, Tabs, Divider, Input } from 'antd'
+import { Button, Col, Row, Tabs, Divider, Input } from 'antd'
 import './styles.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllConnection, deleteConnection } from '../../redux/addressSlice'
@@ -56,23 +56,23 @@ const WalletAddress = () => {
           onSearch={onSearch}
         />
         <Col span={24}>
-          <Collapse className='panel' ghost defaultActiveKey={['1']}>
+          <Tabs tabPosition='right' onTabClick={handleTabClick}>
             <TabPane tab='All Assets' key='all' />
-            <Tabs tabPosition='left' onTabClick={handleTabClick}>
-              {filterConnection && filterConnection.map((item) => (
-                <TabPane
-                  tab={
-                    <div>
-                      {item.connectionName}
-                      <DeleteOutlined onClick={() => handleDeleteAddress(item.id)}/>
-                      <EditOutlined onClick={() => handleEditAddress(item)}/>
+            {filterConnection && filterConnection.map((item) => (
+              <TabPane
+                tab={
+                  <div className='tab-list-item'>
+                    {item.connectionName}
+                    <div className='tab-list-icon'>
+                      <DeleteOutlined className='tab-list-icon-item' onClick={() => handleDeleteAddress(item.id)}/>
+                      <EditOutlined className='tab-list-icon-item' onClick={() => handleEditAddress(item)}/>
                     </div>
-                  }
-                  key={item.id}
-                />
-              ))}
-            </Tabs>
-          </Collapse>
+                  </div>
+                }
+                key={item.id}
+              />
+            ))}
+          </Tabs>
         </Col>
       </Row>
       <ModalContent

@@ -3,9 +3,9 @@ import { Menu, Modal, Typography } from 'antd'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Layout } from 'antd'
 import 'antd/dist/antd.min.css'
-import SignIn from '../../pages/auth/login'
+import SignIn from '../../components/auth/login'
 // import { Signup } from '../../pages/auth/register'
-import Register from '../../components/auth/Register'
+import Signup from '../../components/auth/Register'
 import UpdatePassword from '../../components/auth/UpdatePassword'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeCookie, getCookie, STORAGEKEY } from '../../utils/storage'
@@ -152,7 +152,7 @@ const Navbar = () => {
         className='modal-register'
         // title='REGISTER'
       >
-        <Register setIsModalSignup={setIsModalSignup}/>
+        <Signup setIsModalSignup={setIsModalSignup}/>
         {/* <Signup setIsModalSignup={setIsModalSignup}/> */}
       </Modal>
       <Modal
