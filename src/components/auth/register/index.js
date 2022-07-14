@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { setCookie, STORAGEKEY } from '../../utils/storage'
-import { Form, Input, Checkbox, Row, Col } from 'antd'
-import { post } from '../../api/accountService'
+import { setCookie, STORAGEKEY } from '../../../utils/storage'
+import { Form, Input, Checkbox, Row, Col, Typography } from 'antd'
+import { post } from '../../../api/accountService'
 import { useDispatch } from 'react-redux/es/exports'
-import { getUserInfo } from '../../redux/useInfo'
-import { validateEmail, validatePassword } from '../../utils/regex'
+import { getUserInfo } from '../../../redux/useInfo'
+import { validateEmail, validatePassword } from '../../../utils/regex'
+import './style.scss'
+import { SUCCESS_REQUEST } from '../../../constants/statusCode'
 
-const Signup = ({ setIsModalSignup }) => {
+const { Text } = Typography
+export default function Signup({ setIsModalSignup }) {
   const [message, setMessage] = useState()
-  const [error, setError] = useState()
+  const [statusCode, setStatusCode] = useState()
   // const [image, setImage] = useState()
   const [open, setOpen] = useState(false)
   // const [countryCode, setCountryCode] = useState()
@@ -26,7 +29,6 @@ const Signup = ({ setIsModalSignup }) => {
   const [passwordValidate, setPasswordValidate] = useState([])
   const [passwordStrengh, setPasswordStreng] = useState()
   const [checked, setChecked] = useState(false)
-
   const onFinish = async(values) => {
     const config = {
       headers: {
@@ -41,7 +43,6 @@ const Signup = ({ setIsModalSignup }) => {
       email: values.user.email,
       password: values.user.password
     }
-    console.log(data)
     try {
       // const formData = new FormData()
       // Object.keys(values).forEach(key => formData.append(`${key}`, values[key]))
@@ -55,7 +56,7 @@ const Signup = ({ setIsModalSignup }) => {
       setOpen(true)
       setIsModalSignup(false)
     } catch (error) {
-      error?.response?.data && setError(error.response.data.message)
+      error?.response?.data && setStatusCode(error.response.data.code !== SUCCESS_REQUEST && 'Email already exists')
     }
   }
 
@@ -84,10 +85,6 @@ const Signup = ({ setIsModalSignup }) => {
     setPasswordStreng((passwordValidate && passwordValidate.filter((item) => item.status === true)).length)
   }, [passwordValidate])
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
-
   return (
     <div className='register-form'>
       <Form
@@ -95,7 +92,6 @@ const Signup = ({ setIsModalSignup }) => {
         layout='vertical'
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         {message && message}
         {open && open}
@@ -253,7 +249,9 @@ const Signup = ({ setIsModalSignup }) => {
             <Input.Password />
           </div>
         </Form.Item>
-        {error && error}
+        <Typography className='message-error'>
+          <Text type='danger'>{statusCode && statusCode}</Text>
+        </Typography>
         <Row className={`${passwordStrengh === 0 ? 'none-password' : ''} group-check-password`}>
           <Col span={22} offset={1}>
             <Row gutter={6}>
@@ -335,5 +333,3 @@ const Signup = ({ setIsModalSignup }) => {
     </div>
   )
 }
-
-export default Signup

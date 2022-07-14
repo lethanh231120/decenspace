@@ -42,14 +42,22 @@
     z-index: 100;
     width: 100%;
 }
-.modal-register {
-    top: 45px ;
+.modal-signup {
+    top: 20px ;
     & .ant-modal-header{
         border-radius: 10px 10px;
     }
-    .ant-modal-content{
-        // background-color: #1a1a1a !important;
+    & .ant-modal-content{
         border-radius: 10px ;
+    }
+}
+.modal-signin{
+    top: 195px;
+    & .ant-modal-content{
+        border-radius: 10px ;
+    }
+    & .ant-modal-body{
+        padding: 56px;
     }
 }
 

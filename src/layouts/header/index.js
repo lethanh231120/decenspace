@@ -4,15 +4,13 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Layout } from 'antd'
 import 'antd/dist/antd.min.css'
 import SignIn from '../../components/auth/login'
-// import { Signup } from '../../pages/auth/register'
-import Signup from '../../components/auth/Register'
-import UpdatePassword from '../../components/auth/UpdatePassword'
+import Signup from '../../components/auth/register/index'
+import UpdatePassword from '../../components/auth/update-password'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeCookie, getCookie, STORAGEKEY } from '../../utils/storage'
 import { resetUserInfo } from '../../redux/useInfo'
 import { setCookie } from '../../utils/storage'
 import _ from 'lodash'
-// import { get } from '../../api/BaseRequest'
 
 const { Header } = Layout
 
@@ -140,7 +138,7 @@ const Navbar = () => {
         footer={null}
         onOk={() => setIsModalSignin(false)}
         onCancel={() => setIsModalSignin(false)}
-        className='model-register'
+        className='modal-signin'
       >
         <SignIn setIsModalSignin={setIsModalSignin}/>
       </Modal>
@@ -149,8 +147,7 @@ const Navbar = () => {
         footer={null}
         onOk={() => setIsModalSignup(false)}
         onCancel={() => setIsModalSignup(false)}
-        className='modal-register'
-        // title='REGISTER'
+        className='modal-signup'
       >
         <Signup setIsModalSignup={setIsModalSignup}/>
         {/* <Signup setIsModalSignup={setIsModalSignup}/> */}
