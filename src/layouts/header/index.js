@@ -52,7 +52,6 @@ const Navbar = () => {
   const onClick = (e) => {
     // setCurrent(e.key)
   }
-
   const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
   const userInfo = getCookie(STORAGEKEY.USER_INFO)
 
