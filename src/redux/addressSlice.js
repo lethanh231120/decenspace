@@ -42,7 +42,7 @@ export const updateConnection = createAsyncThunk(
   async(info) => {
     const { id, data } = info
     console.log(id, data)
-    return await patch(`a44a-104-28-222-73.ap.ngrok.io/addresses/connection/connectionId=${id}`, data)
+    return await patch(`addresses/connection/connectionId=${id}`, data)
   }
 )
 
