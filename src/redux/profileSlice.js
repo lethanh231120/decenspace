@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { get, patch } from '../api/BaseRequest'
+import { get, patch } from '../api/accountService'
 import { getCookie, STORAGEKEY } from '../utils/storage'
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)

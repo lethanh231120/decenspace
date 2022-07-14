@@ -1,10 +1,10 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd'
-import { validatePassword } from '../../utils/regex'
+import { validatePassword } from '../../../utils/regex'
 import { useDispatch } from 'react-redux'
-import { updatePassword } from '../../redux/profileSlice'
+import { updatePassword } from '../../../redux/profileSlice'
 
-const ResetPassword = () => {
+export default function ResetPassword() {
   const dispatch = useDispatch()
   const resetPasswordSubmit = (value) =>{
     const passwords = value.user
@@ -78,5 +78,3 @@ const ResetPassword = () => {
     </div>
   )
 }
-
-export default ResetPassword
