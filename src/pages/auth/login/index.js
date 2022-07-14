@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Form, Input, Modal, Typography } from 'antd'
-import { post } from '../../../api/accountBaseRequest'
+import { post } from '../../../api/accountService'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
 import { useDispatch } from 'react-redux'
 import { getUserInfo } from '../../../redux/useInfo'
