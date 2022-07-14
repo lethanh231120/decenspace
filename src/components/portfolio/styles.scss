@@ -19,6 +19,15 @@
                     font-weight: 600;
                 }
             }
+
+            .ant-tabs-tab,
+            .ant-tabs-tab.ant-tabs-tab-active {
+                text-align: left;
+
+                .ant-tabs-tab-btn {
+                    color: $orange-main-color;
+                }
+            }
         }
 
         .ant-divider.ant-divider-horizontal {
@@ -52,10 +61,12 @@
     //     }
     // }
 
-    .ant-tabs-right>.ant-tabs-content-holder, .ant-tabs-left>div>.ant-tabs-content-holder{
+    .ant-tabs-right > .ant-tabs-content-holder,
+    .ant-tabs-left > div > .ant-tabs-content-holder {
         border-right: 0px;
     }
-    .ant-tabs>.ant-tabs-nav, .ant-tabs>div>.ant-tabs-nav{
+    .ant-tabs > .ant-tabs-nav,
+    .ant-tabs > div > .ant-tabs-nav {
         width: 100%;
     }
     .ant-typography {
@@ -70,37 +81,38 @@
         height: 450px;
         overflow-y: auto;
     }
-    .tab-list-item{
+    .tab-list-item {
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .tab-list-icon{
+    .tab-list-icon {
         opacity: 0;
         visibility: hidden;
         transition: all 0.35s linear;
-        &-item{
-            &:hover{
+        &-item {
+            &:hover {
                 color: $orange-main-color;
             }
         }
     }
-    .ant-tabs-tab:hover{
+    .ant-tabs-tab:hover {
         transition: all 0.2s linear;
-        & .tab-list-icon{
+        & .tab-list-icon {
             opacity: 1;
             visibility: visible;
-            color: $checker-box-background
+            color: $checker-box-background;
         }
     }
-    .ant-tabs-left>.ant-tabs-nav .ant-tabs-tab, 
-    .ant-tabs-left>div>.ant-tabs-nav .ant-tabs-tab, 
-    .ant-tabs-right>.ant-tabs-nav .ant-tabs-tab, 
-    .ant-tabs-right>div>.ant-tabs-nav .ant-tabs-tab{
+    .ant-tabs-left > .ant-tabs-nav .ant-tabs-tab,
+    .ant-tabs-left > div > .ant-tabs-nav .ant-tabs-tab,
+    .ant-tabs-right > .ant-tabs-nav .ant-tabs-tab,
+    .ant-tabs-right > div > .ant-tabs-nav .ant-tabs-tab {
         padding: 8px 15px;
     }
-    .ant-tabs-tab-btn, .ant-tabs-tab-remove{
+    .ant-tabs-tab-btn,
+    .ant-tabs-tab-remove {
         width: 100%;
     }
 }

@@ -1,59 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Tabs, Table, Popover } from 'antd'
-import { usdMoneyFormat } from '../../utils/parseFloat'
 import { EllipsisOutlined, CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
 import '../portfolio/styles.scss'
+import { EXCHANGE } from '../../constants/TypeConstants'
+import { get } from '../../api/addressService'
 
 const { TabPane } = Tabs
-// const SKIP = 0
-// const LIMIT = 10
-// const CURRENCY = 'USD'
-
-// const Columns = [
-//   {
-//     title: 'Name',
-//     dataIndex: 'name',
-//     key: 'name',
-//     render: (text) => <a>
-//       <img src='https://png.monster/wp-content/uploads/2022/02/png.monster-623.png' alt='btc logo'></img>
-//       {text}
-//       <span>*BTC</span>
-//     </a>
-//   },
-//   {
-//     title: 'Amount',
-//     dataIndex: 'amount',
-//     key: 'amount'
-//   },
-//   {
-//     title: 'Price',
-//     dataIndex: 'price',
-//     key: 'price'
-//   },
-//   {
-//     title: 'Total',
-//     dataIndex: 'total',
-//     key: 'total'
-//   },
-//   {
-//     title: '24HOURS P/L',
-//     dataIndex: 'change',
-//     key: 'change'
-//   }
-// ]
-
-const data = [
-  {
-    rank: '1',
-    name: 'Bitcoin',
-    amount: 252958,
-    price: 20458.35,
-    total: `${usdMoneyFormat(5167772604.76)}`,
-    change: `${usdMoneyFormat(103810204.21)}`,
-    priceChange1h: 0.85
-  }
-]
-
 const table = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState(['rank', 'name', 'price', 'marketCap', 'volume', 'priceChange1w', 'priceChange7d', 'priceGraph', 'priceChange24h', 'priceChange1h'])
   const columnsPopover = [
@@ -112,6 +64,17 @@ const table = () => {
     // }
   ]
 
+  const [data, setData] = useState([])
+
+  useEffect(()=>{
+    const getData = async() =>{
+      const response = await get('addresses/holdings')
+      const data = response?.data
+      setData(data)
+    }
+    getData()
+  }, [])
+
   const onSelectChange = (newselectedRowKeys) => {
     setSelectedRowKeys(newselectedRowKeys)
   }
@@ -140,7 +103,7 @@ const table = () => {
           <img src='https://png.monster/wp-content/uploads/2022/02/png.monster-623.png' alt='avatar-coin'/>
         </div>
         <div className='table-name-content'>
-          <div className='table-name-text'>{record.name}</div>
+          <div className='table-name-text'>{record.holdings[0].holding.coinName}</div>
           <div className='table-name-symbol'>{record.symbol}</div>
         </div>
       </div>)
@@ -152,7 +115,7 @@ const table = () => {
       hidden: !selectedRowKeys.includes('amount'),
       sorter: (a, b) => a.amount - b.amount,
       render: (_, record) => (<span style={{ color: '#fff', fontWeight: '500' }}>
-        {record?.amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+        {((record?.holdings[0].holding.amount) * EXCHANGE).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
       </span>)
     },
     {
@@ -171,9 +134,10 @@ const table = () => {
             marginLeft: 'auto'
           }}
         >
-          {record?.priceChange1h >= 0
+          {/* {record?.priceChange1h >= 0
             ? <CaretUpOutlined/> : <CaretDownOutlined/>}
-          {record?.priceChange1h >= 0 ? record.priceChange1h : record.priceChange1h.toString().slice(1)} %
+          {record?.priceChange1h >= 0 ? record.priceChange1h : record.priceChange1h.toString().slice(1)} % */}
+          <CaretUpOutlined />
         </div>
       ),
       sorter: (a, b) => a.priceChange1h - b.priceChange1h
@@ -233,7 +197,7 @@ const table = () => {
       sorter: (a, b) => a.price - b.price,
       hidden: !selectedRowKeys.includes('price'),
       render: (_, record) => (<span style={{ color: '#fff', fontWeight: '500' }}>
-        ${record?.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+        ${record?.holdings[0].coinPriceUSD.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
       </span>)
     },
     {
