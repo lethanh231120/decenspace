@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { setCookie, STORAGEKEY } from '../../utils/storage'
 import { Form, Input, Checkbox, Row, Col } from 'antd'
-import { post } from '../../api/BaseRequest'
+import { post } from '../../api/accountService'
 import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../redux/useInfo'
 import { validateEmail, validatePassword } from '../../utils/regex'
 
-const Register = ({ setIsModalSignup }) => {
+const Signup = ({ setIsModalSignup }) => {
   const [message, setMessage] = useState()
   const [error, setError] = useState()
   // const [image, setImage] = useState()
@@ -25,6 +25,7 @@ const Register = ({ setIsModalSignup }) => {
 
   const [passwordValidate, setPasswordValidate] = useState([])
   const [passwordStrengh, setPasswordStreng] = useState()
+  const [checked, setChecked] = useState(false)
 
   const onFinish = async(values) => {
     const config = {
@@ -239,8 +240,6 @@ const Register = ({ setIsModalSignup }) => {
                 if (!value || getFieldValue(['user', 'password']) === value) {
                   return Promise.resolve()
                 }
-
-                // return <Tooltip placement='top' title='loi roi'/>
                 return Promise.reject(
                   new Error('The two passwords that you entered do not match!')
                 )
@@ -288,13 +287,13 @@ const Register = ({ setIsModalSignup }) => {
           </Col>
         </Row>
         <div className='register-form__checkbox'>
-          <Checkbox>
+          <Checkbox checked={checked} onChange={ ()=>{ setChecked(!checked) }}>
             <span>Agree with <a>Privacy Policy</a></span>
           </Checkbox>
         </div>
         <Form.Item>
           <div className='register-form__button'>
-            <button htmlType='submit'>
+            <button htmltype='submit' disabled={!checked}>
               Sign up
             </button>
           </div>
@@ -337,4 +336,4 @@ const Register = ({ setIsModalSignup }) => {
   )
 }
 
-export default Register
+export default Signup

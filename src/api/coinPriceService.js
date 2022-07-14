@@ -3,8 +3,7 @@ import { getCookie, STORAGEKEY } from '../utils/storage/index'
 
 const getUrlPrefix = () => '/'
 const instance = axios.create({
-  // baseURL: 'https://do-an-tot-nghiep-lvthanh.herokuapp.com/api'
-  baseURL: 'https://'
+  baseURL: 'http://139.180.147.199:8000'
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)

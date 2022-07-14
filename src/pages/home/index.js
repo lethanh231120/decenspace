@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Typography, Row, Col, Image } from 'antd'
 import { ArrowRightOutlined } from '@ant-design/icons'
 import './index.scss'
-import ModalConnect from '../../components/modal/connect-portfolio'
-import { PORTFOLIO_CONNECT } from '../../constants/TypeConstants'
-
+// import ModalConnect from '../../components/modal/connect-portfolio'
+// import { PORTFOLIO_CONNECT } from '../../constants/TypeConstants'
+import { useNavigate } from 'react-router-dom'
 const { Title, Text } = Typography
 export default function Home() {
+  // const [isModalVisible, setIsModalVisible] = useState(false)
+  // const [type, setType] = useState()
+
+  const navigate = useNavigate()
+
   const handelClickConnect = () => {
-    setIsModalVisible(true)
-    setType(PORTFOLIO_CONNECT)
+    navigate('../connect-portfolio')
+    // setIsModalVisible(true)
+    // setType(PORTFOLIO_CONNECT)
   }
-  const [isModalVisible, setIsModalVisible] = useState(false)
-  const [type, setType] = useState()
 
   return (
     <div style={{ padding: '100px 0', margin: '0px auto' }}>
@@ -87,11 +91,11 @@ export default function Home() {
         }}>
           CONNECT ORTHER
       </button>
-      <ModalConnect
+      {/* <ModalConnect
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
         type={type}
-      />
+      /> */}
     </div>
   )
 }

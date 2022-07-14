@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Menu, Modal, Typography } from 'antd'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { Layout } from 'antd'
 import 'antd/dist/antd.min.css'
-import SignIn from '../../pages/auth/login'
+import SignIn from '../../components/auth/login'
 // import { Signup } from '../../pages/auth/register'
-import Register from '../../components/auth/Register'
+import Signup from '../../components/auth/Register'
 import UpdatePassword from '../../components/auth/UpdatePassword'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeCookie, STORAGEKEY } from '../../utils/storage'
+import { removeCookie, getCookie, STORAGEKEY } from '../../utils/storage'
 import { resetUserInfo } from '../../redux/useInfo'
+import { setCookie } from '../../utils/storage'
+import _ from 'lodash'
 // import { get } from '../../api/BaseRequest'
 
 const { Header } = Layout
@@ -43,24 +45,33 @@ const items = [
 ]
 
 const Navbar = () => {
-  // const [current, setCurrent] = useState('blog')
   const [isModalSignin, setIsModalSignin] = useState(false)
   const [isModalSignup, setIsModalSignup] = useState(false)
   const [isModalPasswordUpdate, setIsModalPasswordUpdate] = useState(false)
-  const { user, isAuthenticated } = useSelector(state => state.userInfo)
+  const { user } = useSelector(state => state.userInfo)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const onClick = (e) => {
     // setCurrent(e.key)
   }
-  // console.log(user)
+
+  const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
+  const userInfo = getCookie(STORAGEKEY.USER_INFO)
+
   const logout = async() => {
     await removeCookie(STORAGEKEY.ACCESS_TOKEN)
+    await removeCookie(STORAGEKEY.USER_INFO)
     // await get('user/logout')
     dispatch(resetUserInfo())
     navigate('/')
   }
-  console.log(user)
+
+  useEffect(() => {
+    const setUserInfo = async() => {
+      await setCookie(STORAGEKEY.USER_INFO, user)
+    }
+    !_.isEmpty(user) && setUserInfo()
+  }, [user])
 
   return (
     <>
@@ -68,7 +79,6 @@ const Navbar = () => {
         <Header
           style={{
             padding: '0 5%',
-            // backgroundColor: '#000',
             colorButton: '#fff',
             display: 'flex',
             justifyContent: 'space-between',
@@ -79,7 +89,7 @@ const Navbar = () => {
             <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>DECENSPACE</div>
             <Menu onClick={onClick} mode='horizontal' items={items} />
           </div>
-          {isAuthenticated ? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '250px' }}>
+          {token ? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '250px' }}>
             <Typography
               component='span'
               variant='subtitle1'
@@ -92,7 +102,7 @@ const Navbar = () => {
                     className={isActive ? 'activeClassName' : ''}
                     style={{ color: '#fff' }}
                   >
-                    {user && user.name}
+                    {userInfo && userInfo.name}
                   </div>
                 )}
               </NavLink>
@@ -142,7 +152,7 @@ const Navbar = () => {
         className='modal-register'
         // title='REGISTER'
       >
-        <Register setIsModalSignup={setIsModalSignup}/>
+        <Signup setIsModalSignup={setIsModalSignup}/>
         {/* <Signup setIsModalSignup={setIsModalSignup}/> */}
       </Modal>
       <Modal

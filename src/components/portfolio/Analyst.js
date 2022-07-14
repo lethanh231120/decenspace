@@ -3,6 +3,7 @@ import React from 'react'
 import { usdMoneyFormat } from '../../utils/parseFloat'
 import Table from '../table'
 import './styles.scss'
+import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
 
 const { Option } = Select
 
@@ -25,14 +26,14 @@ const Analyst = () => {
                 ? <>
                   <span className='change-price-up'>{usdMoneyFormat(123.04)}</span>
                   <span>
-                    <span className='price-up change-price-up'>Up</span>
+                    <span className='price-up change-price-up'><CaretUpOutlined/></span>
                     <span className='change-price-up'>{priceChange}%</span>
                   </span>
                 </>
                 : <>
                   <span className='change-price-down'>{usdMoneyFormat(123.04)}</span>
                   <span>
-                    <span className='price-down change-price-down'>Down</span>
+                    <span className='price-down change-price-down'><CaretDownOutlined/></span>
                     <span className='change-price-down'>{priceChange}%</span>
                   </span>
                 </>
@@ -40,6 +41,7 @@ const Analyst = () => {
               <Select
                 defaultValue='1W'
                 onChange={handleChange}
+                color='rgba(0,0,0,.85)'
               >
                 <Option value='24H'>24H</Option>
                 <Option value='1W'>1W</Option>
