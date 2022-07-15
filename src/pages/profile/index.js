@@ -3,7 +3,9 @@ import React, { useEffect } from 'react'
 import { getUserInfo } from '../../redux/useInfo'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
-import { Typography, Row, Col, Image, Button } from 'antd'
+import { Typography, Row, Col, Image, Button, Layout } from 'antd'
+import './style.scss'
+const { Content } = Layout
 const Profile = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -16,53 +18,54 @@ const Profile = () => {
     navigate(-1)
   }
   return (
-    <div style={{ width: '100%', padding: '30px', display: 'flex', alignItems: 'center' }} >
-      <div style={{ width: '100px', height: '100px' }}>
+    <Content className='profile'>
+      <div className='profile-avatar'>
         <Image
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           alt='avatar-official'
           src={user && user.image}
         />
       </div>
-      <div style={{ width: '50%' }}>
-        {/* <Row gutter={[16, 24]}>
-          <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>Họ đệm</Typography>
+      <div>
+        <Row>
+          <Col>
+            <Typography>Tên</Typography>
+            <Typography>Email</Typography>
+            <Typography>Địa chỉ</Typography>
+            <Typography>Số điện thoại</Typography>
           </Col>
-          <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>{user && user.name}</Typography>
-          </Col>
-        </Row> */}
+          <Col></Col>
+        </Row>
         <Row gutter={[16, 24]}>
           <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>Tên</Typography>
+            <Typography>Tên</Typography>
           </Col>
           <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>{user && user.name}</Typography>
+            <Typography>{user && user.name}</Typography>
           </Col>
         </Row>
         <Row gutter={[16, 24]}>
           <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>Email</Typography>
+            <Typography>Email</Typography>
           </Col>
           <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>{user && user.email}</Typography>
-          </Col>
-        </Row>
-        <Row gutter={[16, 24]}>
-          <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>Địa chỉ</Typography>
-          </Col>
-          <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>{user && user.address}</Typography>
+            <Typography>{user && user.email}</Typography>
           </Col>
         </Row>
         <Row gutter={[16, 24]}>
           <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>Số điện thoại</Typography>
+            <Typography>Địa chỉ</Typography>
           </Col>
           <Col className='gutter-row' span={6}>
-            <Typography style={{ color: '#fff' }}>{user && user.phone}</Typography>
+            <Typography>{user && user.address}</Typography>
+          </Col>
+        </Row>
+        <Row gutter={[16, 24]}>
+          <Col className='gutter-row' span={6}>
+            <Typography>Số điện thoại</Typography>
+          </Col>
+          <Col className='gutter-row' span={6}>
+            <Typography>{user && user.phone}</Typography>
           </Col>
         </Row>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '180px' }}>
@@ -74,7 +77,7 @@ const Profile = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </Content>
   )
 }
 export default Profile

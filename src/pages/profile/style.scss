@@ -1,0 +1,15 @@
+@import '../../assets/index.scss';
+
+.profile{
+    width: 60%,;
+    // padding: 40px 15%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: $white-color;
+    align-items: center;
+    &-avatar{
+        width: 100px;
+        height: 100px;
+        margin: 0px auto;
+    }
+}
