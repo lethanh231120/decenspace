@@ -1,6 +1,6 @@
 @import "../../../assets/variable.scss";
 
-.message-error.ant-typography{
+.message-error.ant-typography {
     text-align: left;
 }
 .ant-modal-content {
@@ -13,6 +13,11 @@
         padding: $padding-5;
         text-align: center;
         position: relative;
+        .ant-form {
+            .message-success.ant-typography {
+                text-align: left;
+            }
+        }
         &__checkbox {
             padding-bottom: $padding-2;
 
@@ -87,7 +92,7 @@
                 margin-top: 20px;
             }
         }
-        & .ant-form-item-with-help .ant-form-item-explain{
+        & .ant-form-item-with-help .ant-form-item-explain {
             text-align: left;
         }
     }
