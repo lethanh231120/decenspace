@@ -22,7 +22,6 @@ const EditProfile = () => {
   // const [image, setImage] = useState()
   // const [message, setMessage] = useState()
   // const [open, setOpen] = useState(false)
-  const [phoneCode, setPhoneCode] = useState('+1')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector(state => state.userInfo)
