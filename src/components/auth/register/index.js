@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
-import { Form, Input, Checkbox, Row, Col, Typography } from 'antd'
+import { Form, Input, Checkbox, Row, Col, Typography, notification } from 'antd'
 import { post } from '../../../api/accountService'
 import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../../redux/useInfo'
@@ -10,7 +10,7 @@ import { SUCCESS_REQUEST } from '../../../constants/statusCode'
 
 const { Text } = Typography
 export default function Signup({ setIsModalSignup }) {
-  const [message, setMessage] = useState()
+  const [messageNo, setMessageNo] = useState()
   const [statusCode, setStatusCode] = useState()
   // const [image, setImage] = useState()
   const [open, setOpen] = useState(false)
@@ -25,38 +25,32 @@ export default function Signup({ setIsModalSignup }) {
   //   upperChar: null,
   //   lowerChar: null
   // })
-
+  const [form] = Form.useForm()
   const [passwordValidate, setPasswordValidate] = useState([])
-  const [passwordStrengh, setPasswordStreng] = useState()
+  const [passwordStrength, setPasswordStrength] = useState()
   const [checked, setChecked] = useState(false)
   const onFinish = async(values) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-      }
-    }
     const data = {
       email: values.user.email,
       password: values.user.password
     }
     try {
-      // const formData = new FormData()
-      // Object.keys(values).forEach(key => formData.append(`${key}`, values[key]))
-      // formData.append('image', image)
-      // formData.append('isAdmin', false)
-      const res = await post('accounts/signup', data, config)
+      const res = await post('accounts/signup', data)
       const token = res.data.token
       await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
       await dispatch(getUserInfo())
-      setMessage('Đăng ký thành công! Kiểm tra email của bạn để lấy thông tin đăng nhập')
+      setMessageNo('Sign up successfully! Please check your email to verify.')
       setOpen(true)
       setIsModalSignup(false)
+      setStatusCode('')
+      setChecked(false)
+      setPasswordStrength(0)
+      openNotificationSuccess('success')
     } catch (error) {
       error?.response?.data && setStatusCode(error.response.data.code !== SUCCESS_REQUEST && 'Email already exists')
     }
+
+    form.resetFields()
   }
 
   const handlePassword = (e) => {
@@ -81,8 +75,23 @@ export default function Signup({ setIsModalSignup }) {
     ])
   }
   useEffect(() => {
-    setPasswordStreng((passwordValidate && passwordValidate.filter((item) => item.status === true)).length)
+    setPasswordStrength((passwordValidate && passwordValidate.filter((item) => item.status === true)).length)
   }, [passwordValidate])
+
+  const openNotificationSuccess = (type) => {
+    notification[type]({
+      message: 'Sign Up',
+      description: messageNo,
+      duration: 2
+    })
+  }
+
+  // const openNotificationFailed = (type) => {
+  //   notification[type]({
+  //     message: 'Failed',
+  //     description: statusCode
+  //   })
+  // }
 
   return (
     <div className='register-form'>
@@ -91,8 +100,13 @@ export default function Signup({ setIsModalSignup }) {
         layout='vertical'
         initialValues={{ remember: true }}
         onFinish={onFinish}
+        form = {form}
+        onValuesChange = {() =>{
+          setStatusCode('')
+          setPasswordStrength()
+        }}
       >
-        {message && message}
+        {/* {message && message} */}
         {open && open}
         {/* <div>
           <Image
@@ -248,36 +262,39 @@ export default function Signup({ setIsModalSignup }) {
             <Input.Password />
           </div>
         </Form.Item>
-        <Typography className='message-error'>
-          <Text type='danger'>{statusCode && statusCode}</Text>
-        </Typography>
-        <Row className={`${passwordStrengh === 0 ? 'none-password' : ''} group-check-password`}>
+        {statusCode !== ''
+          ? <Typography className='message-error'>
+            <Text type='danger'>{statusCode && statusCode}</Text>
+          </Typography>
+          : ''
+        }
+        <Row className={`${passwordStrength === 0 ? 'none-password' : ''} group-check-password`}>
           <Col span={22} offset={1}>
             <Row gutter={6}>
               <Col span={6}>
                 <div
-                  className={`${passwordStrengh && passwordStrengh === 1 ? 'bad-password'
-                    : passwordStrengh === 2 ? 'weak-password'
-                      : passwordStrengh === 3 ? 'medium-password'
-                        : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                  className={`${passwordStrength && passwordStrength === 1 ? 'bad-password'
+                    : passwordStrength === 2 ? 'weak-password'
+                      : passwordStrength === 3 ? 'medium-password'
+                        : passwordStrength === 4 ? 'strong-password' : ''} check-password`}
                 ></div>
               </Col>
               <Col span={6}>
                 <div
-                  className={`${passwordStrengh && passwordStrengh === 2 ? 'weak-password'
-                    : passwordStrengh === 3 ? 'medium-password'
-                      : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                  className={`${passwordStrength && passwordStrength === 2 ? 'weak-password'
+                    : passwordStrength === 3 ? 'medium-password'
+                      : passwordStrength === 4 ? 'strong-password' : ''} check-password`}
                 ></div>
               </Col>
               <Col span={6}>
                 <div
-                  className={`${passwordStrengh && passwordStrengh === 3 ? 'medium-password'
-                    : passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                  className={`${passwordStrength && passwordStrength === 3 ? 'medium-password'
+                    : passwordStrength === 4 ? 'strong-password' : ''} check-password`}
                 ></div>
               </Col>
               <Col span={6}>
                 <div
-                  className={`${passwordStrengh && passwordStrengh === 4 ? 'strong-password' : ''} check-password`}
+                  className={`${passwordStrength && passwordStrength === 4 ? 'strong-password' : ''} check-password`}
                 ></div>
               </Col>
             </Row>
