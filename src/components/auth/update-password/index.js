@@ -4,6 +4,7 @@ import { Button, Form, Input } from 'antd'
 import { updatePassword } from '../../../redux/profileSlice'
 import { validatePassword } from '../../../utils/regex'
 
+<<<<<<< HEAD
 <<<<<<< HEAD:src/components/auth/update-password/index.js
 =======
 const layout = {
@@ -13,6 +14,8 @@ const layout = {
 }
 
 >>>>>>> c55fa38 (fix giao dien connection v2):src/components/auth/UpdatePassword.js
+=======
+>>>>>>> aba0eb6 (fix giao dienj)
 const UpdatePassword = ({ setIsModalPasswordUpdate }) => {
   const dispatch = useDispatch()
   const { status } = useSelector(state => state.profile)
