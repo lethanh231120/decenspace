@@ -40,6 +40,10 @@ export const updateConnection = createAsyncThunk(
   'connections/updateConnection',
   async(info) => {
     const { id, data } = info
+<<<<<<< HEAD
+=======
+    console.log(id, data)
+>>>>>>> a37da6f (done dashboard)
     return await patch(`addresses/connection/connectionId=${id}`, data)
   }
 )
