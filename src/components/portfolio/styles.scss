@@ -257,3 +257,14 @@
         }
     }
 }
+
+.ant-popover-content{
+    padding: 20px;
+    background-color: #fff;
+}
+.ant-popover:after{
+    background-color: #fff;
+}
+.ant-popover-inner{
+    box-shadow: none;
+}
