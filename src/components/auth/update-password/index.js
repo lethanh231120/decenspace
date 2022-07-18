@@ -4,12 +4,6 @@ import { Button, Form, Input } from 'antd'
 import { updatePassword } from '../../../redux/profileSlice'
 import { validatePassword } from '../../../utils/regex'
 
-const layout = {
-  labelCol: {
-    span: 3
-  }
-}
-
 const UpdatePassword = ({ setIsModalPasswordUpdate }) => {
   const dispatch = useDispatch()
   const { status } = useSelector(state => state.profile)
@@ -27,7 +21,7 @@ const UpdatePassword = ({ setIsModalPasswordUpdate }) => {
   }, [status === 'change password successfully'])
 
   return (
-    <Form {...layout} name='nest-message' onFinish={updatePasswordSubmit} >
+    <Form name='nest-message' layout='vertical' onFinish={updatePasswordSubmit} >
       <Form.Item
         name={['user', 'email']}
         label='Email'
@@ -87,7 +81,7 @@ const UpdatePassword = ({ setIsModalPasswordUpdate }) => {
       >
         <Input.Password/>
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+      <Form.Item>
         <Button type='primary' htmlType='submit'>
         Submit
         </Button>

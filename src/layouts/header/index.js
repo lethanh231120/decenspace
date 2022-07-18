@@ -87,7 +87,7 @@ const Navbar = () => {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>NIKA.com</div>
+            <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>NIKA.guru</div>
             <Menu onClick={onClick} mode='horizontal' items={items} />
           </div>
           {token ? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '250px' }}>
@@ -110,9 +110,8 @@ const Navbar = () => {
             </Typography>
             <Typography
               variant='subtitle1'
-              // onClick={() => setIsOpen(true)}
               className='header__link'
-              style={{ color: '#fff' }}
+              style={{ color: '#fff', cursor: 'pointer' }}
               onClick={() => setIsModalPasswordUpdate(true)}
             >
               Change Password
@@ -121,7 +120,7 @@ const Navbar = () => {
               variant='subtitle1'
               onClick={logout}
               className=' header__link'
-              style={{ color: '#fff' }}
+              style={{ color: '#fff', cursor: 'pointer' }}
             >
               Logout
             </Typography>
