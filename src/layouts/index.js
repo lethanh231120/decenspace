@@ -29,7 +29,7 @@ const Router = () => {
           <Route path='blog' element={<Blogs />} />
           <Route path='profile' element={<ProfilePage />} />
           <Route path='edit-profile' element={<EditProfilePage />} />
-          <Route path='connect-wallet' element={<ConnectWalletPage />} />
+          <Route path='connect/:platformId' element={<ConnectWalletPage />} />
           <Route path='connect-portfolio' element={<ConnectPortfolioPage />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>

@@ -66,6 +66,7 @@ const WalletAddress = ({ list_connection, status }) => {
                     <div className='tab-list-icon'>
                       <Popconfirm
                         placement='top'
+                        className='popover'
                         title='Are you sure to delete this connection?'
                         onConfirm={() => handleDeleteAddress(item.id)}
                         okText='Yes'
