@@ -36,7 +36,6 @@ export default function Signup({ setIsModalSignup }) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-        // 'Accept': 'application/json'
       }
     }
     const data = {
@@ -317,7 +316,7 @@ export default function Signup({ setIsModalSignup }) {
           />
           <img
             className='google-icon'
-            src='http://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png'
+            src='/google.png'
             alt='google-icon'
           />
           <img

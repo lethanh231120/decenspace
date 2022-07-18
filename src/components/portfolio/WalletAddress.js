@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Button, Col, Row, Tabs, Divider, Input } from 'antd'
+import { Button, Col, Row, Tabs, Divider, Input, Popconfirm } from 'antd'
 import './styles.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getAllConnection, deleteConnection } from '../../redux/addressSlice'
 import ModalContent from '../modal/connect-portfolio'
 import ModalEdit from '../modal/modal-edit'
 import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
 const { TabPane } = Tabs
-const WalletAddress = () => {
+const WalletAddress = ({ list_connection, status }) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isModalEdit, setIsModalEdit] = useState(false)
   const [dataEdit, setDataEdit] = useState(false)
   const [searchFilter, setSearchFilter] = useState('')
   const dispatch = useDispatch()
-  const { list_connection, status } = useSelector(state => state.connections)
+  // const { list_connection, status } = useSelector(state => state.connections)
   const { Search } = Input
 
+  console.log(status)
   const handleConnectPortfolio = () => {
     setIsModalVisible(true)
   }
@@ -31,11 +32,10 @@ const WalletAddress = () => {
   }, [dispatch, isModalEdit, status === SUCCESS_DELETE_CONNECTION])
 
   const handleTabClick = (e) => {
-    console.log(e)
+    // console.log(e)
   }
 
   const handleDeleteAddress = (id) => {
-    console.log(id)
     dispatch(deleteConnection(id))
   }
 
@@ -64,7 +64,15 @@ const WalletAddress = () => {
                   <div className='tab-list-item'>
                     {item.connectionName}
                     <div className='tab-list-icon'>
-                      <DeleteOutlined className='tab-list-icon-item' onClick={() => handleDeleteAddress(item.id)}/>
+                      <Popconfirm
+                        placement='top'
+                        title='Are you sure to delete this connection?'
+                        onConfirm={() => handleDeleteAddress(item.id)}
+                        okText='Yes'
+                        cancelText='No'
+                      >
+                        <DeleteOutlined className='tab-list-icon-item' />
+                      </Popconfirm>
                       <EditOutlined className='tab-list-icon-item' onClick={() => handleEditAddress(item)}/>
                     </div>
                   </div>

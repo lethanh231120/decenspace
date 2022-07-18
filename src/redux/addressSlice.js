@@ -32,7 +32,6 @@ export const getAllConnection = createAsyncThunk(
 export const deleteConnection = createAsyncThunk(
   'connections/deleteConnection',
   async(id) => {
-    console.log(id)
     return await del(`addresses/connection/connectionId=${id}`)
   }
 )
@@ -41,7 +40,6 @@ export const updateConnection = createAsyncThunk(
   'connections/updateConnection',
   async(info) => {
     const { id, data } = info
-    console.log(id, data)
     return await patch(`addresses/connection/connectionId=${id}`, data)
   }
 )

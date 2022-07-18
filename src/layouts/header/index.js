@@ -29,6 +29,10 @@ const items = [
     key: 'swap'
   },
   {
+    label: (<NavLink className='header__link' to='cryptocurrencies'>Cryptocurrencies</NavLink>),
+    key: 'cryptocurrencies'
+  },
+  {
     label: (
       <NavLink className='header__link' to='price'>Pricing</NavLink>
     ),
@@ -52,7 +56,6 @@ const Navbar = () => {
   const onClick = (e) => {
     // setCurrent(e.key)
   }
-
   const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
   const userInfo = getCookie(STORAGEKEY.USER_INFO)
 
@@ -84,7 +87,7 @@ const Navbar = () => {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>DECENSPACE</div>
+            <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>NIKA.guru</div>
             <Menu onClick={onClick} mode='horizontal' items={items} />
           </div>
           {token ? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '250px' }}>
@@ -107,9 +110,8 @@ const Navbar = () => {
             </Typography>
             <Typography
               variant='subtitle1'
-              // onClick={() => setIsOpen(true)}
               className='header__link'
-              style={{ color: '#fff' }}
+              style={{ color: '#fff', cursor: 'pointer' }}
               onClick={() => setIsModalPasswordUpdate(true)}
             >
               Change Password
@@ -118,17 +120,17 @@ const Navbar = () => {
               variant='subtitle1'
               onClick={logout}
               className=' header__link'
-              style={{ color: '#fff' }}
+              style={{ color: '#fff', cursor: 'pointer' }}
             >
               Logout
             </Typography>
           </div>
             : <div style={{ display: 'flex', alignItems: 'center', width: '150px', justifyContent: 'space-around ' }}>
               <Typography style={{ color: '#fff' }} onClick={() => setIsModalSignin(true)}>
-                Đăng nhập
+                Signin
               </Typography>
               <Typography style={{ color: '#fff' }} onClick={() => setIsModalSignup(true)}>
-                Đăng ký
+                Signup
               </Typography>
             </div>}
         </Header>

@@ -4,20 +4,22 @@ import { usdMoneyFormat } from '../../utils/parseFloat'
 import Table from '../table'
 import './styles.scss'
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
+import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
 import { get } from '../../api/addressService'
+import { getDataDemo } from '../../api/dataDemo'
 import { EXCHANGE } from '../../constants/TypeConstants'
 
 const { Option } = Select
 
 const handleChange = (value) =>{
-  console.log(value)
+  // console.log(value)
 }
 
-const Analyst = () => {
+const Analyst = ({ status }) => {
   const priceChange = parseFloat('2.36')
   const [data, setData] = useState([])
   const [totalValue, setTotalValue] = useState(0)
-  const amountArray = []
+  // const amountArray = []
   useEffect(()=>{
     const getData = async() =>{
       const response = await get('addresses/holdings')
@@ -25,22 +27,44 @@ const Analyst = () => {
       setData(data)
     }
     getData()
+  }, [status === SUCCESS_DELETE_CONNECTION])
+
+  // get data demo list coins
+  const getDataCoinstats = async() => {
+    const res = await getDataDemo('coins', {
+      skip: 0,
+      limit: 100,
+      currency: 'EUR'
+    })
+    console.log(res.coins)
+  }
+
+  useEffect(() => {
+    getDataCoinstats()
   }, [])
 
-  useEffect(()=>{
-    data?.map((item)=>{
-      const amount = (item.holdings[0].holding.amount) * EXCHANGE
-      amountArray.push(amount)
-      const coinPriceByUSD = item.holdings[0].coinPriceUSD
-      let totalVal = 0
-      for (let i = 0; i < amountArray.length; i++) {
-        totalVal += amountArray[i] * coinPriceByUSD
-      }
-      setTotalValue(totalVal)
-    })
-  }, [data])
+  // end get data demo coins
 
-  console.log(totalValue)
+  useEffect(()=>{
+    // 5 lần lặp
+    let number = 0
+    data?.map((item, index)=>{
+      const amount = (item.holdings[0].holding.amount) * EXCHANGE
+      // amountArray.push(amount)
+      const coinPriceByUSD = item.holdings[0].coinPriceUSD
+      console.log({
+        'amount': amount,
+        'coinPriceByUSD': coinPriceByUSD
+      })
+      number += amount * coinPriceByUSD
+      // let totalVal = 0
+      // for (let i = 0; i < amountArray.length; i++) {
+      //   totalVal += amountArray[i] * coinPriceByUSD
+      // }
+      // setTotalValue(totalVal)
+    })
+    setTotalValue(number)
+  }, [data])
 
   return (
     <div className='dashboard'>

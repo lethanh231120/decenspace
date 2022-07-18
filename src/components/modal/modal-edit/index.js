@@ -17,7 +17,6 @@ const ModalEdit = ({ isModalEdit, setIsModalEdit, dataEdit }) => {
     }
   }, [status])
 
-  console.log(dataEdit)
   const handleCancel = () => {
     setIsModalEdit(false)
   }
