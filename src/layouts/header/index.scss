@@ -60,4 +60,9 @@
         padding: 56px;
     }
 }
+.header__link{
+    &:hover{
+        color: $orange-main-color !important;
+    }
+}
 

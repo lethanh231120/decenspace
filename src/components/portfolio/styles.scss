@@ -60,7 +60,9 @@
     //         padding: 0 40px;
     //     }
     // }
-
+    .ant-popover{
+        background-color: $font__color--white;
+    }
     .ant-tabs-right > .ant-tabs-content-holder,
     .ant-tabs-left > div > .ant-tabs-content-holder {
         border-right: 0px;
