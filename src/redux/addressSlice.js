@@ -40,10 +40,6 @@ export const updateConnection = createAsyncThunk(
   'connections/updateConnection',
   async(info) => {
     const { id, data } = info
-<<<<<<< HEAD
-=======
-    console.log(id, data)
->>>>>>> e12dce7 (fix conflict)
     return await patch(`addresses/connection/connectionId=${id}`, data)
   }
 )
