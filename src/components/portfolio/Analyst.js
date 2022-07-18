@@ -4,13 +4,9 @@ import { usdMoneyFormat } from '../../utils/parseFloat'
 import Table from '../table'
 import './styles.scss'
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
-<<<<<<< HEAD
 import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
 import { get } from '../../api/addressService'
 import { getDataDemo } from '../../api/dataDemo'
-=======
-import { get } from '../../api/addressService'
->>>>>>> f4bcc8c (complete dashboard table)
 import { EXCHANGE } from '../../constants/TypeConstants'
 
 const { Option } = Select
@@ -23,11 +19,7 @@ const Analyst = ({ status }) => {
   const priceChange = parseFloat('2.36')
   const [data, setData] = useState([])
   const [totalValue, setTotalValue] = useState(0)
-<<<<<<< HEAD
   // const amountArray = []
-=======
-  const amountArray = []
->>>>>>> f4bcc8c (complete dashboard table)
   useEffect(()=>{
     const getData = async() =>{
       const response = await get('addresses/holdings')
@@ -35,7 +27,6 @@ const Analyst = ({ status }) => {
       setData(data)
     }
     getData()
-<<<<<<< HEAD
   }, [status === SUCCESS_DELETE_CONNECTION])
 
   // get data demo list coins
@@ -75,25 +66,6 @@ const Analyst = ({ status }) => {
     setTotalValue(number)
   }, [data])
 
-=======
-  }, [])
-
-  useEffect(()=>{
-    data?.map((item)=>{
-      const amount = (item.holdings[0].holding.amount) * EXCHANGE
-      amountArray.push(amount)
-      const coinPriceByUSD = item.holdings[0].coinPriceUSD
-      let totalVal = 0
-      for (let i = 0; i < amountArray.length; i++) {
-        totalVal += amountArray[i] * coinPriceByUSD
-      }
-      setTotalValue(totalVal)
-    })
-  }, [data])
-
-  console.log(totalValue)
-
->>>>>>> f4bcc8c (complete dashboard table)
   return (
     <div className='dashboard'>
       <Row>
