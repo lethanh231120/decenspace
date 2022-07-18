@@ -3,8 +3,7 @@ import { getCookie, STORAGEKEY } from '../utils/storage/index'
 
 const getUrlPrefix = () => '/'
 const instance = axios.create({
-  baseURL: '/coinPriceService'
-  // baseURL: 'http://139.180.147.199:8000'
+  baseURL: 'https://api.coinstats.app/public/v1'
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
@@ -13,7 +12,7 @@ if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
-const get = async(url, params = {}) => {
+const getDataDemo = async(url, params = {}) => {
   const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
   if (token) {
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -95,4 +94,4 @@ const patch = async(url, data = {}) => {
   }
 }
 
-export { get, post, del, put, patch }
+export { getDataDemo, post, del, put, patch }

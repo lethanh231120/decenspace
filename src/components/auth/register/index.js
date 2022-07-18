@@ -316,7 +316,7 @@ export default function Signup({ setIsModalSignup }) {
           />
           <img
             className='google-icon'
-            src='http://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png'
+            src='/google.png'
             alt='google-icon'
           />
           <img
