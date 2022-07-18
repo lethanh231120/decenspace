@@ -3,27 +3,7 @@ import { getCookie, STORAGEKEY } from '../utils/storage/index'
 
 const getUrlPrefix = () => '/'
 const instance = axios.create({
-<<<<<<< HEAD
-<<<<<<< HEAD
-  // baseURL: 'http://139.180.147.199:8081'
-  // baseURL: 'https://bb36-104-28-222-76.ap.ngrok.io',
   baseURL: '/addressService'
-=======
-  baseURL: '//139.180.147.199:8081'
-  // baseURL: 'https://ca6d-118-70-117-216.ap.ngrok.io'
->>>>>>> 9c169cb (delete http)
-=======
-<<<<<<< HEAD
-  // baseURL: 'https://bb36-104-28-222-76.ap.ngrok.io',
-  baseURL: '/addressService'
-=======
-  baseURL: 'https://a204-118-70-117-216.ap.ngrok.io'
->>>>>>> e945c4d (fix giao dien profile, edit profile)
-=======
-  // baseURL: 'https://bb36-104-28-222-76.ap.ngrok.io',
-  baseURL: '/addressService'
->>>>>>> 07c61fd (fix netlify)
->>>>>>> e12dce7 (fix conflict)
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
