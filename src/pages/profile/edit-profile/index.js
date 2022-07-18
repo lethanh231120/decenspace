@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserInfo } from '../../../redux/useInfo'
+<<<<<<< HEAD
 import { Form, Input, Button, Select, Layout, Row, Col, Typography, Image, DatePicker, Spin } from 'antd'
 import { patch } from '../../../api/accountService'
+=======
+import { Form, Input, Button, Select, Layout, Row, Col, Typography, Image } from 'antd'
+import { patch } from '../../../api/BaseRequest'
+>>>>>>> e945c4d (fix giao dien profile, edit profile)
 import { useNavigate } from 'react-router-dom'
 import './index.scss'
 import { validatePhone, validateEmail, validateMaxLength } from '../../../utils/regex'
