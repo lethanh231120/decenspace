@@ -1,6 +1,6 @@
 @import "../../../assets/variable.scss";
 
-.message-error.ant-typography {
+.message-error.ant-typography{
     text-align: left;
 }
 .ant-modal-content {
@@ -93,6 +93,8 @@
             }
         }
         & .ant-form-item-with-help .ant-form-item-explain {
+        & .ant-form-item-with-help .ant-form-item-explain {
+        & .ant-form-item-with-help .ant-form-item-explain{
             text-align: left;
         }
     }
@@ -129,4 +131,6 @@
 }
 .group-check-password {
     padding: 20px;
+}
+}
 }

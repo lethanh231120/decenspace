@@ -3,6 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form, Input } from 'antd'
 import { updatePassword } from '../../../redux/profileSlice'
 import { validatePassword } from '../../../utils/regex'
+<<<<<<< HEAD
+=======
+
+const layout = {
+  labelCol: {
+    span: 3
+  }
+}
+>>>>>>> 3db5465 (fix giao dien)
 
 <<<<<<< HEAD
 <<<<<<< HEAD:src/components/auth/update-password/index.js
