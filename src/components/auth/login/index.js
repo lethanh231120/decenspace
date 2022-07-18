@@ -41,7 +41,7 @@ export default function SignIn({ setIsModalSignin }) {
   }
 
   return (
-    <div>
+    <div className='login-form'>
       <Form
         name='basic'
         labelCol={{ span: 8 }}

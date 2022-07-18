@@ -29,9 +29,6 @@ const ConnectWallet = () => {
     await dispatch(importConnection(values))
   }
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
-  }
   return (
     <div style={{ padding: '50px 0', margin: '0px auto', width: '500px' }}>
       <Typography style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -47,7 +44,6 @@ const ConnectWallet = () => {
       </Typography>
       <Form
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete='off'
         layout='vertical'
         form={form}

@@ -29,6 +29,10 @@ const items = [
     key: 'swap'
   },
   {
+    label: (<NavLink className='header__link' to='cryptocurrencies'>Cryptocurrencies</NavLink>),
+    key: 'cryptocurrencies'
+  },
+  {
     label: (
       <NavLink className='header__link' to='price'>Pricing</NavLink>
     ),
@@ -83,7 +87,7 @@ const Navbar = () => {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>DECENSPACE</div>
+            <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>NIKA.com</div>
             <Menu onClick={onClick} mode='horizontal' items={items} />
           </div>
           {token ? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '250px' }}>

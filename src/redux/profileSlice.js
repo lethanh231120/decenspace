@@ -20,7 +20,6 @@ export const getProfile = createAsyncThunk(
 export const updatePassword = createAsyncThunk(
   'password/updatePassword',
   async(data) => {
-    console.log(data)
     return await patch('accounts/change-password', data, config)
   }
 )
