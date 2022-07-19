@@ -66,7 +66,10 @@ const WalletAddress = ({ list_connection, status }) => {
                     <div className='tab-list-icon'>
                       <Popconfirm
                         placement='top'
+<<<<<<< HEAD
                         className='popover'
+=======
+>>>>>>> 07c61fd (fix netlify)
                         title='Are you sure to delete this connection?'
                         onConfirm={() => handleDeleteAddress(item.id)}
                         okText='Yes'

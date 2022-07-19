@@ -3,7 +3,11 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 module.exports = function(app) {
   app.use(
     createProxyMiddleware('/addressService', {
+<<<<<<< HEAD
       target: 'http://139.180.147.199:8082',
+=======
+      target: 'http://139.180.147.199:8081',
+>>>>>>> 07c61fd (fix netlify)
       changeOrigin: true,
       pathRewrite: {
         '^/addressService': ''
@@ -15,7 +19,11 @@ module.exports = function(app) {
   )
   app.use(
     createProxyMiddleware('/accountService', {
+<<<<<<< HEAD
       target: 'http://139.180.147.199:8080',
+=======
+      target: 'http://139.180.147.199:8100',
+>>>>>>> 07c61fd (fix netlify)
       changeOrigin: true,
       pathRewrite: {
         '^/accountService': ''
@@ -27,7 +35,11 @@ module.exports = function(app) {
   )
   app.use(
     createProxyMiddleware('/coinPriceService', {
+<<<<<<< HEAD
       target: 'http://139.180.147.199:8081',
+=======
+      target: 'http://139.180.147.199:8000',
+>>>>>>> 07c61fd (fix netlify)
       changeOrigin: true,
       pathRewrite: {
         '^/coinPriceService': ''

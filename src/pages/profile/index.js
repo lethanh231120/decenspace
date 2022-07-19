@@ -17,7 +17,6 @@ const Profile = () => {
   const handleCancel = () => {
     navigate(-1)
   }
-  console.log(user)
   return (
     <Content className='profile'>
       <div className='profile-avatar'>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserInfo } from '../../../redux/useInfo'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Form, Input, Button, Select, Layout, Row, Col, Typography, Image, DatePicker, Spin } from 'antd'
 import { patch } from '../../../api/accountService'
 =======
@@ -31,6 +32,24 @@ const EditProfile = () => {
   const [phoneCode, setPhoneCode] = useState()
   const [typeSearch, setTypeSearch] = useState('number')
 
+=======
+import { Form, Input, Button, Select, Layout, Row, Col, Typography, Image, DatePicker } from 'antd'
+import { patch } from '../../../api/accountService'
+import { useNavigate } from 'react-router-dom'
+import './index.scss'
+import { validatePhone, validateEmail } from '../../../utils/regex'
+import phones from '../../../utils/phoneCode.json'
+// import moment from 'moment'
+const { Option } = Select
+const { Content } = Layout
+
+const EditProfile = () => {
+  // const [error, setError] = useState()
+  // const [image, setImage] = useState()
+  // const [message, setMessage] = useState()
+  // const [open, setOpen] = useState(false)
+  const [phoneCode, setPhoneCode] = useState('+1')
+>>>>>>> 07c61fd (fix netlify)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector(state => state.userInfo)
@@ -43,6 +62,7 @@ const EditProfile = () => {
     setPhoneCode(value)
   }
 
+<<<<<<< HEAD
   const handleSearchPhoneCode = (value) => {
     const number = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     number.some((item) => {
@@ -72,6 +92,8 @@ const EditProfile = () => {
     getPhoneCode()
   }, [countryCode])
 
+=======
+>>>>>>> 07c61fd (fix netlify)
   const prefixSelector = (
     <Form.Item name='prefix' noStyle>
       <Select
@@ -120,6 +142,7 @@ const EditProfile = () => {
   console.log(phoneCode)
   return (
     <>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <Content className='profile'>
         {phoneCode ? (
@@ -313,9 +336,12 @@ const EditProfile = () => {
         </div>)}
 =======
       <Form {...layout} name='nest-messages' onFinish={onFinish} >
+=======
+      {/* <Form name='nest-messages' onFinish={onFinish} >
+>>>>>>> 07c61fd (fix netlify)
         {open && open}
         <div style={{ color: '#fff' }}>{message && message}</div>
-        {/* <div>
+        <div>
           <Image
             width={200}
             src={(user && !image) ? user.image : (user && image) ? (URL.createObjectURL(image)) : user ? user.image : '/images/user.png'}
@@ -326,8 +352,8 @@ const EditProfile = () => {
             type='file'
             onChange={(e) => setImage(e.target.files[0])}
           />
-        </div> */}
-        {/* <Form.Item
+        </div>
+        <Form.Item
           style={{ color: '#fff' }}
           name='first_name'
           label='Họ đệm'
@@ -339,7 +365,7 @@ const EditProfile = () => {
           ]}
         >
           <Input placeholder={`${user && user.first_name}`}/>
-        </Form.Item> */}
+        </Form.Item>
         <Form.Item
           name='name'
           label='Tên'
@@ -352,7 +378,7 @@ const EditProfile = () => {
         >
           <Input placeholder={`${user && user.name}`}/>
         </Form.Item>
-        {/* <Form.Item
+        <Form.Item
           name='email'
           label='Email'
           rules={[
@@ -365,7 +391,7 @@ const EditProfile = () => {
           ]}
         >
           <Input placeholder={`${user && user.email}`}/>
-        </Form.Item> */}
+        </Form.Item>
         <Form.Item
           name='phone'
           label='Phone'
@@ -399,7 +425,7 @@ const EditProfile = () => {
           <Input placeholder={`${user && user.address}`}/>
         </Form.Item>
         {error && error}
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+        <Form.Item>
           <Button type='primary' htmlType='submit'>
             Cập nhật
           </Button>
@@ -407,87 +433,186 @@ const EditProfile = () => {
             Hủy
           </Button>
         </Form.Item>
-      </Form>
+      </Form> */}
       <Content className='profile'>
-        <div className='profile-avatar'>
-          <Image
-            preview={false}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            alt='avatar-official'
-            src={user?.image || '/profile-user.png'}
-          />
-        </div>
-        <div className='profile-content'>
-          <Row gutter={24}>
-            <Col span={8} className='profile-col'>
-              <div className='profile-item'>
-                <Typography>Tên</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>Email</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>Địa chỉ</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>Số điện thoại</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>Ngày sinh</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>Giới tính</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>Mã quốc gia</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>Số chứng minh thư / CCCD</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>Số hộ chiếu</Typography>
-              </div>
-            </Col>
-            <Col span={16} className='profile-col'>
-              <div className='profile-item'>
-                <Typography>{user.name}</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>{user.email}</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>{user.address}</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>{user.phone}</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>{user.dob}</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>{user.sex}</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>{user.nationalId}</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>{user.idCard}</Typography>
-              </div>
-              <div className='profile-item'>
-                <Typography>{user.passport}</Typography>
-              </div>
-            </Col>
-          </Row>
-          <div className='profile-button'>
-            <Button type='primary' size='medium'>
-              {/* <Link to='../edit-profile'>Edit Profile</Link> */}
+        <Form onFinish={onFinish} >
+          <div className='profile-avatar'>
+            <Image
+              preview={false}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              alt='avatar-official'
+              src={user?.image || '/profile-user.png'}
+            />
+          </div>
+          <div>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Tên</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <Form.Item name='name'>
+                    <Input placeholder={`${user && user.name}`}/>
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Email</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <div className='profile-item-input'>
+                    <Form.Item
+                      name='email'
+                      className='input-item-group'
+                      rules={[
+                        {
+                          type: 'email',
+                          message: 'Please input your email!',
+                          pattern: new RegExp(validateEmail)
+                        }
+                      ]}
+                    >
+                      <Input placeholder={`${user && user.email}`} disabled={true}/>
+                    </Form.Item>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Địa chỉ</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <Form.Item name='address'>
+                    <Input placeholder={`${user && user.address}`}/>
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Số điện thoại</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <Form.Item
+                    name='phone'
+                    rules={[
+                      {
+                        pattern: new RegExp(validatePhone),
+                        message: 'Format is wrong'
+                      }
+                    ]}
+                  >
+                    <Input
+                      addonBefore={prefixSelector}
+                      placeholder={`${user && user.phone}`}
+                      style={{
+                        width: '100%'
+                      }}
+                    />
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Ngày sinh</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <Form.Item name='dob'>
+                    <DatePicker format='DD/MM/YYYY'/>
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Giới tính</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <Form.Item name='sex'>
+                    <Input placeholder={`${user && user.sex}`}/>
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Số chứng minh thư/CCCD</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <Form.Item name='idCard'>
+                    <Input placeholder={`${user && user.idCard}`}/>
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Mã quốc gia</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <Form.Item name='nationalId'>
+                    <Input placeholder={`${user && user.nationalId}`}/>
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+            <Row gutter={24}>
+              <Col span={8} className='profile-col'>
+                <div className='profile-item-edit'>
+                  <Typography>Số hộ chiếu</Typography>
+                </div>
+              </Col>
+              <Col span={16} className='profile-col'>
+                <div className='profile-item-input'>
+                  <Form.Item name='passport'>
+                    <Input placeholder={`${user && user.passport}`}/>
+                  </Form.Item>
+                </div>
+              </Col>
+            </Row>
+          </div>
+          <Form.Item>
+            <Button type='primary' htmlType='submit'>
+              Cập nhật
             </Button>
             <Button type='primary' danger onClick={handleCancel}>
               Hủy
             </Button>
+<<<<<<< HEAD
           </div>
         </div>
 >>>>>>> e945c4d (fix giao dien profile, edit profile)
+=======
+          </Form.Item>
+        </Form>
+>>>>>>> 07c61fd (fix netlify)
       </Content>
     </>
   )

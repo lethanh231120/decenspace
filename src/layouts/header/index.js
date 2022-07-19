@@ -87,7 +87,11 @@ const Navbar = () => {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+<<<<<<< HEAD
             <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>NIKA.guru</div>
+=======
+            <div className='logo' style={{ fontSize: '20px', fontWeight: '500', color: '#fff' }}>NIKA.com</div>
+>>>>>>> 07c61fd (fix netlify)
             <Menu onClick={onClick} mode='horizontal' items={items} />
           </div>
           {token ? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '250px' }}>
