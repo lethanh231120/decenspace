@@ -18,6 +18,10 @@ export default function Home() {
     // setType(PORTFOLIO_CONNECT)
   }
 
+  const handleConnectMetaMask = () => {
+    navigate('../connect-metamask')
+  }
+
   return (
     <div style={{ padding: '100px 0', margin: '0px auto' }}>
       <Typography style={{ textAlign: 'center', alignItems: 'center' }}>
@@ -45,7 +49,7 @@ export default function Home() {
                 </Text>
               </div>
             </Col>
-            <Col span={8}>
+            <Col onClick={handleConnectMetaMask}>
               <div style={{ cursor: 'pointer', border: '1px solid #262626', borderRadius: '12px', padding: '15px 0' }}>
                 <Image
                   width={80}
@@ -54,8 +58,7 @@ export default function Home() {
                 />
                 <Text style={{ fontSize: '16px', color: '#A8ADB3', fontWeight: '200', display: 'block' }}>Binance</Text>
                 <Text style={{ fontSize: '17px', color: '#fff', fontWeight: '400' }}>
-                  Connect
-                  <ArrowRightOutlined style={{ fontSize: '12px', marginLeft: '6px' }}/>
+                  Connect  <ArrowRightOutlined style={{ fontSize: '12px', marginLeft: '6px' }}/>
                 </Text>
               </div>
             </Col>

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
-import { Form, Input, Checkbox, Row, Col, Typography, notification } from 'antd'
+import { Form, Input, Checkbox, Row, Col, Typography, notification, Modal } from 'antd'
 import { post } from '../../../api/accountService'
 import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../../redux/useInfo'
 import { validateEmail, validatePassword } from '../../../utils/regex'
 import './style.scss'
 import { SUCCESS_REQUEST } from '../../../constants/statusCode'
+import SignIn from '../login'
 
 const { Text } = Typography
 export default function Signup({ setIsModalSignup }) {
-  const [messageNo, setMessageNo] = useState()
+  const [message, setMessage] = useState()
   const [statusCode, setStatusCode] = useState()
   // const [image, setImage] = useState()
   const [open, setOpen] = useState(false)
@@ -29,6 +30,7 @@ export default function Signup({ setIsModalSignup }) {
   const [passwordValidate, setPasswordValidate] = useState([])
   const [passwordStrength, setPasswordStrength] = useState()
   const [checked, setChecked] = useState(false)
+  const [isModalSignin, setIsModalSignin] = useState(false)
   const onFinish = async(values) => {
     const data = {
       email: values.user.email,
@@ -39,18 +41,17 @@ export default function Signup({ setIsModalSignup }) {
       const token = res.data.token
       await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
       await dispatch(getUserInfo())
-      setMessageNo('Sign up successfully! Please check your email to verify.')
+      setMessage('Sign up successfully! Please check your email to verify.')
       setOpen(true)
       setIsModalSignup(false)
       setStatusCode('')
       setChecked(false)
       setPasswordStrength(0)
       openNotificationSuccess('success')
+      form.resetFields()
     } catch (error) {
       error?.response?.data && setStatusCode(error.response.data.code !== SUCCESS_REQUEST && 'Email already exists')
     }
-
-    form.resetFields()
   }
 
   const handlePassword = (e) => {
@@ -81,9 +82,14 @@ export default function Signup({ setIsModalSignup }) {
   const openNotificationSuccess = (type) => {
     notification[type]({
       message: 'Sign Up',
-      description: messageNo,
+      description: message,
       duration: 2
     })
+  }
+
+  const handleChangeModal = () => {
+    setIsModalSignup(false)
+    setIsModalSignin(true)
   }
 
   // const openNotificationFailed = (type) => {
@@ -341,8 +347,16 @@ export default function Signup({ setIsModalSignup }) {
           />
         </div>
         <div className='register-form__login-link'>
-          <span> Already have an account? <a>Sign in</a></span>
+          <span> Already have an account? <a onClick={handleChangeModal}>Sign in</a></span>
         </div>
+        <Modal
+          visible={isModalSignin}
+          footer={null}
+          onOk={() => setIsModalSignin(false)}
+          onCancel={() => setIsModalSignin(false)}
+        >
+          <SignIn setIsModalSignin={setIsModalSignin}/>
+        </Modal>
       </div>
     </div>
   )
