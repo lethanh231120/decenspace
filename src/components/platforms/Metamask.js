@@ -1,24 +1,27 @@
 import React, { useState } from 'react'
 import { Typography, Image, Form, Input, Button, Tabs, Select, Modal } from 'antd'
-// import { useDispatch } from 'react-redux'
-// import { importConnection } from '../../redux/addressSlice'
 import { SearchOutlined } from '@ant-design/icons'
 import './platform.scss'
 import { FormListItem } from '../form/FormList'
+import { ethers } from 'ethers'
 const { TabPane } = Tabs
 const { Text } = Typography
 const { Option } = Select
 
 const children = []
-
+const { ethereum } = window
+const provider = new ethers.providers.Web3Provider(window.ethereum)
+const abc = new ethers.providers.Web3Provider(window.ethereum, 'any')
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>)
 }
 
 export const Metamask = () => {
-  const [isModalConnect, setIsModalVisible] = useState(false)
+  const [data, setdata] = useState({
+    address: '',
+    Balance: null
+  })
   const [form] = Form.useForm()
-  // const dispatch = useDispatch()
 
   const error = () => {
     Modal.error({
@@ -33,15 +36,22 @@ export const Metamask = () => {
   }
 
   const onFinish = async(values) => {
-    console.log(values)
-    if (window.ethereum) {
-      // Làm việc gì đó
-      console.log('đã kết nối metamask')
+    if (ethereum) {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+      const balance = await provider.getBalance(accounts[0])
+      const bal = ethers.utils.formatEther(balance)
+      setdata({
+        address: accounts[0],
+        Balance: bal
+      })
+
+      const network = await abc.getNetwork()
+      console.log(network)
+      // const chainId = network.chainId
+      await ethereum.on('chainChanged', (_chainId) => window.location.reload())
     } else {
-      // setIsModalVisible(true)
       return error()
     }
-    // await dispatch(importConnection(values))
   }
 
   return (
@@ -175,14 +185,14 @@ export const Metamask = () => {
           </Form>
         </TabPane>
       </Tabs>
-      <Modal
-        visible={isModalConnect}
-        onOk={() => setIsModalVisible(false)}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
+      <div>
+        <strong>Address: </strong>
+        {data.address}
+      </div>
+      <div>
+        <strong>Balance: </strong>
+        {data.Balance}
+      </div>
     </div>
   )
 }

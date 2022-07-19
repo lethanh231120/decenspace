@@ -25,6 +25,7 @@ export default function Signup({ setIsModalSignup }) {
   //   upperChar: null,
   //   lowerChar: null
   // })
+  console.log(statusCode)
   const [form] = Form.useForm()
   const [passwordValidate, setPasswordValidate] = useState([])
   const [passwordStrength, setPasswordStrength] = useState()
@@ -102,7 +103,7 @@ export default function Signup({ setIsModalSignup }) {
         onFinish={onFinish}
         form = {form}
         onValuesChange = {() =>{
-          setStatusCode('')
+          // setStatusCode('')
           setPasswordStrength()
         }}
       >
