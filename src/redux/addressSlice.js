@@ -21,7 +21,7 @@ const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
 
 const config = {
   headers: {
-    'Authorization': `Bearer + ${token}`
+    'Authorization': `Bearer ${token}`
   }
 }
 export const importConnection = createAsyncThunk(
