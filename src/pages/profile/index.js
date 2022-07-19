@@ -27,6 +27,7 @@ const Profile = () => {
           src={user?.image || '/profile-user.png'}
         />
       </div>
+<<<<<<< HEAD
       <div className='profile-content'>
         <Row gutter={24}>
           <Col span={8} className='profile-col'>
@@ -89,6 +90,51 @@ const Profile = () => {
           </Col>
         </Row>
         <div className='profile-button'>
+=======
+      <div>
+        <Row>
+          <Col>
+            <Typography>Tên</Typography>
+            <Typography>Email</Typography>
+            <Typography>Địa chỉ</Typography>
+            <Typography>Số điện thoại</Typography>
+          </Col>
+          <Col></Col>
+        </Row>
+        <Row gutter={[16, 24]}>
+          <Col className='gutter-row' span={6}>
+            <Typography>Tên</Typography>
+          </Col>
+          <Col className='gutter-row' span={6}>
+            <Typography>{user && user.name}</Typography>
+          </Col>
+        </Row>
+        <Row gutter={[16, 24]}>
+          <Col className='gutter-row' span={6}>
+            <Typography>Email</Typography>
+          </Col>
+          <Col className='gutter-row' span={6}>
+            <Typography>{user && user.email}</Typography>
+          </Col>
+        </Row>
+        <Row gutter={[16, 24]}>
+          <Col className='gutter-row' span={6}>
+            <Typography>Địa chỉ</Typography>
+          </Col>
+          <Col className='gutter-row' span={6}>
+            <Typography>{user && user.address}</Typography>
+          </Col>
+        </Row>
+        <Row gutter={[16, 24]}>
+          <Col className='gutter-row' span={6}>
+            <Typography>Số điện thoại</Typography>
+          </Col>
+          <Col className='gutter-row' span={6}>
+            <Typography>{user && user.phone}</Typography>
+          </Col>
+        </Row>
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '180px' }}>
+>>>>>>> f3d42af (fix url base)
           <Button type='primary' size='medium'>
             <Link to='../edit-profile'>Edit Profile</Link>
           </Button>
