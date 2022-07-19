@@ -15,24 +15,6 @@ const { Option } = Select
 const { Content } = Layout
 
 const EditProfile = () => {
-  const [countryCode, setCountryCode] = useState()
-  const [listPhoneCode, setListPhoneCode] = useState(phones)
-  const [phoneCode, setPhoneCode] = useState()
-  const [typeSearch, setTypeSearch] = useState('number')
-
-import { Form, Input, Button, Select, Layout, Row, Col, Typography, Image, DatePicker } from 'antd'
-import { Form, Input, Button, Select, Layout, Row, Col, Typography, Image, DatePicker, Spin } from 'antd'
-import { patch } from '../../../api/accountService'
-import { useNavigate } from 'react-router-dom'
-import './index.scss'
-import { validatePhone, validateEmail, validateMaxLength } from '../../../utils/regex'
-import phones from '../../../utils/phoneCode.json'
-import axios from 'axios'
-
-const { Option } = Select
-const { Content } = Layout
-
-const EditProfile = () => {
   // const [error, setError] = useState()
   // const [image, setImage] = useState()
   // const [message, setMessage] = useState()
