@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
-import { Form, Input, Checkbox, Row, Col, Typography, notification } from 'antd'
+import { Form, Input, Checkbox, Row, Col, Typography, notification, Modal } from 'antd'
 import { post } from '../../../api/accountService'
 import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../../redux/useInfo'
 import { validateEmail, validatePassword } from '../../../utils/regex'
 import './style.scss'
 import { SUCCESS_REQUEST } from '../../../constants/statusCode'
+import SignIn from '../login'
 
 const { Text } = Typography
 export default function Signup({ setIsModalSignup }) {
@@ -29,6 +30,7 @@ export default function Signup({ setIsModalSignup }) {
   const [passwordValidate, setPasswordValidate] = useState([])
   const [passwordStrength, setPasswordStrength] = useState()
   const [checked, setChecked] = useState(false)
+  const [isModalSignin, setIsModalSignin] = useState(false)
   const onFinish = async(values) => {
     const data = {
       email: values.user.email,
@@ -83,6 +85,11 @@ export default function Signup({ setIsModalSignup }) {
       description: message,
       duration: 2
     })
+  }
+
+  const handleChangeModal = () => {
+    setIsModalSignup(false)
+    setIsModalSignin(true)
   }
 
   // const openNotificationFailed = (type) => {
@@ -340,8 +347,16 @@ export default function Signup({ setIsModalSignup }) {
           />
         </div>
         <div className='register-form__login-link'>
-          <span> Already have an account? <a>Sign in</a></span>
+          <span> Already have an account? <a onClick={handleChangeModal}>Sign in</a></span>
         </div>
+        <Modal
+          visible={isModalSignin}
+          footer={null}
+          onOk={() => setIsModalSignin(false)}
+          onCancel={() => setIsModalSignin(false)}
+        >
+          <SignIn setIsModalSignin={setIsModalSignin}/>
+        </Modal>
       </div>
     </div>
   )

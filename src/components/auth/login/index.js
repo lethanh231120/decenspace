@@ -84,7 +84,7 @@ export default function SignIn({ setIsModalSignin }) {
           style={{ textAlign: 'right', color: '#000', cursor: 'pointer' }}
           onClick={() => setIsModalForgotPassword(true) || setIsModalSignin(false)}
         >
-          Quên mật khẩu?
+          Forgot Password ?
         </Typography>
         {/* {error && error} */}
         <Form.Item>
