@@ -2,6 +2,7 @@ import React from 'react'
 import { Typography, Image, Form, Input, Button } from 'antd'
 import { useDispatch } from 'react-redux'
 import { importConnection } from '../../redux/addressSlice'
+import './platform.scss'
 const { Text } = Typography
 export const Bitcoin = () => {
   const [form] = Form.useForm()
@@ -10,15 +11,15 @@ export const Bitcoin = () => {
   }
   const dispatch = useDispatch()
   return (
-    <>
-      <Typography style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ fontWeight: 'bold', fontSize: '30px', color: '#fff', marginRight: '10px' }}>
+    <div className='bitcoin'>
+      <Typography className='bitcoin-title'>
+        <Text className='bitcoin-text'>
           New Portfolio :
         </Text>
         <Image
           width={30}
           preview={false}
-          src='/bitcoin.png'
+          src='/coins/bitcoin.png'
         />
         <Text style={{ color: '#fff', marginLeft: '10px' }}>Bitcoin</Text>
       </Typography>
@@ -59,6 +60,6 @@ export const Bitcoin = () => {
           )}
         </Form.Item>
       </Form>
-    </>
+    </div>
   )
 }

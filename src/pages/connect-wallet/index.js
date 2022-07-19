@@ -33,7 +33,7 @@ const ConnectWallet = () => {
   }
 
   return (
-    <div style={{ padding: '50px 0', margin: '0px auto', width: '500px' }}>
+    <div>
       {render().platform}
       <ModalLoadingConnect
         isModalLoading={isModalLoading}
