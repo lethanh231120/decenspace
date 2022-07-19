@@ -27,10 +27,6 @@ const Profile = () => {
           src={user?.image || '/profile-user.png'}
         />
       </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> e945c4d (fix giao dien profile, edit profile)
       <div className='profile-content'>
         <Row gutter={24}>
           <Col span={8} className='profile-col'>
@@ -61,7 +57,6 @@ const Profile = () => {
             <div className='profile-item'>
               <Typography>Số hộ chiếu</Typography>
             </div>
-<<<<<<< HEAD
           </Col>
           <Col span={16} className='profile-col'>
             <div className='profile-item'>
@@ -93,78 +88,9 @@ const Profile = () => {
             </div>
           </Col>
         </Row>
-        <div className='profile-button'>
-=======
-      <div>
-        <Row>
-          <Col>
-            <Typography>Tên</Typography>
-            <Typography>Email</Typography>
-            <Typography>Địa chỉ</Typography>
-            <Typography>Số điện thoại</Typography>
-=======
->>>>>>> e945c4d (fix giao dien profile, edit profile)
-          </Col>
-          <Col span={16} className='profile-col'>
-            <div className='profile-item'>
-              <Typography>{user.name}</Typography>
-            </div>
-            <div className='profile-item'>
-              <Typography>{user.email}</Typography>
-            </div>
-            <div className='profile-item'>
-              <Typography>{user.address}</Typography>
-            </div>
-            <div className='profile-item'>
-              <Typography>{user.phone}</Typography>
-            </div>
-            <div className='profile-item'>
-              <Typography>{user.dob}</Typography>
-            </div>
-            <div className='profile-item'>
-              <Typography>{user.sex}</Typography>
-            </div>
-            <div className='profile-item'>
-              <Typography>{user.nationalId}</Typography>
-            </div>
-            <div className='profile-item'>
-              <Typography>{user.idCard}</Typography>
-            </div>
-            <div className='profile-item'>
-              <Typography>{user.passport}</Typography>
-            </div>
-          </Col>
-        </Row>
-<<<<<<< HEAD
-        <Row gutter={[16, 24]}>
-          <Col className='gutter-row' span={6}>
-            <Typography>Email</Typography>
-          </Col>
-          <Col className='gutter-row' span={6}>
-            <Typography>{user && user.email}</Typography>
-          </Col>
-        </Row>
-        <Row gutter={[16, 24]}>
-          <Col className='gutter-row' span={6}>
-            <Typography>Địa chỉ</Typography>
-          </Col>
-          <Col className='gutter-row' span={6}>
-            <Typography>{user && user.address}</Typography>
-          </Col>
-        </Row>
-        <Row gutter={[16, 24]}>
-          <Col className='gutter-row' span={6}>
-            <Typography>Số điện thoại</Typography>
-          </Col>
-          <Col className='gutter-row' span={6}>
-            <Typography>{user && user.phone}</Typography>
-          </Col>
-        </Row>
+      </div>
+      <div className='profile-button'>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '180px' }}>
->>>>>>> f3d42af (fix url base)
-=======
-        <div className='profile-button'>
->>>>>>> e945c4d (fix giao dien profile, edit profile)
           <Button type='primary' size='medium'>
             <Link to='../edit-profile'>Edit Profile</Link>
           </Button>
