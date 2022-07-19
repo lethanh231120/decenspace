@@ -10,7 +10,7 @@ import { SUCCESS_REQUEST } from '../../../constants/statusCode'
 
 const { Text } = Typography
 export default function Signup({ setIsModalSignup }) {
-  const [messageNo, setMessageNo] = useState()
+  const [message, setMessage] = useState()
   const [statusCode, setStatusCode] = useState()
   // const [image, setImage] = useState()
   const [open, setOpen] = useState(false)
@@ -39,18 +39,17 @@ export default function Signup({ setIsModalSignup }) {
       const token = res.data.token
       await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
       await dispatch(getUserInfo())
-      setMessageNo('Sign up successfully! Please check your email to verify.')
+      setMessage('Sign up successfully! Please check your email to verify.')
       setOpen(true)
       setIsModalSignup(false)
       setStatusCode('')
       setChecked(false)
       setPasswordStrength(0)
       openNotificationSuccess('success')
+      form.resetFields()
     } catch (error) {
       error?.response?.data && setStatusCode(error.response.data.code !== SUCCESS_REQUEST && 'Email already exists')
     }
-
-    form.resetFields()
   }
 
   const handlePassword = (e) => {
@@ -81,7 +80,7 @@ export default function Signup({ setIsModalSignup }) {
   const openNotificationSuccess = (type) => {
     notification[type]({
       message: 'Sign Up',
-      description: messageNo,
+      description: message,
       duration: 2
     })
   }

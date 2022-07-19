@@ -12,6 +12,10 @@ export default function Home() {
 
   const navigate = useNavigate()
 
+  const handleMetaMaskConnect = () => {
+    navigate('../connect/metamask')
+  }
+
   const handelClickConnect = () => {
     navigate('../connect-portfolio')
     // setIsModalVisible(true)
@@ -45,7 +49,7 @@ export default function Home() {
                 </Text>
               </div>
             </Col>
-            <Col span={8}>
+            <Col span={8} onClick={handleMetaMaskConnect}>
               <div style={{ cursor: 'pointer', border: '1px solid #262626', borderRadius: '12px', padding: '15px 0' }}>
                 <Image
                   width={80}
