@@ -15,10 +15,19 @@ import {
   FAILED_UPDATE_CONNECTION
 } from '../constants/StatusMessageConstants'
 
+import { getCookie, STORAGEKEY } from '../utils/storage'
+
+const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
+
+const config = {
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+}
 export const importConnection = createAsyncThunk(
   'connections/importConnection',
   async(data) => {
-    return await post('addresses/import-address', data)
+    return await post('addresses/import-address', data, config)
   }
 )
 

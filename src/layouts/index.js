@@ -32,6 +32,7 @@ const Router = () => {
           <Route path='edit-profile' element={<EditProfilePage />} />
           <Route path='connect-metamask' element={<ConnectMetaMask/>} />
           <Route path='connect-wallet' element={<ConnectWalletPage />} />
+          <Route path='connect/:platformId' element={<ConnectWalletPage />} />
           <Route path='connect-portfolio' element={<ConnectPortfolioPage />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>

@@ -13,9 +13,13 @@ const { Option } = Select
 const { Content } = Layout
 
 const EditProfile = () => {
+  // const [error, setError] = useState()
+  // const [image, setImage] = useState()
+  // const [message, setMessage] = useState()
+  // const [open, setOpen] = useState(false)
+  const [phoneCode, setPhoneCode] = useState('+1')
   const [countryCode, setCountryCode] = useState()
   const [listPhoneCode, setListPhoneCode] = useState(phones)
-  const [phoneCode, setPhoneCode] = useState()
   const [typeSearch, setTypeSearch] = useState('number')
 
   const dispatch = useDispatch()
@@ -107,102 +111,6 @@ const EditProfile = () => {
   console.log(phoneCode)
   return (
     <>
-      {/* <Form name='nest-messages' onFinish={onFinish} >
-        {open && open}
-        <div style={{ color: '#fff' }}>{message && message}</div>
-        <div>
-          <Image
-            width={200}
-            src={(user && !image) ? user.image : (user && image) ? (URL.createObjectURL(image)) : user ? user.image : '/images/user.png'}
-          />
-        </div>
-        <div>
-          <Input
-            type='file'
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-        </div>
-        <Form.Item
-          style={{ color: '#fff' }}
-          name='first_name'
-          label='Họ đệm'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your name!'
-            }
-          ]}
-        >
-          <Input placeholder={`${user && user.first_name}`}/>
-        </Form.Item>
-        <Form.Item
-          name='name'
-          label='Tên'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your name!'
-            }
-          ]}
-        >
-          <Input placeholder={`${user && user.name}`}/>
-        </Form.Item>
-        <Form.Item
-          name='email'
-          label='Email'
-          rules={[
-            {
-              type: 'email',
-              required: true,
-              message: 'Please input your email!',
-              pattern: new RegExp(validateEmail)
-            }
-          ]}
-        >
-          <Input placeholder={`${user && user.email}`}/>
-        </Form.Item>
-        <Form.Item
-          name='phone'
-          label='Phone'
-          rules={[
-            {
-              required: true,
-              pattern: new RegExp(validatePhone),
-              message: 'Format is wrong'
-            }
-          ]}
-        >
-          <Input
-            addonBefore={prefixSelector}
-            placeholder={`${user && user.phone}`}
-            style={{
-              width: '100%'
-            }}
-          />
-        </Form.Item>
-        <Form.Item
-          name='address'
-          label='Address'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your address!',
-              pattern: new RegExp(validateAddress)
-            }
-          ]}
-        >
-          <Input placeholder={`${user && user.address}`}/>
-        </Form.Item>
-        {error && error}
-        <Form.Item>
-          <Button type='primary' htmlType='submit'>
-            Cập nhật
-          </Button>
-          <Button type='primary' danger onClick={handleCancel}>
-            Hủy
-          </Button>
-        </Form.Item>
-      </Form> */}
       <Content className='profile'>
         {phoneCode ? (
           <Form onFinish={onFinish} >

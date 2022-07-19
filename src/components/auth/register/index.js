@@ -216,14 +216,12 @@ export default function Signup({ setIsModalSignup }) {
             },
             {
               message: 'Password at least 8 characters. number(s) and letter (S)!',
-              // message: <Tooltip placement='top' title='Password at least 8 characters. number(s) and letter (S)!'/>,
               pattern: new RegExp(validatePassword)
             }
           ]}
           hasFeedback
         >
           <div className='input-item'>
-            {/* <LockOutlined className='input-item-icon'/> */}
             <Input.Password onChange={handlePassword}/>
           </div>
         </Form.Item>

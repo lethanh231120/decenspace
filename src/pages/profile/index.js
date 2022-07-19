@@ -88,7 +88,9 @@ const Profile = () => {
             </div>
           </Col>
         </Row>
-        <div className='profile-button'>
+      </div>
+      <div className='profile-button'>
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '180px' }}>
           <Button type='primary' size='medium'>
             <Link to='../edit-profile'>Edit Profile</Link>
           </Button>
