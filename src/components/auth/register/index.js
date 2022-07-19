@@ -11,7 +11,6 @@ import { SUCCESS_REQUEST } from '../../../constants/statusCode'
 const { Text } = Typography
 export default function Signup({ setIsModalSignup }) {
   const [messageNo, setMessageNo] = useState()
-  const [message, setMessage] = useState()
   const [statusCode, setStatusCode] = useState()
   // const [image, setImage] = useState()
   const [open, setOpen] = useState(false)
