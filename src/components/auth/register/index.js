@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { setCookie, STORAGEKEY } from '../../../utils/storage'
+<<<<<<< HEAD
 import { Form, Input, Checkbox, Row, Col, Typography, notification } from 'antd'
+=======
+import { Form, Input, Checkbox, Row, Col, Typography } from 'antd'
+>>>>>>> 3db5465 (fix giao dien)
 import { post } from '../../../api/accountService'
 import { useDispatch } from 'react-redux/es/exports'
 import { getUserInfo } from '../../../redux/useInfo'
@@ -10,7 +14,10 @@ import { SUCCESS_REQUEST } from '../../../constants/statusCode'
 
 const { Text } = Typography
 export default function Signup({ setIsModalSignup }) {
+<<<<<<< HEAD
   const [messageNo, setMessageNo] = useState()
+=======
+>>>>>>> 3db5465 (fix giao dien)
   const [message, setMessage] = useState()
   const [statusCode, setStatusCode] = useState()
   // const [image, setImage] = useState()
@@ -79,6 +86,7 @@ export default function Signup({ setIsModalSignup }) {
     setPasswordStrength((passwordValidate && passwordValidate.filter((item) => item.status === true)).length)
   }, [passwordValidate])
 
+<<<<<<< HEAD
   const openNotificationSuccess = (type) => {
     notification[type]({
       message: 'Sign Up',
@@ -94,6 +102,8 @@ export default function Signup({ setIsModalSignup }) {
   //   })
   // }
 
+=======
+>>>>>>> 3db5465 (fix giao dien)
   return (
     <div className='register-form'>
       <Form
@@ -101,11 +111,14 @@ export default function Signup({ setIsModalSignup }) {
         layout='vertical'
         initialValues={{ remember: true }}
         onFinish={onFinish}
+<<<<<<< HEAD
         form = {form}
         onValuesChange = {() =>{
           setStatusCode('')
           setPasswordStrength()
         }}
+=======
+>>>>>>> 3db5465 (fix giao dien)
       >
         {/* {message && message} */}
         {open && open}
@@ -263,6 +276,7 @@ export default function Signup({ setIsModalSignup }) {
             <Input.Password />
           </div>
         </Form.Item>
+<<<<<<< HEAD
         {statusCode !== ''
           ? <Typography className='message-error'>
             <Text type='danger'>{statusCode && statusCode}</Text>
@@ -270,6 +284,12 @@ export default function Signup({ setIsModalSignup }) {
           : ''
         }
         <Row className={`${passwordStrength === 0 ? 'none-password' : ''} group-check-password`}>
+=======
+        <Typography className='message-error'>
+          <Text type='danger'>{statusCode && statusCode}</Text>
+        </Typography>
+        <Row className={`${passwordStrengh === 0 ? 'none-password' : ''} group-check-password`}>
+>>>>>>> 3db5465 (fix giao dien)
           <Col span={22} offset={1}>
             <Row gutter={6}>
               <Col span={6}>
