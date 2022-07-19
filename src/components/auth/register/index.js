@@ -38,6 +38,17 @@ export default function Signup({ setIsModalSignup }) {
   const [passwordStrength, setPasswordStrength] = useState()
   const [checked, setChecked] = useState(false)
   const onFinish = async(values) => {
+<<<<<<< HEAD
+=======
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+      }
+    }
+>>>>>>> 9c169cb (delete http)
     const data = {
       email: values.user.email,
       password: values.user.password
