@@ -10,8 +10,8 @@ const { Option } = Select
 
 const children = []
 const { ethereum } = window
+
 const provider = new ethers.providers.Web3Provider(window.ethereum)
-const abc = new ethers.providers.Web3Provider(window.ethereum, 'any')
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>)
 }
@@ -35,6 +35,11 @@ export const Metamask = () => {
     })
   }
 
+  if (ethereum) {
+    console.log('MetaMask is installed!')
+  } else {
+    alert('Bạn chưa cài đặt metamask')
+  }
   const onFinish = async(values) => {
     if (ethereum) {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
@@ -45,10 +50,10 @@ export const Metamask = () => {
         Balance: bal
       })
 
-      const network = await abc.getNetwork()
-      console.log(network)
-      // const chainId = network.chainId
-      await ethereum.on('chainChanged', (_chainId) => window.location.reload())
+    //   // const network = await abc.getNetwork()
+    //   // console.log(network)
+    //   // // const chainId = network.chainId
+    //   // await ethereum.on('chainChanged', (_chainId) => window.location.reload())
     } else {
       return error()
     }
