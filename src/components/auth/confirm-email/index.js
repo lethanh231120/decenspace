@@ -12,16 +12,20 @@ export const ConfirmEmail = () => {
     console.log('uuid', uuid)
     console.log('token', token)
     const authoriation = async() => {
+      const instance = axios.create({
+        baseURL: '/accountService'
+      })
+      if (token) {
+        instance.defaults.headers.common['Authorization'] = token
+      }
       try {
-        axios.defaults.headers.common['Authorization'] = token
-        await axios.get(`accounts/confirm-email/uuid=${uuid}`)
+        await instance.get(`/accounts/confirm-email/uuid=${uuid}`)
         setMessage('Verify email successfully!')
       } catch (error) {
         console.log(error?.response?.data?.message)
       }
     }
     authoriation()
-    console.log(uuid, token)
   }, [])
   return (
     <div style={{ padding: '50px 0' }}>{message && message}</div>
