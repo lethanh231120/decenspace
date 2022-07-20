@@ -23,6 +23,7 @@ export const ConfirmEmail = () => {
     }
     const timer = setTimeout(() => {
       authoriation()
+      console.log('aaaa')
     }, 1000)
     return () => clearTimeout(timer)
   }, [])
