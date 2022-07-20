@@ -6,6 +6,7 @@ export const ConfirmEmail = () => {
     const queryParams = new URLSearchParams(window.location.search)
     const uuid = queryParams.get('uuid')
     const token = queryParams.get('token')
+    console.log(token)
     const authoriation = async() => {
       const instance = axios.create({
         baseURL: '/accountService'
