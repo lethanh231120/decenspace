@@ -17,10 +17,13 @@ export const ConfirmEmail = () => {
         await instance.get(`/accounts/confirm-email/uuid=${uuid}`)
         setMessage('Verify email successfully!')
       } catch (error) {
-        console.log(error?.response?.data?.message)
+        setMessage(error?.response?.data?.message)
       }
     }
-    authoriation()
+    const timer = setTimeout(() => {
+      authoriation()
+    }, 1000)
+    return () => clearTimeout(timer)
   }, [])
   return (
     <div style={{ padding: '50px 0' }}>{message && message}</div>
