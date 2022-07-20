@@ -14,6 +14,7 @@ import ConnectWalletPage from '../pages/connect-wallet'
 import ConnectPortfolioPage from '../pages/connect-portfolio'
 import ConnectMetaMask from '../pages/connect-metamask'
 import ResetPassword from '../components/auth/reset-password'
+import { ConfirmEmail } from '../components/auth/confirm-email'
 import { Layout } from 'antd'
 import './header/index.scss'
 const { Content } = Layout
@@ -31,7 +32,8 @@ const Router = () => {
           <Route path='blog' element={<Blogs />} />
           <Route path='profile' element={<ProfilePage />} />
           <Route path='edit-profile' element={<EditProfilePage />} />
-          <Route path='accounts/forgot-password/uuid/:uuid' element={<ResetPassword />} />
+          <Route path='forgot-password' element={<ResetPassword />} />
+          <Route path='confirm-email' element={<ConfirmEmail />} />
           <Route path='connect-metamask' element={<ConnectMetaMask/>} />
           <Route path='connect-wallet' element={<ConnectWalletPage />} />
           <Route path='connect/:platformId' element={<ConnectWalletPage />} />

@@ -40,6 +40,7 @@ export const Metamask = () => {
   } else {
     alert('Bạn chưa cài đặt metamask')
   }
+
   const onFinish = async(values) => {
     if (ethereum) {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
