@@ -7,7 +7,7 @@
 
 [[redirects]]
   from = "/accountService/*"
-  to = "https://cfdf-118-70-117-216.ap.ngrok.io/:splat"
+  to = "http://139.180.147.199:8080/:splat"
   status = 200
   force = true
   headers = {Access-Control-Allow-Origin = "*"}
