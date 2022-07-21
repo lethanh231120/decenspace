@@ -3,7 +3,6 @@ import { Form, Input, Button } from 'antd'
 import { validatePassword } from '../../../utils/regex'
 import { useDispatch } from 'react-redux'
 import { updatePassword } from '../../../redux/profileSlice'
-
 export default function ResetPassword() {
   const dispatch = useDispatch()
   const resetPasswordSubmit = (value) =>{
