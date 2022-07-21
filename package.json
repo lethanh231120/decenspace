@@ -14,6 +14,7 @@
     "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
+    "next": "^12.2.3-canary.15",
     "node-sass": "^7.0.1",
     "query-string": "^7.1.1",
     "react": "^18.2.0",

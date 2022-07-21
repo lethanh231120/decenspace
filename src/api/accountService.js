@@ -3,8 +3,8 @@ import { getCookie, STORAGEKEY } from '../utils/storage/index'
 
 const getUrlPrefix = () => '/'
 const instance = axios.create({
-  // baseURL: '/accountService'
-  baseURL: 'http://139.180.147.199:8080'
+  baseURL: '/accountService'
+  // baseURL: 'http://139.180.147.199:8080'
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
