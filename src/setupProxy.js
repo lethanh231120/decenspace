@@ -16,7 +16,8 @@ module.exports = function(app) {
 
   app.use(
     createProxyMiddleware('/accountService', {
-      target: 'http://139.180.147.199:8080',
+      target: 'https://e811-118-70-117-216.ap.ngrok.io',
+      // target: 'http://139.180.147.199:8080',
       changeOrigin: true,
       pathRewrite: {
         '^/accountService': ''
