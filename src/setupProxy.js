@@ -39,4 +39,16 @@ module.exports = function(app) {
       }
     })
   )
+  app.use(
+    createProxyMiddleware('/mailService', {
+      target: 'http://139.180.147.199:8083',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/mailService': ''
+      },
+      headers: {
+        Connection: 'keep-alive'
+      }
+    })
+  )
 }

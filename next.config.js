@@ -16,6 +16,11 @@ module.exports = {
           source: '/coinPriceService/:path*',
           destination: `http://139.180.147.199:8081/:path*`,
           permanent: false
+        },
+        {
+          source: '/mailService/:path*',
+          destination: `http://139.180.147.199:8083/:path*`,
+          permanent: false
         }
       ]
     }

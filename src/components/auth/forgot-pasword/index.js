@@ -3,11 +3,15 @@ import React, { useState } from 'react'
 import { validateEmail } from '../../../utils/regex'
 import ResetPassword from '../reset-password'
 import { useNavigate } from 'react-router-dom'
+import { post } from '../../../api/mailService'
 import './style.scss'
 const ForgotPassword = ({ setIsModalForgotPassword }) => {
   const navigate = useNavigate()
   const [isModalResetPassword, setIsModalResetPassword] = useState(false)
-  const onFinish = (values) =>{
+
+  const onFinish = async(values) =>{
+    const res = await post('mails/forgot-password', values)
+    console.log(res)
     alert(`Reset Password Mail has been sent to your gmail: ${values.email}. Pls check your email and reset your password`)
     setIsModalForgotPassword(false)
     navigate('../forgot-password')

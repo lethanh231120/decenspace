@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Typography, Image, Form, Input, Button, Tabs, Select, Modal } from 'antd'
+import { Typography, Image, Form, Input, Button, Tabs, Select } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import './platform.scss'
 import { FormListItem } from '../form/FormList'
@@ -23,17 +23,17 @@ export const Metamask = () => {
   })
   const [form] = Form.useForm()
 
-  const error = () => {
-    Modal.error({
-      title: 'Oops, Something Went Wrong',
-      content: (
-        <div className='modal'>
-          <p>MetaMask Extension Not Found</p>
-        </div>
-      ),
-      onOk() {}
-    })
-  }
+  // const error = () => {
+  //   Modal.error({
+  //     title: 'Oops, Something Went Wrong',
+  //     content: (
+  //       <div className='modal'>
+  //         <p>MetaMask Extension Not Found</p>
+  //       </div>
+  //     ),
+  //     onOk() {}
+  //   })
+  // }
 
   if (ethereum) {
     console.log('MetaMask is installed!')
@@ -50,13 +50,17 @@ export const Metamask = () => {
         address: accounts[0],
         Balance: bal
       })
-
-    //   // const network = await abc.getNetwork()
-    //   // console.log(network)
-    //   // // const chainId = network.chainId
-    //   // await ethereum.on('chainChanged', (_chainId) => window.location.reload())
+      //   // chain id
+      // const handleChainChanged = (_chainId) => {
+      //   window.location.reload()
+      // }
+      const chainId = await ethereum.request({ method: 'eth_chainId' })
+      console.log(chainId)
+    //   handleChainChanged(chainId)
+    //   ethereum.on('chainChanged', handleChainChanged)
     } else {
-      return error()
+      // return error()
+      console.log('1111')
     }
   }
 

@@ -1,30 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Input, Button } from 'antd'
 import { validatePassword } from '../../../utils/regex'
-import { useDispatch } from 'react-redux'
-import { updatePassword } from '../../../redux/profileSlice'
+// import { useDispatch } from 'react-redux'
+// import { updatePassword } from '../../../redux/profileSlice'
+import axios from 'axios'
+
 export default function ResetPassword() {
-  const dispatch = useDispatch()
-  const resetPasswordSubmit = (value) =>{
-    const passwords = value.user
-    dispatch(updatePassword(passwords))
+  const [message, setMessage] = useState()
+  const queryParams = new URLSearchParams(window.location.search)
+  const uuid = queryParams.get('uuid')
+  const token = queryParams.get('token')
+
+  const resetPasswordSubmit = async(value) =>{
+    const instance = axios.create({
+      baseURL: '/accountService'
+    })
+    if (token) {
+      instance.defaults.headers.common['Authorization'] = token
+    }
+    try {
+      const res = await instance.patch(`/accounts/forgot-password/uuid=${uuid}`, { newPassword: value.user.newPassword })
+      setMessage(res?.message)
+    } catch (error) {
+      setMessage(error?.response?.data?.message)
+      console.log(error?.response?.data?.message)
+    }
   }
 
   return (
     <div>
-      <Form
-        name='basic'
-        labelCol={{
-          span: 8
-        }}
-        wrapperCol={{
-          span: 16
-        }}
-        initialss={{
-          remember: true
-        }}
-        onFinish={resetPasswordSubmit}
-      >
+      <Form initialss={{ remember: true }} onFinish={resetPasswordSubmit}>
         <Form.Item
           name={['user', 'newPassword']}
           label='New Password'
@@ -63,6 +68,9 @@ export default function ResetPassword() {
         >
           <Input.Password/>
         </Form.Item>
+        <div style={{ color: 'red' }}>
+          {message && message}
+        </div>
         <Form.Item
           wrapperCol={{
             offset: 8,
