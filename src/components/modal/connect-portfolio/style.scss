@@ -1,0 +1,47 @@
+.modal-connect{
+    &.ant-modal{
+        top: 0px;
+        color: #fff;
+        overflow: hidden;
+        height: 100vh;
+    }
+    & .modal-style{
+        top: 150px
+    }
+    & .ant-modal-content{
+        background-color: #1a1a1a;
+        border-radius: 19px;
+    }
+    & .input-search input{
+        background-color: #000;
+    }
+    & .input-search .ant-input{
+        padding: 10px 15px;
+        border-top-left-radius: 25px;
+        border-bottom-left-radius: 25px;
+        border: 1px solid #ff9332;
+        font-size: 16px;
+    }
+    & .modal-connect .ant-input-search .ant-input:focus, .modal-connect .ant-input-search .ant-input:hover{
+        border-right: opx !important;
+    }
+    & .input-search .ant-input-group-addon{
+        background-color: #000;
+    }
+    & .ant-btn{
+        background-color: #000;
+        border:  0px;
+        color: #fff !important;
+    }
+    & .ant-input-search>.ant-input-group>.ant-input-group-addon:last-child{
+        border-top: 1px solid #ff9332;
+        border-right: 1px solid #ff9332;
+        border-bottom: 1px solid #ff9332;
+        border-top-right-radius: 25px;
+        border-bottom-right-radius: 25px;
+        padding:  0 11px;
+    }
+    & .ant-modal-body{
+        padding: 24px 40px;
+    }
+}

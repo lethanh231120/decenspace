@@ -7,22 +7,10 @@ import { EthereumWallet } from '../../components/platforms/EthereumWallet'
 import { Solana } from '../../components/platforms/Solana'
 export const platforms = [
   {
-    id: 'bitcoin',
-    icon: '/coins/bitcoin.png',
-    platform: <Bitcoin/>,
-    name: 'Bitcoin'
-  },
-  {
     id: 'binance',
     icon: '/coins/binance.png',
     platform: <Binance/>,
     name: 'Binance'
-  },
-  {
-    id: 'coinbase',
-    icon: '/coins/coinbase.png',
-    platform: <Coinbase/>,
-    name: 'Coinbase'
   },
   {
     id: 'metamask',
@@ -31,11 +19,10 @@ export const platforms = [
     name: 'Metamask'
   },
   {
-    chainId: 56,
-    id: 'binance-mart-hain',
-    icon: '/coins/binance_smart_chain.png',
-    platform: <BinanceSmartChain/>,
-    name: 'Binance Smart Chain'
+    id: 'coinbase',
+    icon: '/coins/coinbase.png',
+    platform: <Coinbase/>,
+    name: 'Coinbase'
   },
   {
     chainId: 1,
@@ -43,6 +30,19 @@ export const platforms = [
     icon: '/coins/ethereum_wallet.png',
     platform: <EthereumWallet/>,
     name: 'Ethereum Wallet'
+  },
+  {
+    id: 'bitcoin',
+    icon: '/coins/bitcoin.png',
+    platform: <Bitcoin/>,
+    name: 'Bitcoin'
+  },
+  {
+    chainId: 56,
+    id: 'binance-mart-chain',
+    icon: '/coins/binance_smart_chain.png',
+    platform: <BinanceSmartChain/>,
+    name: 'Binance Smart Chain'
   },
   {
     chainId: 1399811149,

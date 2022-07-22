@@ -3,6 +3,7 @@ import { Modal } from 'antd'
 import ModalHeader from './ModalHeader'
 import ModalContent from './ModalContent'
 import ModalFooter from './ModalFooter'
+import './style.scss'
 
 const ModalConnect = ({ isModalVisible, setIsModalVisible }) => {
   const handleOk = () => {
@@ -15,6 +16,7 @@ const ModalConnect = ({ isModalVisible, setIsModalVisible }) => {
   return (
     <Modal
       visible={isModalVisible}
+      className='modal-connect'
       onOk={handleOk}
       onCancel={handleCancel}
       footer={null}

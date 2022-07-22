@@ -164,7 +164,7 @@ export const Metamask = () => {
             </Form.Item>
           </Form>
         </TabPane>
-        <TabPane tab='Walletconnect' key='3'>
+        <TabPane tab='WalletConnect' key='3'>
           <Form
             onFinish={onFinish}
             autoComplete='off'

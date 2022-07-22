@@ -61,4 +61,16 @@ module.exports = function(app) {
       }
     })
   )
+  app.use(
+    createProxyMiddleware('/bitcoinPrice', {
+      target: 'https://20ce-118-70-117-216.ap.ngrok.io',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/bitcoinPrice': ''
+      },
+      headers: {
+        Connection: 'keep-alive'
+      }
+    })
+  )
 }

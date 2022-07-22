@@ -14,7 +14,8 @@ const StyleDiv = {
   backgroundColor: '#000',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginBottom: '12px'
+  marginBottom: '12px',
+  minHeight: '73px'
 }
 const ModalContent = () => {
   const navigate = useNavigate()
@@ -35,13 +36,20 @@ const ModalContent = () => {
         {platforms.map((item, index) => (
           <Col span={8} key={index}>
             <div style={StyleDiv} onClick={() => handleClickWallet(item.id)}>
-              <div>
+              <div
+                style={{
+                  cursor: 'pointer',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}
+              >
                 <Image
                   width={40}
                   preview={false}
                   src={item.icon}
                 />
-                <Text style={{ fontSize: '18px', color: '#A8ADB3', fontWeight: '500', marginLeft: '10px' }}>{item.name}</Text>
+                <Text style={{ fontSize: '16px', color: '#A8ADB3', fontWeight: '500', marginLeft: '10px', flexWrap: 'wrap' }}>{item.name}</Text>
               </div>
               <Text style={{ fontSize: '17px', color: '#fff', fontWeight: '400' }}>
                 <ArrowRightOutlined style={{ fontSize: '12px', marginLeft: '6px' }}/>

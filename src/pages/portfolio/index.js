@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'antd'
 import './styles.scss'
 import WalletAddress from '../../components/portfolio/WalletAddress'
 import Analyst from '../../components/portfolio/Analyst'
 import { useSelector } from 'react-redux'
-// import axios from 'axios'
+import axios from 'axios'
 
 const Portfolio = () => {
   const [connectionName, setConnectionName] = useState()
@@ -12,9 +12,9 @@ const Portfolio = () => {
   const { list_connection, status } = useSelector(state => state.connections)
   console.log(params, connectionName)
 
-  // useEffect(() => {
-  //   axios.get(`bitcoinPrice/price/${params.coinId}/period?time=${params.time}`).then(res => console.log(res)).catch(error => error)
-  // }, [params])
+  useEffect(() => {
+    axios.get(`/bitcoinPrice/price/${params.coinId}/period?time=${params.time}`).then(res => console.log(res.data)).catch(error => error)
+  }, [params])
 
   return (
     <div>
