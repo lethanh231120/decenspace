@@ -11,6 +11,8 @@ export default function ResetPassword() {
   const uuid = queryParams.get('uuid')
   const token = queryParams.get('token')
 
+  console.log(uuid)
+  console.log(token)
   const resetPasswordSubmit = async(value) =>{
     const instance = axios.create({
       baseURL: '/accountService'
