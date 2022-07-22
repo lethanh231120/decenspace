@@ -11,11 +11,7 @@ import { EXCHANGE } from '../../constants/TypeConstants'
 
 const { Option } = Select
 
-const handleChange = (value) =>{
-  // console.log(value)
-}
-
-const Analyst = ({ status }) => {
+const Analyst = ({ status, setParams, params }) => {
   const priceChange = parseFloat('2.36')
   const [data, setData] = useState([])
   const [totalValue, setTotalValue] = useState(0)
@@ -36,7 +32,7 @@ const Analyst = ({ status }) => {
       limit: 100,
       currency: 'EUR'
     })
-    console.log(res.coins)
+    console.log('data coinstats', res.coins)
   }
 
   useEffect(() => {
@@ -52,10 +48,10 @@ const Analyst = ({ status }) => {
       const amount = (item.holdings[0].holding.amount) * EXCHANGE
       // amountArray.push(amount)
       const coinPriceByUSD = item.holdings[0].coinPriceUSD
-      console.log({
-        'amount': amount,
-        'coinPriceByUSD': coinPriceByUSD
-      })
+      // console.log({
+      //   'amount': amount,
+      //   'coinPriceByUSD': coinPriceByUSD
+      // })
       number += amount * coinPriceByUSD
       // let totalVal = 0
       // for (let i = 0; i < amountArray.length; i++) {
@@ -65,6 +61,13 @@ const Analyst = ({ status }) => {
     })
     setTotalValue(number)
   }, [data])
+
+  const handleChange = (value) =>{
+    setParams({
+      ...params,
+      time: value
+    })
+  }
 
   return (
     <div className='dashboard'>
@@ -96,13 +99,14 @@ const Analyst = ({ status }) => {
                 onChange={handleChange}
                 color='rgba(0,0,0,.85)'
               >
-                <Option value='24H'>24H</Option>
-                <Option value='1W'>1W</Option>
-                <Option value='1M'>1M</Option>
-                <Option value='3M'>3M</Option>
-                <Option value='6M'>6M</Option>
-                <Option value='1Y'>1Y</Option>
-                <Option value='ALL'>ALL</Option>
+                <Option value='1h'>1H</Option>
+                <Option value='1d'>24H</Option>
+                <Option value='1w'>1W</Option>
+                <Option value='1m'>1M</Option>
+                <Option value='3m'>3M</Option>
+                <Option value='6m'>6M</Option>
+                <Option value='1y'>1Y</Option>
+                <Option value='all'>ALL</Option>
               </Select>
             </div>
           </Col>

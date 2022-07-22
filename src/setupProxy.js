@@ -13,7 +13,6 @@ module.exports = function(app) {
       }
     })
   )
-
   app.use(
     createProxyMiddleware('/accountService', {
       target: 'http://139.180.147.199:8080',
@@ -26,7 +25,6 @@ module.exports = function(app) {
       }
     })
   )
-
   app.use(
     createProxyMiddleware('/coinPriceService', {
       target: 'http://139.180.147.199:8081',
@@ -45,6 +43,18 @@ module.exports = function(app) {
       changeOrigin: true,
       pathRewrite: {
         '^/mailService': ''
+      },
+      headers: {
+        Connection: 'keep-alive'
+      }
+    })
+  )
+  app.use(
+    createProxyMiddleware('/evmService', {
+      target: 'https://a220-118-70-117-216.ap.ngrok.io',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/evmService': ''
       },
       headers: {
         Connection: 'keep-alive'

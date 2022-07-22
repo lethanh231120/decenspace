@@ -8,7 +8,7 @@ import ModalContent from '../modal/connect-portfolio'
 import ModalEdit from '../modal/modal-edit'
 import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
 const { TabPane } = Tabs
-const WalletAddress = ({ list_connection, status }) => {
+const WalletAddress = ({ list_connection, status, setConnectionName }) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isModalEdit, setIsModalEdit] = useState(false)
   const [dataEdit, setDataEdit] = useState(false)
@@ -32,6 +32,7 @@ const WalletAddress = ({ list_connection, status }) => {
   }, [dispatch, isModalEdit, status === SUCCESS_DELETE_CONNECTION])
 
   const handleTabClick = (e) => {
+    setConnectionName(e)
     // console.log(e)
   }
 
