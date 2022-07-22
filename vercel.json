@@ -1,7 +1,7 @@
 {
     "rewrites": [
         {"source": "/addressService/:match*", "destination": "http://139.180.147.199:8082/:match*"},
-        {"source": "/accountService/:match*", "destination": "https://9773-8-21-11-177.ap.ngrok.io/:match*"},
+        {"source": "/accountService/:match*", "destination": "http://139.180.147.199:8080/:match*"},
         {"source": "/coinPriceService/:match*", "destination": "http://139.180.147.199:8081/:match*"},
         {"source": "/mailService/:match*", "destination": "http://139.180.147.199:8083/:match*"}
     ]

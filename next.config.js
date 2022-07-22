@@ -9,7 +9,6 @@ module.exports = {
         },
         {
           source: '/accountService/:path*',
-          // destination: `http://139.180.147.199:8080/:path*`,
           destination: `https://9773-8-21-11-177.ap.ngrok.io/:path*`,
           permanent: false
         },
