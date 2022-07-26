@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { Modal, Button, Form, Input } from 'antd'
-import { updateConnection } from '../../../redux/addressSlice'
+import { updateConnectionBtc } from '../../../redux/addressSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { SUCCESS_UPDATE_CONNECTION } from '../../../constants/StatusMessageConstants'
-const ModalEdit = ({ isModalEdit, setIsModalEdit, dataEdit }) => {
+const EVM = ({ isModalEdit, setIsModalEdit, dataEdit }) => {
   // const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -26,7 +26,7 @@ const ModalEdit = ({ isModalEdit, setIsModalEdit, dataEdit }) => {
   // }
 
   const onFinish = async(values) => {
-    dispatch(updateConnection({ id: dataEdit.id, data: values }))
+    dispatch(updateConnectionBtc({ id: dataEdit.id, data: values }))
   }
   return (
     <Modal
@@ -75,4 +75,4 @@ const ModalEdit = ({ isModalEdit, setIsModalEdit, dataEdit }) => {
     </Modal>
   )
 }
-export default ModalEdit
+export default EVM

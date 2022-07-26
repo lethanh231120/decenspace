@@ -1,9 +1,8 @@
-// import { createProxyMiddleware } from 'http-proxy-middleware'
 const { createProxyMiddleware } = require('http-proxy-middleware')
 module.exports = function(app) {
   app.use(
     createProxyMiddleware('/addressService', {
-      target: 'http://139.180.147.199:8082',
+      target: 'https://bitcoin.nika.guru',
       changeOrigin: true,
       pathRewrite: {
         '^/addressService': ''
@@ -15,7 +14,7 @@ module.exports = function(app) {
   )
   app.use(
     createProxyMiddleware('/accountService', {
-      target: 'http://139.180.147.199:8080',
+      target: 'https://accounts.nika.guru',
       changeOrigin: true,
       pathRewrite: {
         '^/accountService': ''
@@ -27,7 +26,7 @@ module.exports = function(app) {
   )
   app.use(
     createProxyMiddleware('/coinPriceService', {
-      target: 'http://139.180.147.199:8081',
+      target: 'https://coinsprices.nika.guru',
       changeOrigin: true,
       pathRewrite: {
         '^/coinPriceService': ''
@@ -39,7 +38,7 @@ module.exports = function(app) {
   )
   app.use(
     createProxyMiddleware('/mailService', {
-      target: 'http://139.180.147.199:8083',
+      target: 'https://mail.nika.guru',
       changeOrigin: true,
       pathRewrite: {
         '^/mailService': ''
@@ -51,22 +50,10 @@ module.exports = function(app) {
   )
   app.use(
     createProxyMiddleware('/evmService', {
-      target: 'https://a220-118-70-117-216.ap.ngrok.io',
+      target: 'https://evm.nika.guru',
       changeOrigin: true,
       pathRewrite: {
         '^/evmService': ''
-      },
-      headers: {
-        Connection: 'keep-alive'
-      }
-    })
-  )
-  app.use(
-    createProxyMiddleware('/bitcoinPrice', {
-      target: 'https://20ce-118-70-117-216.ap.ngrok.io',
-      changeOrigin: true,
-      pathRewrite: {
-        '^/bitcoinPrice': ''
       },
       headers: {
         Connection: 'keep-alive'

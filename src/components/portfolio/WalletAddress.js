@@ -1,43 +1,51 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Tabs, Divider, Input, Popconfirm } from 'antd'
 import './styles.scss'
 import { useDispatch } from 'react-redux'
-import { getAllConnection, deleteConnection } from '../../redux/addressSlice'
+import { deleteConnectionBtc } from '../../redux/bitcoinSlice'
 import ModalContent from '../modal/connect-portfolio'
-import ModalEdit from '../modal/modal-edit'
-import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
+import { deleteConnectionEvm } from '../../redux/evmSlice'
+import ModalEdit from '../modal/modal-edit/Bitcoin'
+
 const { TabPane } = Tabs
-const WalletAddress = ({ list_connection, status, setConnectionName }) => {
+const WalletAddress = (props) => {
+  const { holding_evm, setIsModalEdit, isModalEdit, connectionName, handleTabClick } = props
   const [isModalVisible, setIsModalVisible] = useState(false)
-  const [isModalEdit, setIsModalEdit] = useState(false)
   const [dataEdit, setDataEdit] = useState(false)
-  const [searchFilter, setSearchFilter] = useState('')
+  // const [searchFilter, setSearchFilter] = useState('')
   const dispatch = useDispatch()
-  // const { list_connection, status } = useSelector(state => state.connections)
+  const [filterConnection, setFilterConnection] = useState()
   const { Search } = Input
 
-  console.log(status)
   const handleConnectPortfolio = () => {
     setIsModalVisible(true)
   }
 
-  const onSearch = (value) => setSearchFilter(value)
-  const filterConnection = list_connection?.filter((item)=>{
-    return item.connectionName.toLowerCase().includes(searchFilter.toLowerCase())
-  })
-
   useEffect(() => {
-    dispatch(getAllConnection())
-  }, [dispatch, isModalEdit, status === SUCCESS_DELETE_CONNECTION])
+    setFilterConnection(holding_evm)
+  }, [holding_evm])
 
-  const handleTabClick = (e) => {
-    setConnectionName(e)
-    // console.log(e)
+  const onChange = (value) => {
+    setFilterConnection(holding_evm && holding_evm.filter((item) => {
+      return item.connection.connectionName.toLowerCase().includes(value.toLowerCase())
+    }))
   }
 
-  const handleDeleteAddress = (id) => {
-    dispatch(deleteConnection(id))
+  // const filterConnection = list_connection?.filter((item)=>{
+  //   return item.connectionName.toLowerCase().includes(searchFilter.toLowerCase())
+  // })
+  // const connectionEvm = holding_evm && holding_evm.filter((item) => {
+  //   return item.connection.connectionName.toLowerCase().includes(searchFilter.toLowerCase())
+  // })
+
+  const handleDeleteAddress = (id, chain) => {
+    if (chain === 'evm') {
+      dispatch(deleteConnectionEvm(id))
+    }
+    if (chain === 'btc') {
+      dispatch(deleteConnectionBtc(id))
+    }
   }
 
   const handleEditAddress = (item) => {
@@ -54,12 +62,12 @@ const WalletAddress = ({ list_connection, status, setConnectionName }) => {
         <Divider />
         <Search
           placeholder= 'input search text'
-          onSearch={onSearch}
+          onChange={(e) => onChange(e.target.value)}
         />
         <Col span={24}>
-          <Tabs tabPosition='right' onTabClick={handleTabClick}>
+          <Tabs tabPosition='right' onTabClick={handleTabClick} value={connectionName}>
             <TabPane tab='All Assets' key='all' style={{ textAlign: 'left', width: '100%' }}/>
-            {filterConnection && filterConnection.map((item) => (
+            {/* {filterConnection && filterConnection.map((item) => (
               <TabPane
                 tab={
                   <div className='tab-list-item'>
@@ -69,7 +77,7 @@ const WalletAddress = ({ list_connection, status, setConnectionName }) => {
                         placement='top'
                         className='popover'
                         title='Are you sure to delete this connection?'
-                        onConfirm={() => handleDeleteAddress(item.id)}
+                        onConfirm={() => handleDeleteAddress(item.id, 'btc')}
                         okText='Yes'
                         cancelText='No'
                       >
@@ -80,6 +88,29 @@ const WalletAddress = ({ list_connection, status, setConnectionName }) => {
                   </div>
                 }
                 key={item.id}
+              />
+            ))} */}
+            {filterConnection && filterConnection.length > 0 && filterConnection.map((item) => (
+              <TabPane
+                tab={
+                  <div className='tab-list-item'>
+                    {item.connection.connectionName}
+                    <div className='tab-list-icon'>
+                      <Popconfirm
+                        placement='top'
+                        className='popover'
+                        title='Are you sure to delete this connection?'
+                        onConfirm={() => handleDeleteAddress(item.connection.id, 'evm')}
+                        okText='Yes'
+                        cancelText='No'
+                      >
+                        <DeleteOutlined className='tab-list-icon-item' />
+                      </Popconfirm>
+                      <EditOutlined className='tab-list-icon-item' onClick={() => handleEditAddress(item)}/>
+                    </div>
+                  </div>
+                }
+                key={item.connection.id}
               />
             ))}
           </Tabs>

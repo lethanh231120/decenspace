@@ -107,8 +107,6 @@ const EditProfile = () => {
   const handleCancel = () => {
     navigate('/')
   }
-  console.log(typeof phoneCode)
-  console.log(phoneCode)
   return (
     <>
       <Content className='profile'>

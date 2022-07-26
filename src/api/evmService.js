@@ -3,12 +3,10 @@ import { getCookie, STORAGEKEY } from '../utils/storage/index'
 
 const getUrlPrefix = () => '/'
 const instance = axios.create({
-  // baseURL: 'https://do-an-tot-nghiep-lvthanh.herokuapp.com/api'
-  baseURL: 'https://'
+  baseURL: '/evmService'
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
-
 if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }

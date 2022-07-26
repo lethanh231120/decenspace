@@ -8,7 +8,6 @@ const instance = axios.create({
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
-
 if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }

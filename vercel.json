@@ -1,9 +1,9 @@
 {
     "rewrites": [
-        {"source": "/accountService/:match*", "destination": "http://139.180.147.199:8080/:match*"},
-        {"source": "/coinPriceService/:match*", "destination": "http://139.180.147.199:8081/:match*"},
-        {"source": "/addressService/:match*", "destination": "http://139.180.147.199:8082/:match*"},
-        {"source": "/mailService/:match*", "destination": "http://139.180.147.199:8083/:match*"},
-        {"source": "/evmService/:match*", "destination": "https://a220-118-70-117-216.ap.ngrok.io/:match*"}
+        {"source": "/accountService/:match*", "destination": "https://accounts.nika.guru/:match*"},
+        {"source": "/coinPriceService/:match*", "destination": "https://coinsprices.nika.guru/:match*"},
+        {"source": "/addressService/:match*", "destination": "https://bitcoin.nika.guru/:match*"},
+        {"source": "/mailService/:match*", "destination": "https://mail.nika.guru/:match*"},
+        {"source": "/evmService/:match*", "destination": "https://evm.nika.guru/:match*"}
     ]
 }

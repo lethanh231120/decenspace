@@ -1,0 +1,13 @@
+.platform{
+    &-title{
+        display: flex;
+        align-items: center;
+        justify-content: center 
+    }
+    &-text{
+        font-weight: bold;
+        font-size: 30px;
+        color: #fff;
+        margin-right: 10px
+    }
+}

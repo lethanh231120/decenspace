@@ -1,39 +1,40 @@
-import React, { useState } from 'react'
-import { Typography, Image, Form, Input, Button, Tabs, Select } from 'antd'
+import React from 'react'
+import { Typography, Form, Button, Tabs, Select, Modal } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import './platform.scss'
 import { FormListItem } from '../form/FormList'
+import { ConnectionName } from './form-input/ConnectionName'
+import { PlatformHeader } from './form-input/PlatformHeader'
+import { AddressWallet } from './form-input/AddressWallet'
 import { ethers } from 'ethers'
+import { importConnectionEvm } from '../../redux/evmSlice'
+import { useDispatch } from 'react-redux'
 const { TabPane } = Tabs
 const { Text } = Typography
 const { Option } = Select
-
 const children = []
 const { ethereum } = window
-
 const provider = new ethers.providers.Web3Provider(window.ethereum)
+
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>)
 }
 
 export const Metamask = () => {
-  const [data, setdata] = useState({
-    address: '',
-    Balance: null
-  })
   const [form] = Form.useForm()
 
-  // const error = () => {
-  //   Modal.error({
-  //     title: 'Oops, Something Went Wrong',
-  //     content: (
-  //       <div className='modal'>
-  //         <p>MetaMask Extension Not Found</p>
-  //       </div>
-  //     ),
-  //     onOk() {}
-  //   })
-  // }
+  const dispatch = useDispatch()
+  const error = () => {
+    Modal.error({
+      title: 'Oops, Something Went Wrong',
+      content: (
+        <div className='modal'>
+          <p>MetaMask Extension Not Found</p>
+        </div>
+      ),
+      onOk() {}
+    })
+  }
 
   if (ethereum) {
     console.log('MetaMask is installed!')
@@ -44,39 +45,20 @@ export const Metamask = () => {
   const onFinish = async(values) => {
     if (ethereum) {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-      const balance = await provider.getBalance(accounts[0])
-      const bal = ethers.utils.formatEther(balance)
-      setdata({
-        address: accounts[0],
-        Balance: bal
-      })
-      //   // chain id
-      // const handleChainChanged = (_chainId) => {
-      //   window.location.reload()
-      // }
-      const chainId = await ethereum.request({ method: 'eth_chainId' })
-      console.log(chainId)
-    //   handleChainChanged(chainId)
-    //   ethereum.on('chainChanged', handleChainChanged)
+      const data = {
+        connectionName: values.connectionName !== undefined ? values.connectionName : 'Metamask',
+        address: accounts[0]
+      }
+      const chain = await provider.getNetwork()
+      await dispatch(importConnectionEvm({ data, chainId: chain.chainId }))
     } else {
-      // return error()
-      console.log('1111')
+      return error()
     }
   }
 
   return (
     <div className='metamask'>
-      <Typography className='metamask-title'>
-        <Text className='metamask-text'>
-          New Portfolio :
-        </Text>
-        <Image
-          width={30}
-          preview={false}
-          src='/coins/metamask.png'
-        />
-        <Text style={{ color: '#fff', marginLeft: '10px' }}>MetaMask</Text>
-      </Typography>
+      <PlatformHeader src='/coins/metamask.png' text='Metamask'/>
       <Tabs defaultActiveKey='1'>
         <TabPane tab='MetaMask' key='1'>
           <Form
@@ -85,9 +67,7 @@ export const Metamask = () => {
             layout='vertical'
             form={form}
           >
-            <Form.Item label='Connection Name (optional)' name='connectionName'>
-              <Input placeholder='Connection Name (optional)'/>
-            </Form.Item>
+            <ConnectionName/>
             <Typography className='metamask-text-button'>
               <Text>Automatically connect to Metamask</Text>
             </Typography>
@@ -133,18 +113,7 @@ export const Metamask = () => {
                   {children}
                 </Select>
               </Form.Item>
-              <Form.Item
-                label='Wallet Address'
-                name={['form', 'address']}
-                rules={[
-                  {
-                    min: 20,
-                    message: 'Address wallet must be minimum 20 characters.'
-                  }
-                ]}
-              >
-                <Input />
-              </Form.Item>
+              <AddressWallet/>
             </div>
             <FormListItem/>
             <Form.Item shouldUpdate >
@@ -171,9 +140,7 @@ export const Metamask = () => {
             layout='vertical'
             form={form}
           >
-            <Form.Item name='connectionName'>
-              <Input placeholder='Connection Name (optional)'/>
-            </Form.Item>
+            <ConnectionName/>
             <Typography className='metamask-text-button'>
               <Text>Connect your MetaMask account with WalletConnect</Text>
             </Typography>
@@ -195,14 +162,14 @@ export const Metamask = () => {
           </Form>
         </TabPane>
       </Tabs>
-      <div>
+      {/* <div>
         <strong>Address: </strong>
         {data.address}
       </div>
       <div>
         <strong>Balance: </strong>
         {data.Balance}
-      </div>
+      </div> */}
     </div>
   )
 }

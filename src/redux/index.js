@@ -1,15 +1,15 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
-import blogSlice from './blogSlice'
 import userInfo from './useInfo'
 import profileSlice from './profileSlice'
-import addressSlice from './addressSlice'
+import bitcoinSlice from './bitcoinSlice'
 import coinsSlice from './coinsSlice'
+import evmSlice from './evmSlice'
 
 export default combineReducers({
-  blogs: blogSlice,
   userInfo: userInfo,
   profile: profileSlice,
-  connections: addressSlice,
-  coins: coinsSlice
+  connectionBtc: bitcoinSlice,
+  coins: coinsSlice,
+  connectionEvm: evmSlice
 })

@@ -1,5 +1,4 @@
 import React from 'react'
-import Blogs from '../pages/blog'
 import Header from './header'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from '../pages/home'
@@ -29,7 +28,6 @@ const Router = () => {
           <Route path='swap' element={<SwapPage />} />
           <Route path='cryptocurrencies' element={<Cryptocurrencies />} />
           <Route path='price' element={<PricingPage />} />
-          <Route path='blog' element={<Blogs />} />
           <Route path='profile' element={<ProfilePage />} />
           <Route path='edit-profile' element={<EditProfilePage />} />
           <Route path='forgot-password' element={<ResetPassword />} />

@@ -4,63 +4,79 @@ import { usdMoneyFormat } from '../../utils/parseFloat'
 import Table from '../table'
 import './styles.scss'
 import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
-import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
-import { get } from '../../api/addressService'
-import { getDataDemo } from '../../api/dataDemo'
-import { EXCHANGE } from '../../constants/TypeConstants'
+// import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
+// import { get } from '../../api/addressService'
+// import { getDataDemo } from '../../api/dataDemo'
+// import { EXCHANGE } from '../../constants/TypeConstants'
 
 const { Option } = Select
 
-const Analyst = ({ status, setParams, params }) => {
+const Analyst = ({ status, setParams, params, dataConnection }) => {
   const priceChange = parseFloat('2.36')
-  const [data, setData] = useState([])
+  // const [data, setData] = useState([])
   const [totalValue, setTotalValue] = useState(0)
   // const amountArray = []
-  useEffect(()=>{
-    const getData = async() =>{
-      const response = await get('addresses/holdings')
-      const data = response?.data
-      setData(data)
-    }
-    getData()
-  }, [status === SUCCESS_DELETE_CONNECTION])
+  // useEffect(()=>{
+  //   const getData = async() =>{
+  //     const response = await get('addresses/holdings')
+  //     const data = response?.data
+  //     setData(data)
+  //   }
+  //   getData()
+  // }, [status === SUCCESS_DELETE_CONNECTION])
 
+  // console.log(dataConnection)
   // get data demo list coins
-  const getDataCoinstats = async() => {
-    const res = await getDataDemo('coins', {
-      skip: 0,
-      limit: 100,
-      currency: 'EUR'
-    })
-    console.log('data coinstats', res.coins)
-  }
+  // const getDataCoinstats = async() => {
+  //   const res = await getDataDemo('coins', {
+  //     skip: 0,
+  //     limit: 100,
+  //     currency: 'EUR'
+  //   })
+  //   console.log('data coinstats', res.coins)
+  // }
 
-  useEffect(() => {
-    getDataCoinstats()
-  }, [])
+  // useEffect(() => {
+  //   getDataCoinstats()
+  // }, [])
 
   // end get data demo coins
 
-  useEffect(()=>{
-    // 5 lần lặp
-    let number = 0
-    data?.map((item, index)=>{
-      const amount = (item.holdings[0].holding.amount) * EXCHANGE
-      // amountArray.push(amount)
-      const coinPriceByUSD = item.holdings[0].coinPriceUSD
-      // console.log({
-      //   'amount': amount,
-      //   'coinPriceByUSD': coinPriceByUSD
-      // })
-      number += amount * coinPriceByUSD
-      // let totalVal = 0
-      // for (let i = 0; i < amountArray.length; i++) {
-      //   totalVal += amountArray[i] * coinPriceByUSD
-      // }
-      // setTotalValue(totalVal)
+  // useEffect(()=>{
+  //   // 5 lần lặp
+  //   let number = 0
+  //   data?.map((item, index)=>{
+  //     const amount = (item.holdings[0].holding.amount) * EXCHANGE
+  //     // amountArray.push(amount)
+  //     const coinPriceByUSD = item.holdings[0].coinPriceUSD
+  //     // console.log({
+  //     //   'amount': amount,
+  //     //   'coinPriceByUSD': coinPriceByUSD
+  //     // })
+  //     number += amount * coinPriceByUSD
+  //     // let totalVal = 0
+  //     // for (let i = 0; i < amountArray.length; i++) {
+  //     //   totalVal += amountArray[i] * coinPriceByUSD
+  //     // }
+  //     // setTotalValue(totalVal)
+  //   })
+  //   setTotalValue(number)
+  // }, [data])
+
+  useEffect(() => {
+    let value
+    dataConnection && dataConnection.length > 0 && dataConnection.map((item) => {
+      value = item.holdings.reduce(myFunc, 0)
     })
-    setTotalValue(number)
-  }, [data])
+
+    function myFunc(total, currenValue) {
+      const price = currenValue.coinPriceUSD
+      const balance = currenValue.holding.balance * (1 / Math.pow(10, currenValue.holding.decimals))
+      const money = price * balance
+      return total + money
+    }
+    setTotalValue(value && value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+  }, [dataConnection])
 
   const handleChange = (value) =>{
     setParams({
@@ -74,7 +90,7 @@ const Analyst = ({ status, setParams, params }) => {
       <Row>
         <Col span={24}>
           <Col span={24}>
-            <div className='main-price'>{usdMoneyFormat(totalValue)}</div>
+            <div className='main-price'>${totalValue}</div>
           </Col>
           <Col span={24}>
             <div className='data-change'>
@@ -112,7 +128,7 @@ const Analyst = ({ status, setParams, params }) => {
           </Col>
         </Col>
         <Col span={24}>
-          <Table />
+          <Table dataConnection={dataConnection}/>
         </Col>
       </Row>
     </div>

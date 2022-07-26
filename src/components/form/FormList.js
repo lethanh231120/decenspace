@@ -1,7 +1,7 @@
 import React from 'react'
-import { Typography, Form, Input, Select } from 'antd'
+import { Typography, Form, Select } from 'antd'
 import { SearchOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons'
-
+import { AddressWallet } from '../platforms/form-input/AddressWallet'
 const { Option } = Select
 const { Text } = Typography
 const children = []
@@ -38,18 +38,7 @@ export const FormListItem = () => {
                     {children}
                   </Select>
                 </Form.Item>
-                <Form.Item
-                  label='Wallet Address'
-                  name={[index, 'address']}
-                  rules={[
-                    {
-                      min: 20,
-                      message: 'Address wallet must be minimum 20 characters.'
-                    }
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
+                <AddressWallet/>
               </div>
             ))}
             <Form.Item>
