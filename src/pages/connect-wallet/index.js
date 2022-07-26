@@ -11,17 +11,17 @@ const ConnectWallet = () => {
   const [isModalLoading, setIsModalLoading] = useState(false)
   const [isModalSuccess, setIsModalSuccess] = useState(false)
 
-  const { status } = useSelector(state => state.connections)
+  const { status_btc } = useSelector(state => state.connectionBtc)
 
   useEffect(() => {
-    if (status && status === LOADING_IMPORT_CONNECTION) {
+    if (status_btc && status_btc === LOADING_IMPORT_CONNECTION) {
       setIsModalLoading(true)
     }
-    if (status && status === SUCCESS_IMPORT_CONNECTION) {
+    if (status_btc && status_btc === SUCCESS_IMPORT_CONNECTION) {
       setIsModalSuccess(true)
       setIsModalLoading(false)
     }
-  }, [status])
+  }, [status_btc])
 
   const render = () => {
     const abc = platforms.find((item) => {
@@ -33,7 +33,7 @@ const ConnectWallet = () => {
   }
 
   return (
-    <div style={{ padding: '50px 0', margin: '0px auto', width: '500px' }}>
+    <div>
       {render().platform}
       <ModalLoadingConnect
         isModalLoading={isModalLoading}

@@ -5,7 +5,7 @@ import { EllipsisOutlined } from '@ant-design/icons'
 import '../portfolio/styles.scss'
 // import { EXCHANGE } from '../../constants/TypeConstants'
 // import { get } from '../../api/addressService'
-
+import { EXCHANGE } from '../../constants/TypeConstants'
 const { TabPane } = Tabs
 const table = ({ dataConnection }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState(['rank', 'name', 'price', 'marketCap', 'volume', 'priceChange1w', 'priceChange7d', 'priceGraph', 'priceChange24h', 'priceChange1h'])
@@ -120,8 +120,8 @@ const table = ({ dataConnection }) => {
           <img src={record.holding.logo ? record.holding.logo : 'https://png.monster/wp-content/uploads/2022/02/png.monster-623.png'} alt='avatar-coin'/>
         </div>
         <div className='table-name-content'>
-          <div className='table-name-text'>{record.holding.name}</div>
-          <div className='table-name-symbol'>{record.holding.symbol.toUpperCase()}</div>
+          <div className='table-name-text'>{record?.holding?.name ? record?.holding?.name : record?.holding?.coinName}</div>
+          <div className='table-name-symbol'>{record?.holding?.symbol ? record?.holding?.symbol.toUpperCase() : record?.holding?.coinName === 'bitcoin' ? 'BTC' : ''}</div>
         </div>
       </div>)
     },
@@ -133,7 +133,10 @@ const table = ({ dataConnection }) => {
       // hidden: !selectedRowKeys.includes('amount'),
       sorter: (a, b) => a.amount - b.amount,
       render: (_, record) => (<span style={{ color: '#fff', fontWeight: '500' }}>
-        {((record?.holding?.balance) * (1 / Math.pow(10, (record?.holding?.decimals)))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+        {record?.holding?.balance
+          ? ((record?.holding?.balance) * (1 / Math.pow(10, (record?.holding?.decimals)))).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+          : ((record?.holding?.amount) * EXCHANGE).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        }
       </span>)
     },
     // {

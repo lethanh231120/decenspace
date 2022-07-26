@@ -5,6 +5,7 @@ import { Metamask } from '../../components/platforms/Metamask'
 import { BinanceSmartChain } from '../../components/platforms/BinanceSmartChain'
 import { EthereumWallet } from '../../components/platforms/EthereumWallet'
 import { Solana } from '../../components/platforms/Solana'
+import { TrustWallet } from '../../components/platforms/TrustWallet'
 export const platforms = [
   {
     id: 'binance',
@@ -50,5 +51,12 @@ export const platforms = [
     icon: '/coins/solana_wallet.png',
     platform: <Solana/>,
     name: 'Solana Wallet'
+  },
+  {
+    chainId: 1399811149,
+    id: 'trust-wallet',
+    icon: '/coins/trust_wallet.png',
+    platform: <TrustWallet/>,
+    name: 'Trust Wallet'
   }
 ]

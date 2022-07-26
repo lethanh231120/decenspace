@@ -29,7 +29,6 @@ export const importConnectionEvm = createAsyncThunk(
   'connections/importConnectionEvm',
   async(info) => {
     const { data, chainId } = info
-    console.log(data, chainId)
     return await post(`evm/import-address?chainId=${chainId}`, data, config)
   }
 )

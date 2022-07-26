@@ -9,16 +9,18 @@ import { getAllHoldingBtc } from '../../redux/bitcoinSlice'
 import { getAllHoldingEvm } from '../../redux/evmSlice'
 import { SUCCESS_DELETE_CONNECTION_EVM, SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
 // import { get } from '../../api/coinPriceService'
+import { getPriceCoinByPeriod } from '../../redux/coinsPriceSlice'
 
 const Portfolio = () => {
   const [connectionName, setConnectionName] = useState('all')
   const [dataConnection, setDataConnection] = useState([])
   const [isModalEdit, setIsModalEdit] = useState(false)
   const [params, setParams] = useState({ coinId: 'bitcoin', time: '1d' })
-
+  const [holdingAll, setHoldingAll] = useState([])
   const dispatch = useDispatch()
-  const { status_btc } = useSelector(state => state.connectionBtc)
+  const { holding_btc, status_btc } = useSelector(state => state.connectionBtc)
   const { holding_evm, status_evm } = useSelector(state => state.connectionEvm)
+  const { data_coin_price } = useSelector(state => state.coinPrice)
 
   useEffect(() => {
     dispatch(getAllHoldingBtc())
@@ -29,25 +31,29 @@ const Portfolio = () => {
   }, [dispatch, status_evm === SUCCESS_DELETE_CONNECTION_EVM])
 
   useEffect(() => {
-    const getData = async() => {
-      // await get(`price/${params.coinId}/period?time=${params.time}`).then(res => console.log(res.data)).catch(error => error)
-    }
-    getData()
+    setHoldingAll([
+      ...holding_btc,
+      ...holding_evm
+    ])
+  }, [holding_btc, holding_evm])
+
+  useEffect(() => {
+    dispatch(getPriceCoinByPeriod(params))
   }, [params])
 
   useEffect(() => {
     if (connectionName !== 'all') {
-      setDataConnection(holding_evm && holding_evm?.filter((item) => item.connection.id === parseInt(connectionName)))
+      setDataConnection(holdingAll && holdingAll?.filter((item) => item.connection.id === parseInt(connectionName)))
     } else {
       const allHolding = []
-      holding_evm.map((item) => allHolding.push(...item.holdings))
+      holdingAll.map((item) => allHolding.push(...item.holdings))
       setDataConnection([
         {
           holdings: allHolding
         }
       ])
     }
-  }, [connectionName, holding_evm])
+  }, [connectionName, holdingAll])
 
   const handleTabClick = (e) => {
     setConnectionName(e)
@@ -59,7 +65,7 @@ const Portfolio = () => {
         <Col span={6}>
           <WalletAddress
             connectionName={connectionName}
-            holding_evm={holding_evm.length > 0 && holding_evm}
+            holding_evm={holdingAll.length > 0 && holdingAll}
             status_evm={status_evm}
             setIsModalEdit={setIsModalEdit}
             isModalEdit={isModalEdit}
@@ -71,6 +77,7 @@ const Portfolio = () => {
             status={status_btc}
             setParams={setParams}
             params={params}
+            data_coin_price={data_coin_price}
             dataConnection={!_.isEmpty(dataConnection) && dataConnection}
           />
         </Col>

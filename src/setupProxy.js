@@ -1,11 +1,11 @@
 const { createProxyMiddleware } = require('http-proxy-middleware')
 module.exports = function(app) {
   app.use(
-    createProxyMiddleware('/addressService', {
+    createProxyMiddleware('/bitcoinService', {
       target: 'https://bitcoin.nika.guru',
       changeOrigin: true,
       pathRewrite: {
-        '^/addressService': ''
+        '^/bitcoinService': ''
       },
       headers: {
         Connection: 'keep-alive'
@@ -54,6 +54,18 @@ module.exports = function(app) {
       changeOrigin: true,
       pathRewrite: {
         '^/evmService': ''
+      },
+      headers: {
+        Connection: 'keep-alive'
+      }
+    })
+  )
+  app.use(
+    createProxyMiddleware('/coinPrice', {
+      target: 'https://ce05-118-70-117-216.ap.ngrok.io',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/coinPrice': ''
       },
       headers: {
         Connection: 'keep-alive'

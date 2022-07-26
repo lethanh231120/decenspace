@@ -1,14 +1,16 @@
 import React from 'react'
-import { Form } from 'antd'
+import { Form, Button } from 'antd'
 import { PlatformHeader } from './form-input/PlatformHeader'
 import { ConnectionName } from './form-input/ConnectionName'
 import { AddressWallet } from './form-input/AddressWallet'
-import { ButtonSubmit } from './form-input/ButtonSubmit'
-
+import { SOLANA_CHAINID } from '../../constants/ChainId'
+import { importConnectionEvm } from '../../redux/evmSlice'
+import { useDispatch } from 'react-redux'
 export const Solana = () => {
   const [form] = Form.useForm()
+  const dispatch = useDispatch()
   const onFinish = async(values) => {
-    console.log(values)
+    dispatch(importConnectionEvm({ data: values, chainId: SOLANA_CHAINID }))
   }
   return (
     <div className='bitcoin'>
@@ -21,8 +23,7 @@ export const Solana = () => {
       >
         <ConnectionName/>
         <AddressWallet/>
-        <ButtonSubmit text='Submit'/>
-        {/* <Form.Item shouldUpdate >
+        <Form.Item shouldUpdate >
           {() => (
             <Button
               type='primary'
@@ -36,7 +37,7 @@ export const Solana = () => {
               Submit
             </Button>
           )}
-        </Form.Item> */}
+        </Form.Item>
       </Form>
     </div>
   )

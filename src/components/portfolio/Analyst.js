@@ -7,11 +7,11 @@ import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
 // import { SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
 // import { get } from '../../api/addressService'
 // import { getDataDemo } from '../../api/dataDemo'
-// import { EXCHANGE } from '../../constants/TypeConstants'
-
+import { EXCHANGE } from '../../constants/TypeConstants'
+import ChartConnection from './ChartConnection'
 const { Option } = Select
 
-const Analyst = ({ status, setParams, params, dataConnection }) => {
+const Analyst = ({ status, setParams, params, dataConnection, data_coin_price }) => {
   const priceChange = parseFloat('2.36')
   // const [data, setData] = useState([])
   const [totalValue, setTotalValue] = useState(0)
@@ -70,8 +70,13 @@ const Analyst = ({ status, setParams, params, dataConnection }) => {
     })
 
     function myFunc(total, currenValue) {
+      let balance
       const price = currenValue.coinPriceUSD
-      const balance = currenValue.holding.balance * (1 / Math.pow(10, currenValue.holding.decimals))
+      if (currenValue.holding.balance) {
+        balance = currenValue.holding.balance * (1 / Math.pow(10, currenValue.holding.decimals))
+      } else {
+        balance = currenValue.holding.amount * EXCHANGE
+      }
       const money = price * balance
       return total + money
     }
@@ -89,43 +94,52 @@ const Analyst = ({ status, setParams, params, dataConnection }) => {
     <div className='dashboard'>
       <Row>
         <Col span={24}>
-          <Col span={24}>
-            <div className='main-price'>${totalValue}</div>
-          </Col>
-          <Col span={24}>
-            <div className='data-change'>
-              { priceChange > 0
-                ? <>
-                  <span className='change-price-up'>{usdMoneyFormat(123.04)}</span>
-                  <span>
-                    <span className='price-up change-price-up'><CaretUpOutlined/></span>
-                    <span className='change-price-up'>{priceChange}%</span>
-                  </span>
-                </>
-                : <>
-                  <span className='change-price-down'>{usdMoneyFormat(123.04)}</span>
-                  <span>
-                    <span className='price-down change-price-down'><CaretDownOutlined/></span>
-                    <span className='change-price-down'>{priceChange}%</span>
-                  </span>
-                </>
-              }
-              <Select
-                defaultValue='1W'
-                onChange={handleChange}
-                color='rgba(0,0,0,.85)'
-              >
-                <Option value='1h'>1H</Option>
-                <Option value='1d'>24H</Option>
-                <Option value='1w'>1W</Option>
-                <Option value='1m'>1M</Option>
-                <Option value='3m'>3M</Option>
-                <Option value='6m'>6M</Option>
-                <Option value='1y'>1Y</Option>
-                <Option value='all'>ALL</Option>
-              </Select>
-            </div>
-          </Col>
+          <Row>
+            <Col span='10'>
+              <Col span={24}>
+                <div className='main-price'>${totalValue}</div>
+              </Col>
+              <Col span={24}>
+                <div className='data-change'>
+                  { priceChange > 0
+                    ? <>
+                      <span className='change-price-up'>{usdMoneyFormat(123.04)}</span>
+                      <span>
+                        <span className='price-up change-price-up'><CaretUpOutlined/></span>
+                        <span className='change-price-up'>{priceChange}%</span>
+                      </span>
+                    </>
+                    : <>
+                      <span className='change-price-down'>{usdMoneyFormat(123.04)}</span>
+                      <span>
+                        <span className='price-down change-price-down'><CaretDownOutlined/></span>
+                        <span className='change-price-down'>{priceChange}%</span>
+                      </span>
+                    </>
+                  }
+                  <Select
+                    defaultValue='1W'
+                    onChange={handleChange}
+                    color='rgba(0,0,0,.85)'
+                  >
+                    <Option value='1h'>1H</Option>
+                    <Option value='1d'>24H</Option>
+                    <Option value='1w'>1W</Option>
+                    <Option value='1m'>1M</Option>
+                    <Option value='3m'>3M</Option>
+                    <Option value='6m'>6M</Option>
+                    <Option value='1y'>1Y</Option>
+                    <Option value='all'>ALL</Option>
+                  </Select>
+                </div>
+              </Col>
+            </Col>
+            <Col span='14'>
+              <div style={{ textAlign: 'right', display: 'flex', justifyContent: 'center' }}>
+                <ChartConnection data_coin_price={data_coin_price}/>
+              </div>
+            </Col>
+          </Row>
         </Col>
         <Col span={24}>
           <Table dataConnection={dataConnection}/>

@@ -16,7 +16,7 @@
         margin-right: 10px
     }
     & .ant-form-item-label>label{
-        color: $font__color--white;
+        color: $checker-box-background;
     }
 }
 .metamask{
@@ -58,7 +58,7 @@
         text-align: left;
     }
     & .ant-form-item-label>label{
-        color: $font__color--white;
+        color: $checker-box-background;
     }
     &-form{
         &-item{
@@ -121,7 +121,7 @@
             text-align: left;
         }
         & .ant-form-item-label>label{
-            color: $font__color--white;
+            color: $checker-box-background;
         }
         &-form{
             &-item{
@@ -185,7 +185,7 @@
                 text-align: left;
             }
             & .ant-form-item-label>label{
-                color: $font__color--white;
+                color: $checker-box-background;
             }
             &-form{
                 &-item{
@@ -205,6 +205,91 @@
                         }
                     }
                 }
+            }
+        }
+    }
+}
+.binance{
+    padding: 30px 7% ;
+    margin: 0px auto;
+    & .platform-title{
+        justify-content: left;
+    }
+    &-title{
+        display: flex;
+        align-items: center;
+        justify-content: center 
+    }
+    & .ant-tabs>.ant-tabs-nav .ant-tabs-nav-wrap, .ant-tabs>div>.ant-tabs-nav .ant-tabs-nav-wrap{
+        justify-content: left;
+    }
+    &-text {
+        font-weight: bold;
+        font-size: 30px;
+        color: #fff;
+        margin-right: 10px;
+        &-button{
+            margin-bottom: 30px;
+            & .ant-typography{
+                color: $font__color--white;
+            }
+        }
+    }
+    &-button{
+        text-align: left;
+        transition: all 0.25s linear;
+        cursor: pointer;
+        & .ant-typography{
+            color: $font__color--white;
+            &:hover{
+                color: $orange-main-color;
+            }
+        }
+    }
+    & .ant-select.ant-select-in-form-item.ant-select-single.ant-select-show-arrow.ant-select-show-search{
+        text-align: left;
+    }
+    & .ant-form-item-label>label{
+        color: $checker-box-background;
+    }
+    &-form{
+        &-item{
+            background-color: $background-form-item;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            &-icon{
+                width: 100%;
+                text-align: right;
+                & span{
+                    color: $font__color--white;
+                    cursor: pointer;
+                    &:hover{
+                        color: $orange-main-color;
+                    }
+                }
+            }
+        }
+    }
+    &-box{
+        &-text{
+            text-align: left;
+            padding: 60px 0;
+            & .ant-typography{
+                &.binance-box-text-step{
+                    font-size: 16px;
+                    padding: 8px 0;
+                    & .binance-box-text-step-bold{
+                        font-weight: 600;
+                        color: $font__color--white
+                    }
+                }
+                color: $checker-box-background;
+                display: block;
+                &.binance-box-text-title{
+                    color: $font__color--white;
+                }
+                
             }
         }
     }

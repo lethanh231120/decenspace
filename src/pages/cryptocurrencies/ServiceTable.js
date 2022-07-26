@@ -4,12 +4,13 @@ import { Table, Popover } from 'antd'
 import { EllipsisOutlined, CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons'
 import { SKIP, CURRENCY } from '../../constants/params'
 import Chart from './Chart'
-import { getDataDemo } from '../../api/dataDemo'
+// import { getDataDemo } from '../../api/dataDemo'
+import axios from 'axios'
 import _ from 'lodash'
 const { TabPane } = Tabs
 
 const ServiceTable = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState(['rank', 'name', 'price', 'marketCap', 'volume', 'priceChange1w', 'priceChange7d', 'priceGraph', 'priceChange24h', 'priceChange1h'])
+  const [selectedRowKeys, setSelectedRowKeys] = useState(['rank', 'name', 'price', 'marketCap', 'prices.volume_24h', 'priceChange1w', 'priceChange7d', 'priceGraph', 'priceChange24h', 'priceChange1h'])
   const [data, setData] = useState([])
   const [params, setParams] = useState({
     skip: SKIP,
@@ -19,9 +20,11 @@ const ServiceTable = () => {
   const [statusReload, setStatusReload] = useState(false)
 
   const getData = async() => {
-    const res = await getDataDemo('coins', params)
-    setData(res.coins)
+    // const res = await getDataDemo('coins', params)
+    axios.get('coinPrice/coins/info').then(res => setData(res.data?.data)).catch(error => error)
+    // setData(res.coins)
   }
+  console.log(data && data)
 
   useEffect(() => {
     getData()
@@ -79,7 +82,7 @@ const ServiceTable = () => {
       title: 'Market Cap'
     },
     {
-      key: 'volume',
+      key: 'prices.volume_24h',
       title: 'Volumn 24h'
     },
     {
@@ -113,11 +116,11 @@ const ServiceTable = () => {
       sorter: (a, b) => a.name - b.name,
       render: (_, record) => (<div>
         <div className='table-icon-coin'>
-          <img src={record.icon} alt='avatar-coin'/>
+          {/* <img src={record.icon} alt='avatar-coin'/> */}
         </div>
         <div className='table-name-content'>
-          <div className='table-name-text'>{record.name}</div>
-          <div className='table-name-symbol'>{record.symbol}</div>
+          <div className='table-name-text'>{record.coin_name}</div>
+          <div className='table-name-symbol'>{record.coin_symbol}</div>
         </div>
       </div>)
     },
@@ -130,22 +133,22 @@ const ServiceTable = () => {
           style={{
             padding: '5px',
             borderRadius: '5px',
-            backgroundColor: record.priceChange1h >= 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255,53,53,0.1)',
-            color: record.priceChange1h >= 0 ? '#34b349' : '#ff4d4d',
+            backgroundColor: record.prices.percent_change_1h >= 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255,53,53,0.1)',
+            color: record.prices.percent_change_1h >= 0 ? '#34b349' : '#ff4d4d',
             fontWeight: 'bold',
             width: 'fit-content',
             marginLeft: 'auto'
           }}
         >
-          {record.priceChange1h >= 0 ? <CaretUpOutlined/> : <CaretDownOutlined/>}
-          {record.priceChange1h >= 0 ? record.priceChange1h : record.priceChange1h.toString().slice(1)} %
+          {record.prices.percent_change_1h >= 0 ? <CaretUpOutlined/> : <CaretDownOutlined/>}
+          {parseInt(record.prices.percent_change_1h >= 0 ? record.prices.percent_change_1h : record.prices.percent_change_1h.toString().slice(1)).toFixed(2)} %
         </div>
       ),
-      sorter: (a, b) => a.priceChange1h - b.priceChange1h
+      sorter: (a, b) => a.prices.percent_change_1h - b.prices.percent_change_1h
     },
     {
       title: 'Change (24h)',
-      sorter: (a, b) => a.priceChange1d - b.priceChange1d,
+      sorter: (a, b) => a.prices.percent_change_24h - b.prices.percent_change_24h,
       width: '120px',
       hidden: !selectedRowKeys.includes('priceChange24h'),
       render: (_, record) => (
@@ -153,21 +156,21 @@ const ServiceTable = () => {
           style={{
             padding: '5px',
             borderRadius: '5px',
-            backgroundColor: record.priceChange1d >= 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255,53,53,0.1)',
-            color: record.priceChange1d >= 0 ? '#34b349' : '#ff4d4d',
+            backgroundColor: record.prices.percent_change_24h >= 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255,53,53,0.1)',
+            color: record.prices.percent_change_24h >= 0 ? '#34b349' : '#ff4d4d',
             fontWeight: 'bold',
             width: 'fit-content',
             marginLeft: 'auto'
           }}
         >
-          {record.priceChange1d >= 0 ? <CaretUpOutlined/> : <CaretDownOutlined/>}
-          {record.priceChange1d >= 0 ? record.priceChange1d : record.priceChange1d.toString().slice(1)} %
+          {record.prices.percent_change_24h >= 0 ? <CaretUpOutlined/> : <CaretDownOutlined/>}
+          {parseInt(record.prices.percent_change_24h >= 0 ? record.prices.percent_change_24h : record.prices.percent_change_24h.toString().slice(1)).toFixed(2)} %
         </div>
       )
     },
     {
       title: '7d Change',
-      sorter: (a, b) => a.priceChange1w - b.priceChange1w,
+      sorter: (a, b) => a.prices.percent_change_7d - b.prices.percent_change_7d,
       width: '120px',
       hidden: !selectedRowKeys.includes('priceChange7d'),
       render: (_, record) => (
@@ -175,15 +178,15 @@ const ServiceTable = () => {
           style={{
             padding: '5px',
             borderRadius: '5px',
-            backgroundColor: record.priceChange1w >= 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255,53,53,0.1)',
-            color: record.priceChange1w >= 0 ? '#34b349' : '#ff4d4d',
+            backgroundColor: record.prices.percent_change_7d >= 0 ? 'rgba(52, 199, 89, 0.1)' : 'rgba(255,53,53,0.1)',
+            color: record.prices.percent_change_7d >= 0 ? '#34b349' : '#ff4d4d',
             fontWeight: 'bold',
             width: 'fit-content',
             marginLeft: 'auto'
           }}
         >
-          {record.priceChange1w >= 0 ? <CaretUpOutlined/> : <CaretDownOutlined/>}
-          {record.priceChange1w >= 0 ? record.priceChange1w : record.priceChange1w.toString().slice(1)} %
+          {record.prices.percent_change_7d >= 0 ? <CaretUpOutlined/> : <CaretDownOutlined/>}
+          {parseInt(record.prices.percent_change_7d >= 0 ? record.prices.percent_change_7d : record.prices.percent_change_7d.toString().slice(1)).toFixed(2)} %
         </div>
       )
     },
@@ -191,37 +194,37 @@ const ServiceTable = () => {
       title: 'Price',
       dataIndex: 'price',
       width: '150px',
-      sorter: (a, b) => a.price - b.price,
+      sorter: (a, b) => a.prices.price - b.prices.price,
       hidden: !selectedRowKeys.includes('price'),
       render: (_, record) => (<span style={{ color: '#fff', fontWeight: '500' }}>
-        $ {record.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+        $ {record.prices.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
       </span>)
     },
-    {
-      title: 'Price in BTC',
-      sorter: (a, b) => a.priceBtc - b.priceBtc,
-      hidden: !selectedRowKeys.includes('priceBtc'),
-      width: '120px',
-      render: (_, record) => (<span style={{ color: '#A8ADB3' }}>
-        {record.priceBtc.toFixed(8).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
-      </span>)
-    },
+    // {
+    //   title: 'Price in BTC',
+    //   sorter: (a, b) => a.priceBtc - b.priceBtc,
+    //   hidden: !selectedRowKeys.includes('priceBtc'),
+    //   width: '120px',
+    //   render: (_, record) => (<span style={{ color: '#A8ADB3' }}>
+    //     {record.priceBtc.toFixed(8).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+    //   </span>)
+    // },
     {
       title: 'Market Cap',
-      sorter: (a, b) => a.marketCap - b.marketCap,
+      sorter: (a, b) => a.prices.market_cap - b.prices.market_cap,
       width: '120px',
-      hidden: !selectedRowKeys.includes('marketCap'),
+      hidden: !selectedRowKeys.includes('prices.market_cap'),
       render: (_, record) => (<span style={{ color: '#A8ADB3' }}>
-        $ {(record.marketCap / 1000000000).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')} B
+        $ {(record.prices.market_cap / 1000000000).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')} B
       </span>)
     },
     {
       title: 'Volumn 24h',
-      sorter: (a, b) => a.volume - b.volume,
+      sorter: (a, b) => a.prices.volume_24h - b.prices.volume_24h,
       width: '120px',
-      hidden: !selectedRowKeys.includes('volume'),
+      hidden: !selectedRowKeys.includes('prices.volume_24h'),
       render: (_, record) => (<span style={{ color: '#A8ADB3' }}>
-        $ {(record.volume / 1000000000).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')} B
+        $ {(record.prices.volume_24h / 1000000000).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,')} B
       </span>)
     },
     {
@@ -230,8 +233,8 @@ const ServiceTable = () => {
       width: '120px',
       className: 'table-graph',
       hidden: !selectedRowKeys.includes('priceGraph'),
-      sorter: (a, b) => a.priceGraph - b.priceGraph,
-      render: (_, record) => (<Chart record={record && record} statusReload={statusReload} setStatusReload={setStatusReload}/>)
+      // sorter: (a, b) => a.priceGraph - b.priceGraph,
+      render: (_, record) => (<Chart record={record && record.price_chart_7d} statusReload={statusReload} setStatusReload={setStatusReload}/>)
     },
     {
       title: <Popover
@@ -299,7 +302,7 @@ const ServiceTable = () => {
             position: ['bottomCenter'],
             total: 1000,
             defaultCurrent: 1,
-            defaultPageSize: 10,
+            defaultPageSize: 100,
             showSizeChanger: false,
             onChange: handleChangePage
           }}

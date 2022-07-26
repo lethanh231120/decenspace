@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { LineChart, Line, YAxis, XAxis } from 'recharts'
-import { getDataDemo } from '../../api/dataDemo'
+// import { getDataDemo } from '../../api/dataDemo'
 const Chart = ({ record, statusReload, setStatusReload }) => {
-  const [data, setData] = useState()
+  // const [data, setData] = useState()
   const newData = []
 
-  const getData = async() => {
-    const res = await getDataDemo('charts', {
-      period: '1w',
-      coinId: record.id
-    })
-    setData(res.chart)
-  }
+  // const getData = async() => {
+  //   const res = await getDataDemo('charts', {
+  //     period: '1w',
+  //     coinId: record.id
+  //   })
+  //   setData(res.chart)
+  // }
 
-  useEffect(() => {
-    getData()
-    setStatusReload(false)
-  }, [statusReload === true])
+  // useEffect(() => {
+  //   getData()
+  //   setStatusReload(false)
+  // }, [statusReload === true])
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      getData()
-      setStatusReload(false)
-    }, 60000)
-    return () => clearTimeout(timer)
-  }, [])
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     getData()
+  //     setStatusReload(false)
+  //   }, 60000)
+  //   return () => clearTimeout(timer)
+  // }, [])
 
-  data && data.map((item) => {
+  record && record.map((item) => {
     return newData.push(
       {
-        price: item[1]
+        price: item
       }
     )
   })
+  console.log(newData)
 
   return (
     <LineChart width={120} height={60} data={newData && newData}>

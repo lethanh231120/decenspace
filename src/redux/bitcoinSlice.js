@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { post, get, del, patch } from '../api/addressService'
+import { post, get, del, patch } from '../api/bitcoinService'
 import {
   LOADING_IMPORT_CONNECTION,
   SUCCESS_IMPORT_CONNECTION,
@@ -29,14 +29,14 @@ const config = {
 export const importConnectionBtc = createAsyncThunk(
   'connections/importConnectionBtc',
   async(data) => {
-    return await post('addresses/import-address', data, config)
+    return await post('bitcoin/import-address', data, config)
   }
 )
 
 // export const getAllConnectionBtc = createAsyncThunk(
 //   'connections/getAllConnectionBtc',
 //   async() => {
-//     return await get('addresses/connection/current-connections')
+//     return await get('bitcoin/connection/current-connections')
 //   }
 // )
 
@@ -50,7 +50,7 @@ export const getAllHoldingBtc = createAsyncThunk(
 export const deleteConnectionBtc = createAsyncThunk(
   'connections/deleteConnectionBtc',
   async(id) => {
-    return await del(`addresses/connection/connectionId=${id}`)
+    return await del(`bitcoin/connection/connectionId=${id}`)
   }
 )
 
@@ -58,7 +58,7 @@ export const updateConnectionBtc = createAsyncThunk(
   'connections/updateConnectionBtc',
   async(info) => {
     const { id, data } = info
-    return await patch(`addresses/connection/connectionId=${id}`, data)
+    return await patch(`bitcoin/connection/connectionId=${id}`, data)
   }
 )
 
@@ -68,7 +68,7 @@ const bicoinSlice = createSlice({
     data_btc: null,
     status_btc: null,
     list_connection_btc: null,
-    holding_btc: null
+    holding_btc: []
   },
   extraReducers: {
     // post connection wallet bitcoins
