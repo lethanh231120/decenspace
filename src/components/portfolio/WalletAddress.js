@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Tabs, Divider, Input, Popconfirm } from 'antd'
 import './styles.scss'
-import { useDispatch } from 'react-redux'
-import { deleteConnectionBtc } from '../../redux/bitcoinSlice'
+// import { useDispatch } from 'react-redux'
+// import { deleteConnectionBtc } from '../../redux/bitcoinSlice'
 import ModalContent from '../modal/connect-portfolio'
-import { deleteConnectionEvm } from '../../redux/evmSlice'
+// import { deleteConnectionEvm } from '../../redux/evmSlice'
 import ModalEdit from '../modal/modal-edit/Bitcoin'
 
 const { TabPane } = Tabs
@@ -14,7 +14,7 @@ const WalletAddress = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [dataEdit, setDataEdit] = useState(false)
   // const [searchFilter, setSearchFilter] = useState('')
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const [filterConnection, setFilterConnection] = useState()
   const { Search } = Input
 
