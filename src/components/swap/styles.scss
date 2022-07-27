@@ -1,0 +1,78 @@
+/* Advance modal */
+.advance-modal .ant-modal-content {
+  background: #1a1a1a;
+  border-color: #333333;
+  border-radius: 25px;
+  min-height: 25vh;
+  width: 75%;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+
+  .advance__modal {
+    &--title {
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    &--slippage {
+      margin-top: 15px;
+      color: #999999;
+
+      &-options {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+
+        > * {
+          margin-right: 10px;
+        }
+
+        button {
+          width: 60%;
+          background: #262626;
+          color: white;
+          border-radius: 15px;
+          border: none;
+        }
+
+        button:hover {
+          background: #404040;
+        }
+
+        button:active {
+          background: #ffa959;
+          color: #1a1a1a;
+        }
+
+        .ant-input {
+          background: #404040;
+          border-radius: 15px;
+          border: none;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+/* Connect wallet modal */
+.connect-wallet-modal .ant-modal-content {
+  height: calc(100% - 64px);
+  max-width: 100%;
+  width: 400px;
+  transform: translateX(0%);
+  position: fixed;
+  top: 64px;
+  left: 0px;
+  border-radius: 0;
+
+  .connect-wallet__modal {
+    img {
+      max-height: 45px;
+      max-width: 30px;
+    }
+  }
+}

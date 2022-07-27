@@ -18,6 +18,7 @@ const StyleDiv = {
   minHeight: '73px'
 }
 const ModalContent = () => {
+  // When u click into a wallet, navigate your page to this wallet's import address page
   const navigate = useNavigate()
   const handleClickWallet = (platformId) => {
     navigate(`../../connect/${platformId}`)
