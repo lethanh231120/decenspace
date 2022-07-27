@@ -3,7 +3,7 @@ import { Typography, Form, Button, Tabs, Input } from 'antd'
 import { PlatformHeader } from './form-input/PlatformHeader'
 import { ConnectionName } from './form-input/ConnectionName'
 import { useWeb3React } from '@web3-react/core'
-import { Injected, Walletconnect, Walletlink } from './wallet-connect/Connectors'
+import { Walletconnect, Walletlink } from './wallet-connect/Connectors'
 
 const { TabPane } = Tabs
 const { Text } = Typography
