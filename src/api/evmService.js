@@ -11,7 +11,7 @@ if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
-const get = async(url, params = {}) => {
+const getEvm = async(url, params = {}) => {
   const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
   if (token) {
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -93,4 +93,4 @@ const patch = async(url, data = {}) => {
   }
 }
 
-export { get, post, del, put, patch }
+export { getEvm, post, del, put, patch }

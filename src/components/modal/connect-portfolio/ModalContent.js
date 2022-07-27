@@ -20,7 +20,7 @@ const StyleDiv = {
 const ModalContent = () => {
   const navigate = useNavigate()
   const handleClickWallet = (platformId) => {
-    navigate(`../connect/${platformId}`)
+    navigate(`../../connect/${platformId}`)
   }
 
   return (

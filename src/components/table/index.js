@@ -6,6 +6,7 @@ import '../portfolio/styles.scss'
 // import { EXCHANGE } from '../../constants/TypeConstants'
 // import { get } from '../../api/addressService'
 import { EXCHANGE } from '../../constants/TypeConstants'
+import { ListNFT } from '../nft-evm/ListNFT'
 const { TabPane } = Tabs
 const table = ({ dataConnection }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState(['rank', 'name', 'price', 'marketCap', 'volume', 'priceChange1w', 'priceChange7d', 'priceGraph', 'priceChange24h', 'priceChange1h'])
@@ -339,11 +340,14 @@ const table = ({ dataConnection }) => {
           }}
         />
       </TabPane>
-      <TabPane tab='Charts' key='2'>
-        Content of Tab Pane 2
+      <TabPane tab='NFT' key='2'>
+        <ListNFT/>
       </TabPane>
-      <TabPane tab='Transactions' key='3'>
+      <TabPane tab='Charts' key='3'>
         Content of Tab Pane 3
+      </TabPane>
+      <TabPane tab='Transactions' key='4'>
+        Content of Tab Pane 4
       </TabPane>
     </Tabs>
   )

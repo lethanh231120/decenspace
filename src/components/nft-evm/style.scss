@@ -1,0 +1,132 @@
+@import '../../assets/index.scss';
+
+.nft{
+    padding: 20px 0 ;
+    &-header{
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        &-list{
+            margin-top: 30px;
+        }
+        &-total{
+            padding-right: 50px;
+            margin-right: 50px;
+            border-right: 1px solid $checker-box-background;
+            text-align: left;
+        }
+        &-count{
+            text-align: left;
+        }
+        & .ant-typography{
+            color: $font__color--white;
+        }
+        & h2.ant-typography{
+            margin: 10px 0 ;
+        }
+        &-item{
+            border-radius: 12px;
+            position: relative;
+            background-color: blue;
+            transition: all 0.3s;
+            cursor: pointer;
+            &-content{
+                background-color: $background-item-nft;
+                text-align: left;
+                padding: 5px 8px;
+                border-bottom-left-radius: 12px;
+                border-bottom-right-radius: 12px;
+                & .ant-typography{
+                    color: $font__color--white;
+                    &.nft-header-item-price{
+                        color: $checker-box-background;
+                    }
+                }
+            }
+            &-count{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background-color: $background-item-nft;
+                border-radius: 25px;
+                min-width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0px 8px;
+                & .ant-image{
+                    width: 12px;
+                    height: 12px;
+                    display: flex;
+                    align-items: center;
+                    & img{
+                        
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+            &:hover{
+                transform: translateY(-5px);
+                box-shadow: $background-item-nft 0px 5px 15px;
+            }
+        }
+    }
+    &-detail{
+        padding: 100px 0;
+        max-width: 60vw;
+        margin: 0px auto;
+        &-content{
+            text-align: left;
+            &-item{
+                padding-bottom: 20px;
+                margin-bottom: 20px;
+                border-bottom: 1px solid $color-item-text-nft;
+                & .ant-typography{
+                    margin: 0;
+                    color: $font__color--white;
+                }
+                & h1.ant-typography, h2.ant-typography, h3.ant-typography, h4.ant-typography, h5.ant-typography{
+                    margin: 0;
+                    color: $font__color--white;
+                }
+                &-attr{
+                    padding: 4px 8px;
+                    margin-right: 10px;
+                    border-radius: 8px;
+                    background-color: $background-item-nft;
+                    margin-bottom: 5px;
+                }
+            }
+            &-list{
+                &-attr{
+                    margin-top: 10px;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+                &-link{
+                    display: flex;
+                    flex-wrap: wrap;
+                    & a{
+                        margin-right: 10px;
+                        text-decoration: underline;
+                        color: $font__color--white;
+                        font-weight: 600;
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+        &-image{
+            width: 100%;
+            background-color: red;
+            height: 100%;
+            & img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}

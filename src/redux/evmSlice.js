@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { post, get, del } from '../api/evmService'
+import { post, getEvm, del } from '../api/evmService'
 import {
   LOADING_IMPORT_CONNECTION_EVM,
   SUCCESS_IMPORT_CONNECTION_EVM,
@@ -36,14 +36,14 @@ export const importConnectionEvm = createAsyncThunk(
 export const getAllConnectionEvm = createAsyncThunk(
   'connections/getAllConnectionEvm',
   async() => {
-    return await get('evm/connection/current-connections')
+    return await getEvm('evm/connection/current-connections')
   }
 )
 
 export const getAllHoldingEvm = createAsyncThunk(
   'connections/getAllHoldingEvm',
   async() => {
-    return await get('evm/holdings')
+    return await getEvm('evm/holdings')
   }
 )
 

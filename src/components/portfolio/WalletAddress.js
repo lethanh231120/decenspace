@@ -40,7 +40,6 @@ const WalletAddress = (props) => {
   // })
 
   const handleDeleteAddress = (id, chain) => {
-    console.log(id, chain)
     if (chain === 'evm') {
       // dispatch(deleteConnectionEvm(id))
     }
@@ -49,7 +48,6 @@ const WalletAddress = (props) => {
     }
   }
 
-  console.log(filterConnection)
   const handleEditAddress = (item) => {
     setIsModalEdit(true)
     setDataEdit(item)

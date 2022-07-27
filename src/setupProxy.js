@@ -62,7 +62,7 @@ module.exports = function(app) {
   )
   app.use(
     createProxyMiddleware('/coinPrice', {
-      target: 'https://ce05-118-70-117-216.ap.ngrok.io',
+      target: 'https://b471-118-70-117-216.ap.ngrok.io',
       changeOrigin: true,
       pathRewrite: {
         '^/coinPrice': ''

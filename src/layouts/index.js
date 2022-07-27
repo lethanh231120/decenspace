@@ -13,6 +13,7 @@ import ConnectWalletPage from '../pages/connect-wallet'
 import ConnectPortfolioPage from '../pages/connect-portfolio'
 import ConnectMetaMask from '../pages/connect-metamask'
 import ResetPassword from '../components/auth/reset-password'
+import DetailNFT from '../components/nft-evm/DetailNFT'
 import { ConfirmEmail } from '../components/auth/confirm-email'
 import { Layout } from 'antd'
 import './header/index.scss'
@@ -24,7 +25,10 @@ const Router = () => {
       <Content style={{ margin: '0 6%' }}>
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='portfolio' element={<PortfolioPage />} />
+          <Route path='portfolio'>
+            <Route path='' element={<PortfolioPage />} />
+            <Route path='nft/:id' element={<DetailNFT />} />
+          </Route>
           <Route path='swap' element={<SwapPage />} />
           <Route path='cryptocurrencies' element={<Cryptocurrencies />} />
           <Route path='price' element={<PricingPage />} />
