@@ -3,7 +3,7 @@ import { Typography, Form, Button, Tabs, Input } from 'antd'
 import { PlatformHeader } from './form-input/PlatformHeader'
 import { ConnectionName } from './form-input/ConnectionName'
 import { useWeb3React } from '@web3-react/core'
-import { Walletconnect, Walletlink } from './wallet-connect/Connectors'
+import { Walletconnect } from './wallet-connect/Connectors'
 
 const { TabPane } = Tabs
 const { Text } = Typography
@@ -17,7 +17,7 @@ export const TrustWallet = () => {
   const onFinish = async(values) => {
     // console.log(values)
     activate(Walletconnect)
-    activate(Walletlink)
+    // activate(Walletlink)
     // activate(Injected)
   }
   console.log(chainId, active, account)
