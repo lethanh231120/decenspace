@@ -44,12 +44,15 @@ export const Metamask = () => {
 
   const onFinish = async(values) => {
     if (ethereum) {
+      // Use RPC Api from Metamask, get address and create connection name (default:' Metamask'),
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
       const data = {
         connectionName: values.connectionName !== undefined ? values.connectionName : 'Metamask',
         address: accounts[0]
       }
+      // get chainId
       const chain = await provider.getNetwork()
+      // send it to server
       await dispatch(importConnectionEvm({ data, chainId: chain.chainId }))
     } else {
       return error()

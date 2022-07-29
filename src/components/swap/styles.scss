@@ -1,0 +1,128 @@
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #999999;
+  border-radius: 10px;
+}
+
+/* Advance modal */
+.advance-modal .ant-modal-content {
+  background: #1a1a1a;
+  border-color: #333333;
+  border-radius: 25px;
+  min-height: 25vh;
+  width: 75%;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%, -50%);
+
+  .advance__modal {
+    &--title {
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    &--slippage {
+      margin-top: 15px;
+      color: #999999;
+
+      &-options {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+
+        > * {
+          margin-right: 10px;
+        }
+
+        button {
+          width: 60%;
+          background: #262626;
+          color: white;
+          border-radius: 15px;
+          border: none;
+        }
+
+        button:hover {
+          background: #404040;
+        }
+
+        button:active {
+          background: #ffa959;
+          color: #1a1a1a;
+        }
+
+        .ant-input {
+          background: #404040;
+          border-radius: 15px;
+          border: none;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+/* Connect wallet modal */
+.connect-wallet-modal .ant-modal-content {
+  background: #1a1a1a;
+  border-color: #333333;
+  color: white;
+  height: calc(100% - 64px);
+  max-width: 100%;
+  width: 400px;
+  transform: translateX(0%);
+  transition: transform 0.3 ease-in-out;
+  position: fixed;
+  top: 64px;
+  right: 0px;
+  border-radius: 0;
+
+  .connect-wallet__modal {
+    &-wallet{
+      &-zone{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 20px;
+        background: #262626;
+        margin-top: 10px;
+        border-radius: 25px;
+        position: relative;
+  
+        img {
+          max-height: 40px;
+          max-width: 30px;
+          margin-right: 20px;
+        }
+
+        span{
+         position: absolute;
+         right: 20px;
+        }
+      }
+
+      &-zone:hover{
+        background: #333333;
+        cursor: pointer;
+      }
+    }
+    
+    
+  }
+}
+
+/* Platform modal */
+.ant-modal.platform-modal{
+  width: 100vh !important;
+  min-height: 60vh;
+
+  .ant-modal-content{
+    background: #1a1a1a !important;
+  }
+}
