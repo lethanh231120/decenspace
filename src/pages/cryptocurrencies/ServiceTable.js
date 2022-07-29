@@ -21,7 +21,7 @@ const ServiceTable = () => {
 
   const getData = async() => {
     // const res = await getDataDemo('coins', params)
-    axios.get('/coinPrice/coins/info').then(res => setData(res.data?.data)).catch(error => error)
+    axios.get('/coinPrice/coins/info?skip=0&limit=10').then(res => setData(res.data?.data)).catch(error => error)
     // setData(res.coins)
   }
 

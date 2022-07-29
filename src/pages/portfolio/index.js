@@ -35,19 +35,24 @@ const Portfolio = () => {
     ['holding_btc'],
     async() => {
       const dataBtc = await get('bitcoin/holdings')
-      return dataBtc.data
+      return dataBtc?.data
     }
   )
+
+  console.log('HOLDING BTC', holding_btc)
 
   const { data: holding_evm } = useQuery(
     ['holding_evm'],
     async() => {
       const dataEvm = await getEvm('evm/holdings')
-      return dataEvm.data
+      return dataEvm?.data
     }
   )
+
+  console.log('HOLDING EVM', holding_evm)
+
   useEffect(() => {
-    if (holding_btc !== undefined && holding_evm !== undefined) {
+    if (holding_btc !== undefined && holding_evm !== undefined && holding_btc !== null && holding_evm !== null) {
       setHoldingAll([
         ...holding_btc,
         ...holding_evm

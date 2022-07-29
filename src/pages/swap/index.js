@@ -95,7 +95,7 @@ const Swap = () => {
         </div>
       </div>
       <Modal
-        className='advanced-modal'
+        className='advance-modal'
         visible={isModalAdvanced}
         onOk={() => setIsModalAdvanced(false)}
         onCancel={() => setIsModalAdvanced(false)}
