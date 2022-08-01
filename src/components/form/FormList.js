@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Form, Select } from 'antd'
 import { SearchOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons'
-import { AddressWallet } from '../platforms/form-input/AddressWallet'
+import AddressWallet from '../platforms/form-input/AddressWallet'
 const { Option } = Select
 const { Text } = Typography
 const children = []

@@ -3,9 +3,9 @@ import { Typography, Form, Button, Tabs, Select, Modal } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import './platform.scss'
 import { FormListItem } from '../form/FormList'
-import { ConnectionName } from './form-input/ConnectionName'
-import { PlatformHeader } from './form-input/PlatformHeader'
-import { AddressWallet } from './form-input/AddressWallet'
+import ConnectionName from './form-input/ConnectionName'
+import PlatformHeader from './form-input/PlatformHeader'
+import AddressWallet from './form-input/AddressWallet'
 import { ethers } from 'ethers'
 import { importConnectionEvm } from '../../redux/evmSlice'
 import { useDispatch } from 'react-redux'
@@ -14,8 +14,7 @@ const { Text } = Typography
 const { Option } = Select
 const children = []
 const { ethereum } = window
-const provider = new ethers.providers.Web3Provider(window.ethereum)
-
+const provider = ((window.ethereum != null) ? new ethers.providers.Web3Provider(window.ethereum) : ethers.getDefaultProvider())
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>)
 }

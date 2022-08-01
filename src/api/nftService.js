@@ -3,16 +3,15 @@ import { getCookie, STORAGEKEY } from '../utils/storage/index'
 
 const getUrlPrefix = () => '/'
 const instance = axios.create({
-  baseURL: 'https://api.coinstats.app/public/v1'
+  baseURL: '/nftService'
 })
 
 const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
-
 if (token) {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
 
-const getDataDemo = async(url, params = {}) => {
+const getNFT = async(url, params = {}) => {
   const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
   if (token) {
     instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -94,4 +93,4 @@ const patch = async(url, data = {}) => {
   }
 }
 
-export { getDataDemo, post, del, put, patch }
+export { getNFT, post, del, put, patch }

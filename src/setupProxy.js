@@ -61,6 +61,18 @@ module.exports = function(app) {
     })
   )
   app.use(
+    createProxyMiddleware('/nftService', {
+      target: 'https://nft.nika.guru/',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/nftService': ''
+      },
+      headers: {
+        Connection: 'keep-alive'
+      }
+    })
+  )
+  app.use(
     createProxyMiddleware('/coinPrice', {
       target: 'https://b471-118-70-117-216.ap.ngrok.io',
       changeOrigin: true,

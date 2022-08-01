@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 const ModalFooter = () => {
   return (
     <div style={{ textAlign: 'center' }}>
@@ -6,4 +6,4 @@ const ModalFooter = () => {
     </div>
   )
 }
-export default ModalFooter
+export default memo(ModalFooter)

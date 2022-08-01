@@ -1,8 +1,8 @@
 import React from 'react'
 import { Form, Tabs, Input, Row, Col, Typography } from 'antd'
-import { PlatformHeader } from './form-input/PlatformHeader'
-import { ConnectionName } from './form-input/ConnectionName'
-import { ButtonSubmit } from './form-input/ButtonSubmit'
+import PlatformHeader from './form-input/PlatformHeader'
+import ConnectionName from './form-input/ConnectionName'
+import ButtonSubmit from './form-input/ButtonSubmit'
 import './platform.scss'
 
 const { TabPane } = Tabs

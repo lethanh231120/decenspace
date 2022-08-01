@@ -6,7 +6,15 @@ module.exports = function override(config, env) {
     stream: require.resolve('stream-browserify'),
     buffer: require.resolve('buffer'),
     util: require.resolve('util'),
-    assert: require.resolve('assert')
+    assert: require.resolve('assert'),
+    crypto: require.resolve('crypto-browserify'),
+    http: require.resolve('stream-http'),
+    https: require.resolve('https-browserify'),
+    os: require.resolve('os-browserify'),
+    url: require.resolve('url'),
+    fs: false,
+    path: false,
+    process: false
   }
   config.resolve.extensions = [...config.resolve.extensions, '.ts', '.js']
   config.plugins = [
@@ -16,8 +24,5 @@ module.exports = function override(config, env) {
       Buffer: ['buffer', 'Buffer']
     })
   ]
-  // console.log(config.resolve)
-  // console.log(config.plugins)
-
   return config
 }

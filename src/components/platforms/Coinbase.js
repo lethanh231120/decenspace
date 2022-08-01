@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-export const Coinbase = () => {
+const Coinbase = () => {
   return (
     <div style={{ color: 'red' }}>xzcxzczxcxzczxc</div>
   )
 }
+export default memo(Coinbase)

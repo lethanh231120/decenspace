@@ -15,6 +15,7 @@ import ConnectMetaMask from '../pages/connect-metamask'
 import ResetPassword from '../components/auth/reset-password'
 import DetailNFT from '../components/nft-evm/DetailNFT'
 import { ConfirmEmail } from '../components/auth/confirm-email'
+import { CoinDetail } from '../components/coins/CoinDetail'
 import { Layout } from 'antd'
 import './header/index.scss'
 const { Content } = Layout
@@ -27,8 +28,9 @@ const Router = () => {
           <Route path='/' element={<HomePage />} />
           <Route path='portfolio'>
             <Route path='' element={<PortfolioPage />} />
-            <Route path='nft/:id' element={<DetailNFT />} />
           </Route>
+          <Route path='nft/:nftId' element={<DetailNFT />} />
+          <Route path='coins/:coinId' element={<CoinDetail />} />
           <Route path='swap' element={<SwapPage />} />
           <Route path='cryptocurrencies' element={<Cryptocurrencies />} />
           <Route path='price' element={<PricingPage />} />

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Form, Button } from 'antd'
 
-export const ButtonSubmit = ({ text }) => {
+const ButtonSubmit = ({ text }) => {
   const [form] = Form.useForm()
   return (
     <Form.Item shouldUpdate >
@@ -21,3 +21,4 @@ export const ButtonSubmit = ({ text }) => {
     </Form.Item>
   )
 }
+export default memo(ButtonSubmit)

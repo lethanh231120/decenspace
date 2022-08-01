@@ -10,7 +10,7 @@ import ModalEdit from '../modal/modal-edit/Bitcoin'
 
 const { TabPane } = Tabs
 const WalletAddress = (props) => {
-  const { holding_evm, setIsModalEdit, isModalEdit, connectionName, handleTabClick } = props
+  const { holdings, setIsModalEdit, isModalEdit, connectionName, handleTabClick } = props
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [dataEdit, setDataEdit] = useState(false)
   // const [searchFilter, setSearchFilter] = useState('')
@@ -23,11 +23,11 @@ const WalletAddress = (props) => {
   }
 
   useEffect(() => {
-    setFilterConnection(holding_evm)
-  }, [holding_evm])
+    setFilterConnection(holdings)
+  }, [holdings])
 
   const onChange = (value) => {
-    setFilterConnection(holding_evm && holding_evm.filter((item) => {
+    setFilterConnection(holdings && holdings.filter((item) => {
       return item.connection.connectionName.toLowerCase().includes(value.toLowerCase())
     }))
   }
@@ -35,7 +35,7 @@ const WalletAddress = (props) => {
   // const filterConnection = list_connection?.filter((item)=>{
   //   return item.connectionName.toLowerCase().includes(searchFilter.toLowerCase())
   // })
-  // const connectionEvm = holding_evm && holding_evm.filter((item) => {
+  // const connectionEvm = holdings && holdings.filter((item) => {
   //   return item.connection.connectionName.toLowerCase().includes(searchFilter.toLowerCase())
   // })
 

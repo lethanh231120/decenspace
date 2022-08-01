@@ -1,6 +1,6 @@
 import { Binance } from '../../components/platforms/Binance'
 import { Bitcoin } from '../../components/platforms/Bitcoin'
-import { Coinbase } from '../../components/platforms/Coinbase'
+import Coinbase from '../../components/platforms/Coinbase'
 import { Metamask } from '../../components/platforms/Metamask'
 import { BinanceSmartChain } from '../../components/platforms/BinanceSmartChain'
 import { EthereumWallet } from '../../components/platforms/EthereumWallet'

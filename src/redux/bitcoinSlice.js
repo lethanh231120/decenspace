@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { post, get, del, patch } from '../api/bitcoinService'
+import { post, del, patch } from '../api/bitcoinService'
 import {
   LOADING_IMPORT_CONNECTION,
   SUCCESS_IMPORT_CONNECTION,
   FAILED_IMPORT_CONNECTION,
   // LOADING_GET_ALL_CONNECTION,
   // SUCCESS_GET_ALL_CONNECTION,
-  // FAILED_GET_ALL_CONNECTION,
-  LOADING_GET_ALL_HOLDING_BTC,
-  SUCCESS_GET_ALL_HOLDING_BTC,
-  FAILED_GET_ALL_HOLDING_BTC,
+  // // FAILED_GET_ALL_CONNECTION,
+  // LOADING_GET_ALL_HOLDING_BTC,
+  // SUCCESS_GET_ALL_HOLDING_BTC,
+  // FAILED_GET_ALL_HOLDING_BTC,
   LOADING_DELETE_CONNECTION,
   SUCCESS_DELETE_CONNECTION,
   FAILED_DELETE_CONNECTION,
@@ -40,12 +40,12 @@ export const importConnectionBtc = createAsyncThunk(
 //   }
 // )
 
-export const getAllHoldingBtc = createAsyncThunk(
-  'connections/getAllHoldingBtc',
-  async() => {
-    return await get('bitcoin/holdings')
-  }
-)
+// export const getAllHoldingBtc = createAsyncThunk(
+//   'connections/getAllHoldingBtc',
+//   async() => {
+//     return await get('bitcoin/holdings')
+//   }
+// )
 
 export const deleteConnectionBtc = createAsyncThunk(
   'connections/deleteConnectionBtc',
@@ -98,30 +98,17 @@ const bicoinSlice = createSlice({
     // },
 
     // get all holding evm
-    [getAllHoldingBtc.pending]: (state, action) => {
-      state.status_btc = LOADING_GET_ALL_HOLDING_BTC
-    },
-    [getAllHoldingBtc.fulfilled]: (state, action) => {
-      state.data_btc = null
-      state.status_btc = SUCCESS_GET_ALL_HOLDING_BTC
-      state.holding_btc = action.payload.data
-    },
-    [getAllHoldingBtc.rejected]: (state, action) => {
-      state.status_btc = FAILED_GET_ALL_HOLDING_BTC
-    },
-
-    // delete connection wallet bitcoins
-    [deleteConnectionBtc.pending]: (state, action) => {
-      state.status_btc = LOADING_DELETE_CONNECTION
-    },
-    [deleteConnectionBtc.fulfilled]: (state, action) => {
-      state.data_btc = null
-      state.status_btc = SUCCESS_DELETE_CONNECTION
-      state.list_connection_btc = null
-    },
-    [deleteConnectionBtc.rejected]: (state, action) => {
-      state.status_btc = FAILED_DELETE_CONNECTION
-    },
+    // [getAllHoldingBtc.pending]: (state, action) => {
+    //   state.status_btc = LOADING_GET_ALL_HOLDING_BTC
+    // },
+    // [getAllHoldingBtc.fulfilled]: (state, action) => {
+    //   state.data_btc = null
+    //   state.status_btc = SUCCESS_GET_ALL_HOLDING_BTC
+    //   state.holding_btc = action.payload.data
+    // },
+    // [getAllHoldingBtc.rejected]: (state, action) => {
+    //   state.status_btc = FAILED_GET_ALL_HOLDING_BTC
+    // },
 
     // delete connection wallet bitcoins
     [deleteConnectionBtc.pending]: (state, action) => {

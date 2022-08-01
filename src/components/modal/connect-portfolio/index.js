@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import { Modal } from 'antd'
 import ModalHeader from './ModalHeader'
 import ModalContent from './ModalContent'
@@ -6,13 +6,13 @@ import ModalFooter from './ModalFooter'
 import './style.scss'
 
 const ModalConnect = ({ isModalVisible, setIsModalVisible }) => {
-  const handleOk = () => {
+  const handleOk = useMemo(() => {
     setIsModalVisible(false)
-  }
+  }, [])
 
-  const handleCancel = () => {
+  const handleCancel = useMemo(() => {
     setIsModalVisible(false)
-  }
+  }, [])
   return (
     <Modal
       visible={isModalVisible}
@@ -29,4 +29,4 @@ const ModalConnect = ({ isModalVisible, setIsModalVisible }) => {
     </Modal>
   )
 }
-export default ModalConnect
+export default memo(ModalConnect)

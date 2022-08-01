@@ -1,5 +1,5 @@
 import { Col, Row, Select } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback, memo } from 'react'
 import { usdMoneyFormat } from '../../utils/parseFloat'
 import Table from '../table'
 import './styles.scss'
@@ -11,7 +11,8 @@ import { EXCHANGE } from '../../constants/TypeConstants'
 import ChartConnection from './ChartConnection'
 const { Option } = Select
 
-const Analyst = ({ status, setParams, params, dataConnection, data_coin_price }) => {
+const Analyst = (props) => {
+  const { setParams, params, dataConnection, data_coin_price, isGroupNFT, setIsGroupNFT } = props
   const priceChange = parseFloat('2.36')
   // const [data, setData] = useState([])
   const [totalValue, setTotalValue] = useState(0)
@@ -25,7 +26,6 @@ const Analyst = ({ status, setParams, params, dataConnection, data_coin_price })
   //   getData()
   // }, [status === SUCCESS_DELETE_CONNECTION])
 
-  // console.log(dataConnection)
   // get data demo list coins
   // const getDataCoinstats = async() => {
   //   const res = await getDataDemo('coins', {
@@ -65,30 +65,28 @@ const Analyst = ({ status, setParams, params, dataConnection, data_coin_price })
 
   useEffect(() => {
     let value
-    dataConnection && dataConnection.length > 0 && dataConnection.map((item) => {
-      value = item.holdings.reduce(myFunc, 0)
-    })
-
+    dataConnection?.holdings && dataConnection?.holdings.length > 0 && dataConnection?.holdings?.reduce(myFunc, 0)
     function myFunc(total, currenValue) {
       let balance
       const price = currenValue.coinPriceUSD
-      if (currenValue.holding.balance) {
-        balance = currenValue.holding.balance * (1 / Math.pow(10, currenValue.holding.decimals))
+      if (currenValue?.holding?.balance) {
+        balance = currenValue?.holding?.balance * (1 / Math.pow(10, currenValue?.holding?.decimals))
       } else {
-        balance = currenValue.holding.amount * EXCHANGE
+        balance = currenValue?.holding?.amount * EXCHANGE
       }
       const money = price * balance
-      return total + money
+      value = total + money
+      return value
     }
     setTotalValue(value && value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
   }, [dataConnection])
 
-  const handleChange = (value) =>{
+  const handleChange = useCallback((value) =>{
     setParams({
       ...params,
       time: value
     })
-  }
+  }, [])
 
   return (
     <div className='dashboard'>
@@ -142,11 +140,11 @@ const Analyst = ({ status, setParams, params, dataConnection, data_coin_price })
           </Row>
         </Col>
         <Col span={24}>
-          <Table dataConnection={dataConnection}/>
+          <Table dataConnection={dataConnection} isGroupNFT={isGroupNFT} setIsGroupNFT={setIsGroupNFT}/>
         </Col>
       </Row>
     </div>
   )
 }
 
-export default Analyst
+export default memo(Analyst)

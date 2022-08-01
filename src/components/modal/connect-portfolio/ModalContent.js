@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Row, Col, Image, Typography } from 'antd'
 import { ArrowRightOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
@@ -61,4 +61,4 @@ const ModalContent = () => {
     </div>
   )
 }
-export default ModalContent
+export default memo(ModalContent)

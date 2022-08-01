@@ -1,10 +1,10 @@
 import React from 'react'
 import { Typography, Form, Button, Tabs, Input } from 'antd'
-import { PlatformHeader } from './form-input/PlatformHeader'
-import { ConnectionName } from './form-input/ConnectionName'
+import PlatformHeader from './form-input/PlatformHeader'
+import ConnectionName from './form-input/ConnectionName'
 import { useWeb3React } from '@web3-react/core'
-import { Walletconnect } from './wallet-connect/Connectors'
-
+import { walletconnect } from './wallet-connect/Connectors'
+// import Web3 from 'web3'
 const { TabPane } = Tabs
 const { Text } = Typography
 export const TrustWallet = () => {
@@ -15,10 +15,49 @@ export const TrustWallet = () => {
     // deactivate
   } = useWeb3React()
   const onFinish = async(values) => {
-    // console.log(values)
-    activate(Walletconnect)
-    // activate(Walletlink)
-    // activate(Injected)
+    // wallet connect
+    activate(walletconnect)
+
+    // coinbase
+    // activate(walletlink)
+
+    // metamask
+    // activate(injected)
+
+    // trust wallet
+    // if (!connector.connected) {
+    //   connector.createSession()
+    // }
+    // connector.on('connect', (error, payload) => {
+    //   if (error) {
+    //     throw error
+    //   }
+    //   const { accounts, chainId } = payload.params[0]
+    //   console.log(accounts, chainId)
+    // })
+    // connector.on('session_update', (error, payload) => {
+    //   if (error) {
+    //     throw error
+    //   }
+    //   const { accounts, chainId } = payload.params[0]
+    //   console.log(accounts, chainId)
+    // })
+
+    // binance smart chain
+    // const provider = await web3Modal.connect()
+    // await web3Modal.toggleModal()
+    // const newWeb3 = new Web3(provider)
+    // const accounts = await newWeb3.eth.getAccounts()
+
+    // console.log(newWeb3.eth.getChainId())
+    // console.log(accounts)
+    // walletConnectProvider.enable()
+    // // walletConnectProvider.connector.on('display_uri', (err, payload) => {
+    // //   console.log(payload)
+    // // })
+    // if (walletConnectProvider.connected) {
+    //   console.log(walletConnectProvider.accounts[0])
+    // }
   }
   console.log(chainId, active, account)
 

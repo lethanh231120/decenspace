@@ -1,49 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { LineChart, Line, YAxis, XAxis } from 'recharts'
-// import { getDataDemo } from '../../api/dataDemo'
-const Chart = ({ record, statusReload, setStatusReload }) => {
-  // const [data, setData] = useState()
-  const newData = []
-
-  // const getData = async() => {
-  //   const res = await getDataDemo('charts', {
-  //     period: '1w',
-  //     coinId: record.id
-  //   })
-  //   setData(res.chart)
-  // }
-
-  // useEffect(() => {
-  //   getData()
-  //   setStatusReload(false)
-  // }, [statusReload === true])
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     getData()
-  //     setStatusReload(false)
-  //   }, 60000)
-  //   return () => clearTimeout(timer)
-  // }, [])
-
-  record && record.map((item) => {
-    return newData.push(
-      {
-        price: item
-      }
-    )
-  })
-  console.log(newData)
+const Chart = ({ record }) => {
+  const [dataPrice, setDataPrice] = useState([])
+  useEffect(() => {
+    const newData = []
+    record.map((item) => {
+      newData.push(
+        {
+          price: item
+        }
+      )
+    })
+    setDataPrice(newData)
+  }, [record])
 
   return (
-    <LineChart width={120} height={60} data={newData && newData}>
+    <LineChart width={120} height={60} data={dataPrice && dataPrice}>
       <YAxis domain={['dataMin', 'dataMax']} hide={true}/>
       <XAxis dataKey='price' allowDataOverflow={false} hide={true} />
       <Line
         type='linear'
         dot={false}
         dataKey='price'
-        stroke={newData?.shift()?.price < newData?.pop()?.price ? '#6ccf59' : '#ff4d4d'}
+        stroke={dataPrice?.shift()?.price < dataPrice?.pop()?.price ? '#6ccf59' : '#ff4d4d'}
         strokeWidth={0.7}
       />
     </LineChart>
