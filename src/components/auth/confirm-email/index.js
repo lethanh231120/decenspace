@@ -3,11 +3,12 @@ import axios from 'axios'
 export const ConfirmEmail = () => {
   const [message, setMessage] = useState()
   useEffect(() => {
+    // Get uuid and token from browser search
     const queryParams = new URLSearchParams(window.location.search)
     const uuid = queryParams.get('uuid')
     const token = queryParams.get('token')
     console.log(token)
-    const authoriation = async() => {
+    const authorization = async() => {
       const instance = axios.create({
         baseURL: '/accountService'
       })
@@ -22,8 +23,7 @@ export const ConfirmEmail = () => {
       }
     }
     const timer = setTimeout(() => {
-      authoriation()
-      console.log('aaaa')
+      authorization()
     }, 1000)
     return () => clearTimeout(timer)
   }, [])

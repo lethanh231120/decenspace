@@ -126,10 +126,10 @@ const Navbar = () => {
             </Typography>
           </div>
             : <div style={{ display: 'flex', alignItems: 'center', width: '150px', justifyContent: 'space-around ' }}>
-              <Typography style={{ color: '#fff', cursor: 'pointer' }} onClick={() => setIsModalSignin(true)}>
+              <Typography onClick={() => setIsModalSignin(true)}>
                 Signin
               </Typography>
-              <Typography style={{ color: '#fff', cursor: 'pointer' }} onClick={() => setIsModalSignup(true)}>
+              <Typography onClick={() => setIsModalSignup(true)}>
                 Signup
               </Typography>
             </div>}

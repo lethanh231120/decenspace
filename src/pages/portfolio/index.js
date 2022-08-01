@@ -32,15 +32,17 @@ const Portfolio = () => {
     ['holding_btc'],
     async() => {
       const dataBtc = await get('bitcoin/holdings')
-      return dataBtc.data
+      return dataBtc?.data
     }
   )
+
+  console.log('HOLDING BTC', holding_btc)
 
   const { data: holding_evm } = useQuery(
     ['holding_evm'],
     async() => {
       const dataEvm = await getEvm('evm/holdings')
-      return dataEvm.data
+      return dataEvm?.data
     }
   )
 
