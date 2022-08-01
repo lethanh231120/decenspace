@@ -4,16 +4,40 @@ import './styles.scss'
 import { RightOutlined, DownOutlined } from '@ant-design/icons'
 import AdvanceModal from '../../components/swap/AdvanceModal'
 import { ConnectWalletModal } from '../../components/swap/ConnectWalletModal'
+import ToModal from '../../components/swap/ToModal'
+import { addressFormat } from '../../utils/parseFloat'
 
 const Swap = () => {
-  const [connect, setConnect] = useState(false)
+  const [address, setAddress] = useState('')
+  // const [connect, setConnect] = useState(false)
   const [isModalAdvanced, setIsModalAdvanced] = useState(false)
   const [isConnectWalletModal, setIsConnectWalletModal] = useState(false)
+  const [isToModal, setIsToModal] = useState(false)
+  // const [isFromModal, setIsFromModal] = useState(false)
+  const [chainId, setChainId] = useState('')
 
   const onClick = () => {
     setIsConnectWalletModal(true)
-    setConnect(false)
+    // setConnect(false)
+    if (Number.isInteger(chainId)) {
+      console.log(chainId)
+    }
   }
+
+  const openToModal = () => {
+    setIsToModal(true)
+  }
+
+  const handleDisconnect = () =>{
+    window.sessionStorage.removeItem('address')
+    window.location.reload()
+  }
+
+  // const openFromModal = () => {
+  //   setIsFromModal(true)
+  // }
+
+  const addressToken = window.sessionStorage.getItem('address')
 
   return (
     <div className='swap-page__container'>
@@ -22,7 +46,7 @@ const Swap = () => {
           <span>Swap</span>
         </div>
         <>
-          {connect
+          {addressToken !== null
             ? (<div className='swap-page__modal--wallet-info'>
               <div className='swap-page__modal--wallet-info--left'>
                 <img
@@ -31,8 +55,8 @@ const Swap = () => {
                 <div className='swap-page__modal--wallet-info--left-no-img'>
                   <div className='swap-page__modal--wallet-info--name'>Ethereum Wallet</div>
                   <div className='swap-page__modal--wallet-info-props'>
-                    <span className='swap-page__modal--wallet-info-props--address'>0xd6...d41f</span>
-                    <span className='swap-page__modal--wallet-info-props--status'>Connected</span>
+                    <span className='swap-page__modal--wallet-info-props--address'>{ address !== '' ? addressFormat(address) : '0xd68...41f'}</span>
+                    <span className='swap-page__modal--wallet-info-props--status' onClick={handleDisconnect}>Connected</span>
                   </div>
                 </div>
               </div>
@@ -50,9 +74,17 @@ const Swap = () => {
           <div className='swap-page__modal--swap-from'>
             <div className='select-coin-part'>
               <div className='swap-span'>From</div>
-              <Button className='swap-coin-btn'>
-                Select coin <DownOutlined />
-              </Button>
+              { addressToken
+                ? (
+                  <Button className='swap-coin-btn'>
+                    Select coin <DownOutlined />
+                  </Button>
+                )
+                : (
+                  <Button className='swap-coin-btn' disabled>
+                    Select coin <DownOutlined />
+                  </Button>
+                )}
             </div>
             <div className='quantity-part'>
               <div className='coin-amount'>0</div>
@@ -62,9 +94,17 @@ const Swap = () => {
           <div className='swap-page__modal--swap-to'>
             <div className='select-coin-part'>
               <div className='swap-span'>To</div>
-              <Button className='swap-coin-btn'>
-                Select coin <DownOutlined />
-              </Button>
+              { addressToken
+                ? (
+                  <Button className='swap-coin-btn' onClick={openToModal}>
+                    Select coin <DownOutlined />
+                  </Button>
+                )
+                : (
+                  <Button className='swap-coin-btn' disabled>
+                    Select coin <DownOutlined />
+                  </Button>
+                )}
             </div>
             <div className='quantity-part'>
               <div className='coin-amount'>0</div>
@@ -111,7 +151,22 @@ const Swap = () => {
         onCancel={() => setIsConnectWalletModal(false)}
         footer={null}
       >
-        <ConnectWalletModal setIsConnectWalletModal={setIsConnectWalletModal} />
+        <ConnectWalletModal
+          setIsConnectWalletModal={setIsConnectWalletModal}
+          // setConnect={setConnect}
+          setAddress={setAddress}
+          setChainId={setChainId}
+        />
+      </Modal>
+
+      <Modal
+        className='to-modal'
+        visible={isToModal}
+        onOk={() => setIsToModal(false)}
+        onCancel={() => setIsToModal(false)}
+        footer={null}
+      >
+        <ToModal setIsToModal={setIsToModal} />
       </Modal>
     </div >
   )
