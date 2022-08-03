@@ -1,0 +1,212 @@
+.swap-page__container {
+    min-height: 100vh;
+
+    .swap-page__modal {
+        margin-top: 30px;
+        background: #1a1a1a;
+        border: 1px solid #1a1a1a;
+        border-radius: 25px;
+        width: 25%;
+
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        &--title {
+            margin-top: 30px;
+            font-size: 20px;
+        }
+
+        &--wallet-info {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #262626;
+            margin-left: 30px;
+            margin-right: 30px;
+            border-radius: 25px;
+
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            img {
+                max-width: 30px;
+                max-height: 45px;
+            }
+
+            &--left {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &-no-img {
+                    margin-left: 20px;
+                    .swap-page__modal--wallet-info--name {
+                        text-align: left;
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+
+                    .swap-page__modal--wallet-info-props--address {
+                        color: grey;
+                    }
+
+                    .swap-page__modal--wallet-info-props--status {
+                        margin-left: 10px;
+                        color: #4cd964;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .change-wallet--arrow {
+                font-size: 25px;
+                font-weight: 700;
+                color: gray;
+            }
+        }
+
+        &--connect-wallet {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #262626;
+            margin-left: 30px;
+            margin-right: 30px;
+            border-radius: 25px;
+
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            button {
+                min-height: 50px;
+                min-width: 80px;
+                border-radius: 25px;
+                background: #ff9332;
+                border: none;
+                font-size: 15px;
+                font-weight: 600;
+            }
+
+            button:hover {
+                background: #ffb347;
+                color: #1a1a1a;
+            }
+        }
+
+        &--swap {
+            margin-top: 30px;
+            background: #262626;
+            margin-left: 30px;
+            margin-right: 30px;
+            border-radius: 25px;
+
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            &-from,
+            &-to {
+                display: flex;
+                justify-content: space-around;
+                margin-bottom: 20px;
+
+                .select-coin-part {
+                    .swap-span {
+                        text-align: left;
+                        font-size: 15px;
+                        color: grey;
+                        margin-bottom: 10px;
+                    }
+
+                    .ant-btn {
+                        border-radius: 25px;
+                        background: #333333;
+                        color: #fff;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        font-size: 15px;
+                        min-height: 40px;
+
+                        .anticon.anticon-down {
+                            line-height: 0.5;
+                        }
+                    }
+                }
+
+                .quantity-part {
+                    color: gray;
+
+                    .coin-amount {
+                        font-size: 30px;
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            &-top {
+                margin-top: 20px;
+            }
+        }
+
+        &--advanced-btn {
+            margin-top: 30px;
+
+            button {
+                font-size: 18px;
+                background: transparent;
+                border: none;
+                color: white;
+                font-weight: 500;
+
+                .anticon-down {
+                    color: gray;
+                }
+            }
+        }
+
+        &--submit-btn {
+            margin-top: 20px;
+            margin-left: 30px;
+            margin-right: 30px;
+
+            button {
+                width: 100%;
+                height: 60px;
+                border: none;
+                border-radius: 25px;
+                cursor: pointer;
+
+                span {
+                    text-transform: capitalize;
+                    font-size: 25px;
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                }
+            }
+
+            button:disabled {
+                background: #262626;
+                color: gray;
+            }
+        }
+
+        &--footer {
+            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+
+            h6 {
+                font-size: 15px;
+                color: gray;
+
+                a {
+                    color: #ff9332;
+                }
+            }
+        }
+    }
+}

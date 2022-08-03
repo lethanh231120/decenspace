@@ -1,20 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Typography, Form, Button, Tabs, Select, Modal } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import './platform.scss'
 import { FormListItem } from '../form/FormList'
-import { ConnectionName } from './form-input/ConnectionName'
-import { PlatformHeader } from './form-input/PlatformHeader'
-import { AddressWallet } from './form-input/AddressWallet'
+import ConnectionName from './form-input/ConnectionName'
+import PlatformHeader from './form-input/PlatformHeader'
+import AddressWallet from './form-input/AddressWallet'
 import { ethers } from 'ethers'
 import { importConnectionEvm } from '../../redux/evmSlice'
 import { useDispatch } from 'react-redux'
+import { useWeb3React } from '@web3-react/core'
+import { walletconnect } from './wallet-connect/Connectors'
 const { TabPane } = Tabs
 const { Text } = Typography
 const { Option } = Select
 const children = []
 const { ethereum } = window
-const provider = new ethers.providers.Web3Provider(window.ethereum)
+const provider = ((window.ethereum != null) ? new ethers.providers.Web3Provider(window.ethereum) : ethers.getDefaultProvider())
 
 for (let i = 10; i < 36; i++) {
   children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>)
@@ -22,7 +24,7 @@ for (let i = 10; i < 36; i++) {
 
 export const Metamask = () => {
   const [form] = Form.useForm()
-
+  const { activate, chainId, account } = useWeb3React()
   const dispatch = useDispatch()
   const error = () => {
     Modal.error({
@@ -55,6 +57,19 @@ export const Metamask = () => {
       return error()
     }
   }
+
+  const onFinishManual = () => {}
+  const onFinishWallet = () => {
+    activate(walletconnect)
+  }
+
+  useEffect(() => {
+    const data = {
+      connectionName: 'Metamask',
+      address: account
+    }
+    chainId !== undefined && account !== undefined && dispatch(importConnectionEvm({ data, chainId }))
+  }, [chainId, account])
 
   return (
     <div className='metamask'>
@@ -90,7 +105,7 @@ export const Metamask = () => {
         </TabPane>
         <TabPane tab='Manual' key='2'>
           <Form
-            onFinish={onFinish}
+            onFinish={onFinishManual}
             autoComplete='off'
             layout='vertical'
             form={form}
@@ -135,7 +150,7 @@ export const Metamask = () => {
         </TabPane>
         <TabPane tab='WalletConnect' key='3'>
           <Form
-            onFinish={onFinish}
+            onFinish={onFinishWallet}
             autoComplete='off'
             layout='vertical'
             form={form}
@@ -162,14 +177,6 @@ export const Metamask = () => {
           </Form>
         </TabPane>
       </Tabs>
-      {/* <div>
-        <strong>Address: </strong>
-        {data.address}
-      </div>
-      <div>
-        <strong>Balance: </strong>
-        {data.Balance}
-      </div> */}
     </div>
   )
 }

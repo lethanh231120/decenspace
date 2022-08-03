@@ -74,6 +74,10 @@ const Navbar = () => {
     !_.isEmpty(user) && setUserInfo()
   }, [user])
 
+  const handleChangePassword = () => {
+    setIsModalPasswordUpdate(true)
+  }
+
   return (
     <>
       <Layout className='header'>
@@ -112,7 +116,7 @@ const Navbar = () => {
               variant='subtitle1'
               className='header__link'
               style={{ color: '#fff', cursor: 'pointer' }}
-              onClick={() => setIsModalPasswordUpdate(true)}
+              onClick={handleChangePassword}
             >
               Change Password
             </Typography>
@@ -126,10 +130,10 @@ const Navbar = () => {
             </Typography>
           </div>
             : <div style={{ display: 'flex', alignItems: 'center', width: '150px', justifyContent: 'space-around ' }}>
-              <Typography style={{ color: '#fff', cursor: 'pointer' }} onClick={() => setIsModalSignin(true)}>
+              <Typography onClick={() => setIsModalSignin(true)}>
                 Signin
               </Typography>
-              <Typography style={{ color: '#fff', cursor: 'pointer' }} onClick={() => setIsModalSignup(true)}>
+              <Typography onClick={() => setIsModalSignup(true)}>
                 Signup
               </Typography>
             </div>}
@@ -152,13 +156,12 @@ const Navbar = () => {
         className='modal-signup'
       >
         <Signup setIsModalSignup={setIsModalSignup}/>
-        {/* <Signup setIsModalSignup={setIsModalSignup}/> */}
       </Modal>
       <Modal
         visible={isModalPasswordUpdate}
-        footer={null}
         onOk={() => setIsModalPasswordUpdate(false)}
         onCancel={() => setIsModalPasswordUpdate(false)}
+        footer={null}
       >
         <UpdatePassword setIsModalPasswordUpdate={setIsModalPasswordUpdate}/>
       </Modal>

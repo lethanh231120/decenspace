@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Form, Input } from 'antd'
 
-export const AddressWallet = () => {
+const AddressWallet = () => {
   return (
     <Form.Item
       label='Wallet Address'
@@ -17,3 +17,4 @@ export const AddressWallet = () => {
     </Form.Item>
   )
 }
+export default memo(AddressWallet)

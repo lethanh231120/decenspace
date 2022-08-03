@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { get, patch } from '../api/accountService'
-import { getCookie, STORAGEKEY } from '../utils/storage'
+import { get } from '../api/accountService'
+// import { get, patch } from '../api/accountService'
+// import { getCookie, STORAGEKEY } from '../utils/storage'
 
-const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
+// const token = getCookie(STORAGEKEY.ACCESS_TOKEN)
 
-const config = {
-  headers: {
-    'Authorization': `Bearer + ${token}`
-  }
-}
+// const config = {
+//   headers: {
+//     'Authorization': `Bearer + ${token}`
+//   }
+// }
 
 export const getProfile = createAsyncThunk(
   'profile/getProfile',
@@ -17,12 +18,12 @@ export const getProfile = createAsyncThunk(
   }
 )
 
-export const updatePassword = createAsyncThunk(
-  'password/updatePassword',
-  async(data) => {
-    return await patch('accounts/change-password', data, config)
-  }
-)
+// export const updatePassword = createAsyncThunk(
+//   'password/updatePassword',
+//   async(data) => {
+//     return await patch('accounts/change-password', data, config)
+//   }
+// )
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -41,18 +42,18 @@ const profileSlice = createSlice({
     },
     [getProfile.rejected]: (state, action) => {
       state.status = 'failed'
-    },
-
-    // change password
-    [updatePassword.pending]: (state, action) => {
-      state.status = 'loading'
-    },
-    [updatePassword.fulfilled]: (state, action) => {
-      state.status = 'change password successfully'
-    },
-    [updatePassword.rejected]: (state, action) => {
-      state.status = 'change password fail'
     }
+
+    // // change password
+    // [updatePassword.pending]: (state, action) => {
+    //   state.status = 'loading'
+    // },
+    // [updatePassword.fulfilled]: (state, action) => {
+    //   state.status = 'change password successfully'
+    // },
+    // [updatePassword.rejected]: (state, action) => {
+    //   state.status = 'change password fail'
+    // }
   }
 })
 export default profileSlice.reducer

@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { memo, useEffect } from 'react'
 import { LineChart, Line, YAxis, XAxis } from 'recharts'
 // import { getDataDemo } from '../../api/dataDemo'
 const ChartConnection = ({ data_coin_price }) => {
   const newData = []
 
-  data_coin_price && data_coin_price.map((item) => {
-    return newData.push(
-      {
-        price: item.price
-      }
-    )
-  })
+  useEffect(() => {
+    data_coin_price && data_coin_price.map((item) => {
+      return newData.push(
+        {
+          price: item.price
+        }
+      )
+    })
+  }, [])
 
   return (
     <LineChart width={250} height={80} data={newData && newData}>
@@ -26,4 +28,4 @@ const ChartConnection = ({ data_coin_price }) => {
     </LineChart>
   )
 }
-export default ChartConnection
+export default memo(ChartConnection)

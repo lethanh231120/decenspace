@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Row, Col, Image, Typography } from 'antd'
 import { ArrowRightOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
@@ -18,6 +18,7 @@ const StyleDiv = {
   minHeight: '73px'
 }
 const ModalContent = () => {
+  // When u click into a wallet, navigate your page to this wallet's import address page
   const navigate = useNavigate()
   const handleClickWallet = (platformId) => {
     navigate(`../../connect/${platformId}`)
@@ -61,4 +62,4 @@ const ModalContent = () => {
     </div>
   )
 }
-export default ModalContent
+export default memo(ModalContent)

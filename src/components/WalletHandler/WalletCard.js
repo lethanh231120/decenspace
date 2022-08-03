@@ -1,69 +1,115 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useWeb3React } from '@web3-react/core'
+import { InjectedConnector } from '@web3-react/injected-connector'
+import useSWR from 'swr'
 import { ethers } from 'ethers'
 import { Button } from 'antd'
 import './styles.scss'
 
-const WalletCard = () => {
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [defaultAccount, setDefaultAccount] = useState(null)
-  const [userBalance, setUserBalance] = useState(null)
-  const [connButtonText, setConnButtonText] = useState('Connect Wallet')
+export const injectedConnector = new InjectedConnector({
+  supportedChainIds: [
+    1, // Mainet
+    3, // Ropsten
+    4, // Rinkeby
+    5, // Goerli
+    42 // Kovan
+  ]
+})
 
-  const connectWalletHandle = () => {
-    if (window.ethereum && window.ethereum.isMetaMask) {
-      console.log(' Meta Mask HERE')
+const chainChangedHandler = () =>{
+  window.location.reload()
+}
 
-      window.ethereum.request({ method: 'eth_requestAccounts' })
-        .then(result => {
-          accountChangedHandler(result[0])
-          setConnButtonText('Wallet Connected')
-          getAccountBalance(result[0])
-        })
-        .catch(err =>{
-          setErrorMessage(err.message)
-        })
-    } else {
-      console.log(' Pls install MetaMask')
-      setErrorMessage(' Install MetaMask to connect with your wallet')
-    }
+window.ethereum.on('chainChanged', chainChangedHandler)
+
+export const Wallet = () => {
+  const { chainId, account, activate, active } = useWeb3React()
+  const onClick = () => {
+    activate(injectedConnector)
   }
-
-  const accountChangedHandler = (newAccount) => {
-    setDefaultAccount(newAccount)
-    getAccountBalance(newAccount.toString())
-  }
-
-  const getAccountBalance = (account) => {
-    window.ethereum.request({ method: 'eth_getBalance', params: [account, 'latest'] })
-      .then(balance => {
-        setUserBalance(ethers.utils.formatEther(balance))
-      })
-      .catch(err => {
-        setErrorMessage(err.message)
-      })
-  }
-
-  const chainChangedHandler = () => {
-    window.location.reload()
-  }
-
-  // listen for account changes
-  window.ethereum.on('accountChanged', accountChangedHandler)
-  window.ethereum.on('chainChanged', chainChangedHandler)
 
   return (
-    <div className='wallet-card'>
-      <Button onClick={connectWalletHandle}>{connButtonText}</Button>
-      <h4>CONNECT TO METAMASK</h4>
-      <div className='accountDisplay'>
-        <h4>Address: {defaultAccount}</h4>
-      </div>
-      <div className='balanceDisplay'>
-        <h4>Balance: {userBalance}</h4>
-      </div>
-      {errorMessage}
+    <div>
+      { active ? (
+        <>
+          <div> Wallet Connected</div>
+          <div> ChainId : {chainId} </div>
+          <div> Account: {account} </div>
+        </>
+      ) : (
+        <Button onClick={onClick}>
+          Connect
+        </Button>
+      )}
     </div>
   )
 }
 
-export default WalletCard
+const fetcher = (library) => (...args) => {
+  const [method, ...params] = args
+  console.log(method, params)
+  return library[method](...params)
+}
+
+export const Balance = () => {
+  const { account, library } = useWeb3React()
+  const { data: balance } = useSWR(['getBalance', account, 'latest'], {
+    fetcher: fetcher(library)
+  })
+
+  // useEffect(() => {
+  //   // listen for changes on an Ethereum address
+  //   console.log(`listening for blocks...`)
+  //   library.on('block', () => {
+  //     console.log('update balance...')
+  //     mutate(undefined, true)
+  //   })
+
+  //   // remove listener when the component is unmounted
+  //   return () => {
+  //     library.removeAllListeners('block')
+  //   }
+  // }, [])
+
+  if (!balance) {
+    return <div> Pls connect wallet to get balance </div>
+  }
+  return <div> Balance: {ethers.utils.formatEther(balance)} </div>
+}
+
+// export const TokenBalance = ({ symbol, address, decimals }) => {
+//   const { account, library } = useWeb3React()
+//   const { data: balance, mutate } = useSWR([address, 'balanceOf', account], {
+//     fetcher: fetcher(library, ERC20ABI)
+//   })
+
+//   useEffect(() => {
+//     // listen for changes on an Ethereum address
+//     console.log(`listening for Transfer...`)
+//     const contract = new Contract(address, ERC20ABI, library.getSigner())
+//     const fromMe = contract.filters.Transfer(account, null)
+//     library.on(fromMe, (from, to, amount, event) => {
+//       console.log('Transfer|sent', { from, to, amount, event })
+//       mutate(undefined, true)
+//     })
+//     const toMe = contract.filters.Transfer(null, account)
+//     library.on(toMe, (from, to, amount, event) => {
+//       console.log('Transfer|received', { from, to, amount, event })
+//       mutate(undefined, true)
+//     })
+//     // remove listener when the component is unmounted
+//     return () => {
+//       library.removeAllListeners(toMe)
+//       library.removeAllListeners(fromMe)
+//     }
+//   }, [])
+
+//   if (!balance) {
+//     return <div>...</div>
+//   }
+//   return (
+//     <div>
+//       {ethers.utils.formatEther(balance, decimals)} {symbol}
+//     </div>
+//   )
+// }

@@ -1,21 +1,35 @@
-import { Form, Input, Button, Modal } from 'antd'
+import { Form, Input, Button, Modal, Typography, Result } from 'antd'
 import React, { useState } from 'react'
 import { validateEmail } from '../../../utils/regex'
-import ResetPassword from '../reset-password'
-import { useNavigate } from 'react-router-dom'
 import { post } from '../../../api/mailService'
-import './style.scss'
-const ForgotPassword = ({ setIsModalForgotPassword }) => {
-  const navigate = useNavigate()
-  const [isModalResetPassword, setIsModalResetPassword] = useState(false)
+import { mailForgotPassStatus } from '../../../constants/statusCode'
+const { Text } = Typography
 
-  const onFinish = async(values) =>{
-    const res = await post('mails/forgot-password', values)
-    console.log(res)
-    alert(`Reset Password Mail has been sent to your gmail: ${values.email}. Pls check your email and reset your password`)
-    setIsModalForgotPassword(false)
-    navigate('../forgot-password')
-    // setIsModalResetPassword(true)
+const ForgotPassword = ({ setIsModalForgotPassword }) => {
+  const [errorMessage, setErrorMessage] = useState()
+  const [message, setMessage] = useState()
+  const [openModalNoti, setOpanModalNoti] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const onFinish = async(values) => {
+    try {
+      setLoading(true)
+      const res = await post('mails/forgot-password', values)
+      res && setMessage(mailForgotPassStatus.map((item) => {
+        if (item.code === res.code) {
+          return item.message
+        }
+      }))
+      res && setOpanModalNoti(true)
+      res && setIsModalForgotPassword(false)
+      res && setLoading(false)
+    } catch (error) {
+      error?.response?.data && setErrorMessage(mailForgotPassStatus.map((item) => {
+        if (item.code === error.response.data.code) {
+          return item.message
+        }
+      }))
+      setLoading(false)
+    }
   }
 
   return (
@@ -24,6 +38,9 @@ const ForgotPassword = ({ setIsModalForgotPassword }) => {
         name='basic'
         initialss={{ remember: true }}
         onFinish={onFinish}
+        onValuesChange = {() =>{
+          setErrorMessage()
+        }}
       >
         <Form.Item
           label='email'
@@ -37,22 +54,30 @@ const ForgotPassword = ({ setIsModalForgotPassword }) => {
             }
           ]}
         >
-          <Input placeholder='test@gmail.com'/>
+          <Input placeholder='test@gmail.com' />
         </Form.Item>
         <Form.Item>
-          <Button type='primary' htmlType='submit'>
+          <Button type='primary' htmlType='submit' loading={loading}>
             Send
           </Button>
         </Form.Item>
+        {errorMessage !== ''
+          ? <Typography className='message-error'>
+            <Text type='danger'>{errorMessage && errorMessage}</Text>
+          </Typography>
+          : ''
+        }
       </Form>
       <Modal
         className='reset-password-modal'
-        visible={isModalResetPassword}
-        onOk={() => setIsModalResetPassword(false)}
-        onCancel={() => setIsModalResetPassword(false)}
-        footer={null}
+        visible={openModalNoti}
+        onOk={() => setOpanModalNoti(false)}
+        onCancel={() => setOpanModalNoti(false)}
       >
-        <ResetPassword setIsModalResetPassword={setIsModalResetPassword}/>
+        <Result
+          status='success'
+          title={message}
+        />
       </Modal>
     </div>
   )

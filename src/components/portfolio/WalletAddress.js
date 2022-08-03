@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Tabs, Divider, Input, Popconfirm } from 'antd'
 import './styles.scss'
-// import { useDispatch } from 'react-redux'
-// import { deleteConnectionBtc } from '../../redux/bitcoinSlice'
+import { useDispatch } from 'react-redux'
+import { deleteConnectionBtc } from '../../redux/bitcoinSlice'
 import ModalContent from '../modal/connect-portfolio'
-// import { deleteConnectionEvm } from '../../redux/evmSlice'
+import { deleteConnectionEvm } from '../../redux/evmSlice'
 import ModalEdit from '../modal/modal-edit/Bitcoin'
 
 const { TabPane } = Tabs
 const WalletAddress = (props) => {
-  const { holding_evm, setIsModalEdit, isModalEdit, connectionName, handleTabClick } = props
+  const { holdings, setIsModalEdit, isModalEdit, connectionName, handleTabClick } = props
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [dataEdit, setDataEdit] = useState(false)
   // const [searchFilter, setSearchFilter] = useState('')
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [filterConnection, setFilterConnection] = useState()
   const { Search } = Input
 
@@ -23,11 +23,11 @@ const WalletAddress = (props) => {
   }
 
   useEffect(() => {
-    setFilterConnection(holding_evm)
-  }, [holding_evm])
+    setFilterConnection(holdings)
+  }, [holdings])
 
   const onChange = (value) => {
-    setFilterConnection(holding_evm && holding_evm.filter((item) => {
+    setFilterConnection(holdings && holdings.filter((item) => {
       return item.connection.connectionName.toLowerCase().includes(value.toLowerCase())
     }))
   }
@@ -35,16 +35,16 @@ const WalletAddress = (props) => {
   // const filterConnection = list_connection?.filter((item)=>{
   //   return item.connectionName.toLowerCase().includes(searchFilter.toLowerCase())
   // })
-  // const connectionEvm = holding_evm && holding_evm.filter((item) => {
+  // const connectionEvm = holdings && holdings.filter((item) => {
   //   return item.connection.connectionName.toLowerCase().includes(searchFilter.toLowerCase())
   // })
 
   const handleDeleteAddress = (id, chain) => {
     if (chain === 'evm') {
-      // dispatch(deleteConnectionEvm(id))
+      dispatch(deleteConnectionEvm(id))
     }
     if (chain === 'btc') {
-      // dispatch(deleteConnectionBtc(id))
+      dispatch(deleteConnectionBtc(id))
     }
   }
 

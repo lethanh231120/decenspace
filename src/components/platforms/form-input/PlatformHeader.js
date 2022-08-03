@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Typography, Image } from 'antd'
 import './style.scss'
 const { Text } = Typography
-export const PlatformHeader = ({ src, text }) => {
+const PlatformHeader = ({ src, text }) => {
   return (
     <Typography className='platform-title'>
       <Text className='platform-text'>
@@ -17,3 +17,4 @@ export const PlatformHeader = ({ src, text }) => {
     </Typography>
   )
 }
+export default memo(PlatformHeader)

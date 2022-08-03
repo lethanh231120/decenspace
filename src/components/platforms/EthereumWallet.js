@@ -1,12 +1,13 @@
 import React from 'react'
 import { Typography, Form, Button, Tabs, Select } from 'antd'
-import { PlatformHeader } from './form-input/PlatformHeader'
-import { ConnectionName } from './form-input/ConnectionName'
-import { AddressWallet } from './form-input/AddressWallet'
-import { ButtonSubmit } from './form-input/ButtonSubmit'
+import PlatformHeader from './form-input/PlatformHeader'
+import ConnectionName from './form-input/ConnectionName'
+import AddressWallet from './form-input/AddressWallet'
+import ButtonSubmit from './form-input/ButtonSubmit'
 import { ETHEREUM_CHAINID } from '../../constants/ChainId'
 // import { SearchOutlined } from '@ant-design/icons'
 import { importConnectionEvm } from '../../redux/evmSlice'
+import { importConnectionNft } from '../../redux/nftSlice'
 import { useDispatch } from 'react-redux'
 const { TabPane } = Tabs
 const { Text } = Typography
@@ -22,6 +23,7 @@ export const EthereumWallet = () => {
   const dispatch = useDispatch()
   const onFinish = async(values) => {
     dispatch(importConnectionEvm({ data: values, chainId: ETHEREUM_CHAINID }))
+    dispatch(importConnectionNft({ data: values, chainId: ETHEREUM_CHAINID }))
   }
   return (
     <div className='ethereum-wallet'>

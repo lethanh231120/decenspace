@@ -2,24 +2,18 @@ import React from 'react'
 import { Typography, Row, Col, Image } from 'antd'
 import { ArrowRightOutlined } from '@ant-design/icons'
 import './index.scss'
-// import ModalConnect from '../../components/modal/connect-portfolio'
-// import { PORTFOLIO_CONNECT } from '../../constants/TypeConstants'
 import { useNavigate } from 'react-router-dom'
+import { platforms } from '../../utils/platforms/Platforms'
 const { Title, Text } = Typography
 export default function Home() {
-  // const [isModalVisible, setIsModalVisible] = useState(false)
-  // const [type, setType] = useState()
-
   const navigate = useNavigate()
-
+  const list = platforms.slice(0, 3)
   const handelClickConnect = () => {
     navigate('../connect-portfolio')
-    // setIsModalVisible(true)
-    // setType(PORTFOLIO_CONNECT)
   }
 
-  const handleConnectMetaMask = () => {
-    navigate('../connect-metamask')
+  const handleConnectWallet = (id) => {
+    navigate(`../connect/${id}`)
   }
 
   return (
@@ -35,47 +29,18 @@ export default function Home() {
       <Row>
         <Col span={8} offset={8}>
           <Row gutter={24}>
-            <Col span={8}>
-              <div style={{ cursor: 'pointer', border: '1px solid #262626', borderRadius: '12px', padding: '15px 0' }}>
-                <Image
-                  width={80}
-                  preview={false}
-                  src='/binance.png'
-                />
-                <Text style={{ fontSize: '16px', color: '#A8ADB3', fontWeight: '200', display: 'block' }}>Binance</Text>
-                <Text style={{ fontSize: '17px', color: '#fff', fontWeight: '400' }}>
-                  Connect
-                  <ArrowRightOutlined style={{ fontSize: '12px', marginLeft: '6px' }}/>
-                </Text>
-              </div>
-            </Col>
-            <Col onClick={handleConnectMetaMask}>
-              <div style={{ cursor: 'pointer', border: '1px solid #262626', borderRadius: '12px', padding: '15px 0' }}>
-                <Image
-                  width={80}
-                  preview={false}
-                  src='/metamark.png'
-                />
-                <Text style={{ fontSize: '16px', color: '#A8ADB3', fontWeight: '200', display: 'block' }}>Binance</Text>
-                <Text style={{ fontSize: '17px', color: '#fff', fontWeight: '400' }}>
-                  Connect  <ArrowRightOutlined style={{ fontSize: '12px', marginLeft: '6px' }}/>
-                </Text>
-              </div>
-            </Col>
-            <Col span={8}>
-              <div style={{ cursor: 'pointer', border: '1px solid #262626', borderRadius: '12px', padding: '15px 0' }}>
-                <Image
-                  width={80}
-                  preview={false}
-                  src='/coinbase.png'
-                />
-                <Text style={{ fontSize: '16px', color: '#A8ADB3', fontWeight: '200', display: 'block' }}>Binance</Text>
-                <Text style={{ fontSize: '17px', color: '#fff', fontWeight: '400' }}>
-                  Connect
-                  <ArrowRightOutlined style={{ fontSize: '12px', marginLeft: '6px' }}/>
-                </Text>
-              </div>
-            </Col>
+            {list && list.map((item, index) => (
+              <Col span={8} key={index} onClick={() => handleConnectWallet(item.id)}>
+                <div style={{ cursor: 'pointer', border: '1px solid #262626', borderRadius: '12px', padding: '15px 0' }}>
+                  <Image width={80} preview={false} src={item.icon}/>
+                  <Text style={{ fontSize: '16px', color: '#A8ADB3', fontWeight: '200', display: 'block' }}>{item.name}</Text>
+                  <Text style={{ fontSize: '17px', color: '#fff', fontWeight: '400' }}>
+                    Connect
+                    <ArrowRightOutlined style={{ fontSize: '12px', marginLeft: '6px' }}/>
+                  </Text>
+                </div>
+              </Col>
+            ))}
           </Row>
         </Col>
       </Row>
@@ -94,11 +59,6 @@ export default function Home() {
         }}>
           CONNECT ORTHER
       </button>
-      {/* <ModalConnect
-        isModalVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-        type={type}
-      /> */}
     </div>
   )
 }

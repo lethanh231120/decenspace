@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { memo, useMemo } from 'react'
 import { Typography, Input } from 'antd'
 const { Title } = Typography
 const { Search } = Input
 const ModalHeader = () => {
-  const onSearch = (value) => console.log(value)
+  const onSearch = useMemo((value) => console.log(value), [])
   return (
     <div style={{ padding: '20px 40px', textAlign: 'center' }}>
       <Title style={{ fontSize: '40px', color: '#fff', fontWeight: '600', textAlign: 'center' }}>
@@ -20,4 +20,4 @@ const ModalHeader = () => {
     </div>
   )
 }
-export default ModalHeader
+export default memo(ModalHeader)

@@ -1,9 +1,9 @@
 .modal-connect{
     &.ant-modal{
-        top: 0px;
+        top: 100px;
         color: #fff;
         overflow: hidden;
-        height: 100vh;
+        height: 85vh;
     }
     & .modal-style{
         top: 150px
@@ -43,5 +43,13 @@
     }
     & .ant-modal-body{
         padding: 24px 40px;
+    }
+    & .ant-modal-content {
+        & .ant-modal-close {
+            color: #fff;
+            & .anticon{
+                font-size: 20px;
+            }
+        }
     }
 }

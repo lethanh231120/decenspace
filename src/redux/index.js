@@ -5,11 +5,13 @@ import profileSlice from './profileSlice'
 import bitcoinSlice from './bitcoinSlice'
 import coinsPriceSlice from './coinsPriceSlice'
 import evmSlice from './evmSlice'
+import nftSlice from './nftSlice'
 
 export default combineReducers({
   userInfo: userInfo,
   profile: profileSlice,
   connectionBtc: bitcoinSlice,
   coinPrice: coinsPriceSlice,
-  connectionEvm: evmSlice
+  connectionEvm: evmSlice,
+  connectionNft: nftSlice
 })

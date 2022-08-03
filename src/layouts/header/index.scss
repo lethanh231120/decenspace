@@ -41,28 +41,41 @@
     top: 0;
     z-index: 100;
     width: 100%;
+
+    .ant-layout-header {
+        .ant-typography {
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .ant-typography:hover {
+            color: $orange-main-color;
+        }
+    }
 }
 .modal-signup {
-    top: 20px ;
-    & .ant-modal-header{
+    top: 20px;
+    & .ant-modal-header {
         border-radius: 10px 10px;
     }
-    & .ant-modal-content{
-        border-radius: 10px ;
+    & .ant-modal-content {
+        border-radius: 10px;
+        & .ant-modal-close {
+            display: none;
+        }
     }
 }
-.modal-signin{
+.modal-signin {
     top: 195px;
-    & .ant-modal-content{
-        border-radius: 10px ;
+    & .ant-modal-content {
+        border-radius: 10px;
     }
-    & .ant-modal-body{
+    & .ant-modal-body {
         padding: 56px;
     }
 }
-.header__link{
-    &:hover{
+.header__link {
+    &:hover {
         color: $orange-main-color !important;
     }
 }
-

@@ -8,12 +8,12 @@ import { useForm } from 'react-hook-form'
 import { validateEmail, validatePassword } from '../../../utils/regex'
 import ForgotPassword from '../forgot-pasword'
 import './style.scss'
-import { SUCCESS_REQUEST } from '../../../constants/statusCode'
-
+import { accountSigninStatus } from '../../../constants/statusCode'
 const { Text } = Typography
 export default function SignIn({ setIsModalSignin }) {
   const [isModalForgotPassword, setIsModalForgotPassword] = useState(false)
   const [error, setError] = useState()
+  const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
   const {
     reset
@@ -27,16 +27,38 @@ export default function SignIn({ setIsModalSignin }) {
       }
     }
     try {
+      setLoading(true)
       const data = await post('accounts/signin', values, config)
       const token = data?.data?.token
       reset()
       if (token) {
         await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
         await dispatch(getUserInfo())
+        setLoading(false)
         setIsModalSignin(false)
       }
     } catch (error) {
-      error?.response?.data && setError(error.response.data.code !== SUCCESS_REQUEST && 'Incorrect email or password')
+      error?.response?.data && accountSigninStatus.map((item) => {
+        if (item.code === error.response.data.code === 'B.ACC.400.C3') {
+          console.log('dfsdfsdfsd')
+          setError({
+            error: item.message,
+            message: 'Your account will be locked if you enter the wrong email or password more than 3 times'
+          })
+        }
+        if (item.code === error.response.data.code === 'B.ACC.400.C4') {
+          setError({
+            error: item.message
+          })
+        }
+        if (item.code === error.response.data.code === 'B.ACC.400.C5') {
+          setError({
+            error: item.message,
+            message: 'Please contact with admin of NIKA.guru to open the account key'
+          })
+        }
+      })
+      setLoading(false)
     }
   }
 
@@ -49,7 +71,6 @@ export default function SignIn({ setIsModalSignin }) {
         layout='vertical'
         onFinish={onFinish}
       >
-
         <Form.Item
           label='email'
           name='email'
@@ -78,7 +99,8 @@ export default function SignIn({ setIsModalSignin }) {
         >
           <Input.Password />
         </Form.Item>
-        <Text type='danger'>{error && error}</Text>
+        <Text type='danger'>{error && error?.error}</Text>
+        <Text type='danger'>{error && error?.message && error?.message}</Text>
 
         <Typography
           style={{ textAlign: 'right', color: '#000', cursor: 'pointer' }}
@@ -86,9 +108,8 @@ export default function SignIn({ setIsModalSignin }) {
         >
           Forgot Password ?
         </Typography>
-        {/* {error && error} */}
         <Form.Item>
-          <Button type='primary' htmlType='submit'>
+          <Button type='primary' htmlType='submit' loading={loading}>
             Submit
           </Button>
         </Form.Item>

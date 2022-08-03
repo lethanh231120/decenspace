@@ -8,7 +8,7 @@ import '../portfolio/styles.scss'
 import { EXCHANGE } from '../../constants/TypeConstants'
 import { ListNFT } from '../nft-evm/ListNFT'
 const { TabPane } = Tabs
-const table = ({ dataConnection }) => {
+const table = ({ dataConnection, isGroupNFT, setIsGroupNFT, isLoading }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState(['rank', 'name', 'price', 'marketCap', 'volume', 'priceChange1w', 'priceChange7d', 'priceGraph', 'priceChange24h', 'priceChange1h'])
   const columnsPopover = [
     {
@@ -78,12 +78,18 @@ const table = ({ dataConnection }) => {
   //   getData()
   // }, [])
 
-  // console.log('data2', data2)
+  // console.log(dataConnection)
   useEffect(() => {
-    setData2(dataConnection && dataConnection[0].holdings)
+    // console.log(dataConnection)
+    // dataConnection && dataConnection?.holdings.map((item) => {
+    //   setData2([
+    //     data2,
+    //     item
+    //   ])
+    // })
+    setData2(dataConnection && dataConnection?.holdings)
   }, [dataConnection])
 
-  // console.log(data2)
   const onSelectChange = (newselectedRowKeys) => {
     setSelectedRowKeys(newselectedRowKeys)
   }
@@ -118,7 +124,7 @@ const table = ({ dataConnection }) => {
       sorter: (a, b) => a.name - b.name,
       render: (_, record) => (<div>
         <div className='table-icon-coin'>
-          <img src={record.holding.logo ? record.holding.logo : 'https://png.monster/wp-content/uploads/2022/02/png.monster-623.png'} alt='avatar-coin'/>
+          <img src={record?.holding?.logo ? record?.holding?.logo : 'https://png.monster/wp-content/uploads/2022/02/png.monster-623.png'} alt='avatar-coin'/>
         </div>
         <div className='table-name-content'>
           <div className='table-name-text'>{record?.holding?.name ? record?.holding?.name : record?.holding?.coinName}</div>
@@ -223,7 +229,7 @@ const table = ({ dataConnection }) => {
       sorter: (a, b) => a.price - b.price,
       hidden: !selectedRowKeys.includes('price'),
       render: (_, record) => (<span style={{ color: '#fff', fontWeight: '500' }}>
-        ${record?.coinPriceUSD.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
+        ${record?.coinPriceUSD ? record?.coinPriceUSD.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : record?.coinPriceUSD}
       </span>)
     },
     // {
@@ -320,29 +326,32 @@ const table = ({ dataConnection }) => {
   //   })
   // }
 
+  console.log(data2)
   return (
     <Tabs defaultActiveKey='1'>
       <TabPane tab='Holdings' key='1'>
         <Table
           columns={columns}
           dataSource={data2 && data2}
-          scroll={{
-            x: 'max-content'
-          }}
+          // scroll={{
+          //   x: 'max-content',
+          //   y: '50vh'
+          // }}
           showSorterTooltip={false}
-          pagination={{
-            position: ['bottomCenter'],
-            total: 1000,
-            defaultCurrent: 1,
-            // defaultPageSize: 10,
-            showSizeChanger: false
-            // onChange: handleChangePage
-          }}
+          pagination={false}
         />
       </TabPane>
-      <TabPane tab='NFT' key='2'>
-        <ListNFT/>
-      </TabPane>
+      {(dataConnection && dataConnection?.nft[0]) ? (
+        <TabPane tab='NFT' key='2'>
+          <ListNFT
+            dataConnection={dataConnection}
+            isGroupNFT={isGroupNFT}
+            setIsGroupNFT={setIsGroupNFT}
+            isLoading={isLoading}
+          />
+        </TabPane>
+      )
+        : ''}
       <TabPane tab='Charts' key='3'>
         Content of Tab Pane 3
       </TabPane>
