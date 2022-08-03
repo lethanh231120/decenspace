@@ -19,7 +19,7 @@ const ModalConnect = ({ isModalVisible, setIsModalVisible }) => {
       onOk={handleClose}
       onCancel={handleClose}
       footer={null}
-      bodyStyle={{ height: '100vh', overflow: 'hidden' }}
+      bodyStyle={{ overflow: 'hidden' }}
       width={830}
     >
       <ModalHeader />
