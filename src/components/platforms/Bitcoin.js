@@ -11,7 +11,8 @@ import './platform.scss'
 export const Bitcoin = () => {
   const [form] = Form.useForm()
   const onFinish = async(values) => {
-    await dispatch(importConnectionBtc(values))
+    const res = await dispatch(importConnectionBtc(values))
+    console.log(res)
   }
   const dispatch = useDispatch()
   return (

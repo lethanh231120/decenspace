@@ -3,7 +3,6 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import WalletConnect from '@walletconnect/client'
 import QRCodeModal from '@walletconnect/qrcode-modal'
-// import WalletConnectProvider from '@walletconnect/web3-provider'
 // import Web3Modal from 'web3modal'
 // metamask
 export const injected = new InjectedConnector({
@@ -31,24 +30,6 @@ export const walletlink = new WalletLinkConnector({
 })
 // trust wallet
 export const connector = new WalletConnect({
-  bridge: 'https://bridge.walletconnect.org', // Required
+  bridge: 'https://bridge.walletconnect.org',
   qrcodeModal: QRCodeModal
 })
-// binance smart chain
-// const providerOptions = {
-//   walletconnect: {
-//     package: WalletConnectProvider,
-//     options: {
-//       rpc: {
-//         56: 'https://bsc-dataseed1.binance.org'
-//       },
-//       chainId: 56,
-//       qrcode: true
-//     }
-//   }
-// }
-// export const web3Modal = new Web3Modal({
-//   network: 'mainnet', // optional
-//   cacheProvider: true, // optional
-//   providerOptions // required
-// })

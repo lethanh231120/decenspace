@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { post, getNFT, del } from '../api/nftService'
 import {
-  LOADING_IMPORT_CONNECTION_NFT,
+  LOADING_IMPORT_CONNECTION,
   SUCCESS_IMPORT_CONNECTION_NFT,
   FAILED_IMPORT_CONNECTION_NFT,
   LOADING_GET_ALL_TRANSACTION_NFT,
@@ -61,7 +61,7 @@ const nftSlice = createSlice({
   extraReducers: {
     // post connection nft
     [importConnectionNft.pending]: (state, action) => {
-      state.status_nft = LOADING_IMPORT_CONNECTION_NFT
+      state.status_nft = LOADING_IMPORT_CONNECTION
     },
     [importConnectionNft.fulfilled]: (state, action) => {
       state.data_nft = action.payload

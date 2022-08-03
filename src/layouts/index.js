@@ -11,7 +11,6 @@ import EditProfilePage from '../pages/profile/edit-profile'
 import PageNotFound from '../pages/404'
 import ConnectWalletPage from '../pages/connect-wallet'
 import ConnectPortfolioPage from '../pages/connect-portfolio'
-import ConnectMetaMask from '../pages/connect-metamask'
 import ResetPassword from '../components/auth/reset-password'
 import DetailNFT from '../components/nft-evm/DetailNFT'
 import { ConfirmEmail } from '../components/auth/confirm-email'
@@ -38,7 +37,7 @@ const Router = () => {
           <Route path='edit-profile' element={<EditProfilePage />} />
           <Route path='forgot-password' element={<ResetPassword />} />
           <Route path='confirm-email' element={<ConfirmEmail />} />
-          <Route path='connect-metamask' element={<ConnectMetaMask/>} />
+          {/* <Route path='connect-metamask' element={<ConnectMetaMask/>} /> */}
           <Route path='connect-wallet' element={<ConnectWalletPage />} />
           <Route path='connect/:platformId' element={<ConnectWalletPage />} />
           <Route path='connect-portfolio' element={<ConnectPortfolioPage />} />

@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Typography, Row, Col } from 'antd'
+import { Typography, Row, Col, Space, Spin } from 'antd'
 import './style.scss'
 import { NFTGroup } from './NFTGroup'
 import { ListNftGroup } from './ListNftGroup'
 const { Text, Title } = Typography
 
-export const ListNFT = ({ dataConnection, isGroupNFT, setIsGroupNFT }) => {
-  // const [isGroupNFT, setIsGroupNFT] = useState(false)
+export const ListNFT = ({ dataConnection, isGroupNFT, setIsGroupNFT, isLoading }) => {
   const [listGroup, setListGroup] = useState()
   const [listNft, setListNft] = useState([])
   const [sumTotalNft, setSumTotalNft] = useState()
@@ -51,32 +50,37 @@ export const ListNFT = ({ dataConnection, isGroupNFT, setIsGroupNFT }) => {
 
   return (
     <>
-      {isGroupNFT ? (<ListNftGroup listGroup={listGroup} hancleBack={hancleBack}/>)
-        : (<div className='nft'>
-          <div className='nft-header'>
-            <div className='nft-header-total'>
-              <Text>Total Worth</Text>
-              <Title level={2}>$ {sumTotalNft}</Title>
+      {isLoading ? (
+        <Space size='middle'>
+          <Spin size='large' />
+        </Space>
+      )
+        : isGroupNFT ? (<ListNftGroup listGroup={listGroup} hancleBack={hancleBack}/>)
+          : (<div className='nft'>
+            <div className='nft-header'>
+              <div className='nft-header-total'>
+                <Text>Total Worth</Text>
+                <Title level={2}>$ {sumTotalNft}</Title>
+              </div>
+              <div className='nft-header-count'>
+                <Text>NFT Count</Text>
+                <Title level={2}>{listNft?.length}</Title>
+              </div>
             </div>
-            <div className='nft-header-count'>
-              <Text>NFT Count</Text>
-              <Title level={2}>{listNft?.length}</Title>
+            <div className='nft-header-list'>
+              <Row gutter={[16, 16]}>
+                {listNft ? listNft.map((item, index) => (
+                  <Col span={6} key={index}>
+                    <div onClick={() => handleClickGroupNFT(item)}>
+                      <NFTGroup item={item}/>
+                    </div>
+                  </Col>
+                ))
+                  : '' }
+              </Row>
             </div>
           </div>
-          <div className='nft-header-list'>
-            <Row gutter={[16, 16]}>
-              {listNft ? listNft.map((item, index) => (
-                <Col span={6} key={index}>
-                  <div onClick={() => handleClickGroupNFT(item)}>
-                    <NFTGroup item={item}/>
-                  </div>
-                </Col>
-              ))
-                : '' }
-            </Row>
-          </div>
-        </div>
-        )}
+          )}
     </>
   )
 }

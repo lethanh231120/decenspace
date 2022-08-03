@@ -44,4 +44,12 @@
     & .ant-modal-body{
         padding: 24px 40px;
     }
+    & .ant-modal-content {
+        & .ant-modal-close {
+            color: #fff;
+            & .anticon{
+                font-size: 20px;
+            }
+        }
+    }
 }

@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { post, del } from '../api/evmService'
 import {
-  LOADING_IMPORT_CONNECTION_EVM,
-  SUCCESS_IMPORT_CONNECTION_EVM,
-  FAILED_IMPORT_CONNECTION_EVM,
+  LOADING_IMPORT_CONNECTION,
+  SUCCESS_IMPORT_CONNECTION,
+  FAILED_IMPORT_CONNECTION,
   LOADING_DELETE_CONNECTION_EVM,
   SUCCESS_DELETE_CONNECTION_EVM,
   FAILED_DELETE_CONNECTION_EVM
@@ -42,20 +42,24 @@ const evmSlice = createSlice({
     data_evm: null,
     status_evm: null,
     list_connection_evm: null,
-    holding_evm: []
+    holding_evm: [],
+    res_evm: null
   },
   extraReducers: {
     // post connection evm
     [importConnectionEvm.pending]: (state, action) => {
-      state.status_evm = LOADING_IMPORT_CONNECTION_EVM
+      state.status_evm = LOADING_IMPORT_CONNECTION
+      state.res_evm = action.payload
     },
     [importConnectionEvm.fulfilled]: (state, action) => {
       state.data_evm = action.payload
-      state.status_evm = SUCCESS_IMPORT_CONNECTION_EVM
+      state.status_evm = SUCCESS_IMPORT_CONNECTION
       state.list_connection_evm = null
+      state.res_evm = action.payload
     },
     [importConnectionEvm.rejected]: (state, action) => {
-      state.status_evm = FAILED_IMPORT_CONNECTION_EVM
+      state.status_evm = FAILED_IMPORT_CONNECTION
+      state.res_evm = action.payload
     },
 
     // delete connection evm

@@ -1,17 +1,9 @@
 import React from 'react'
-import { Modal, Button } from 'antd'
+import { Modal, Button, Result } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
-const ModalSuccessConnect = ({ isModalSuccess, setIsModalSuccess }) => {
+const ModalSuccessConnect = ({ isModalSuccess, setIsModalSuccess, message }) => {
   const navigate = useNavigate()
-
-  const handleOk = () => {
-    setIsModalSuccess(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalSuccess(false)
-  }
 
   const handleClickSeePortfolio = () => {
     navigate('../portfolio')
@@ -19,18 +11,21 @@ const ModalSuccessConnect = ({ isModalSuccess, setIsModalSuccess }) => {
 
   return (
     <Modal
+      className='reset-password-modal'
       visible={isModalSuccess}
-      onOk={handleOk}
-      onCancel={handleCancel}
+      onOk={() => setIsModalSuccess(false)}
+      onCancel={() => setIsModalSuccess(false)}
       footer={null}
-      className='modal-style'
-      bodyStyle={{ height: '50vh', overflow: 'hidden' }}
-      width={400}
     >
-      <div>SUCCESS</div>
-      <Button className='button' onClick={handleClickSeePortfolio}>
-        SEE MY ANALYTICS
-      </Button>
+      <Result
+        status='success'
+        title={message}
+        extra={[
+          <Button className='button' onClick={handleClickSeePortfolio} key='submit'>
+            SEE MY ANALYTICS
+          </Button>
+        ]}
+      />
     </Modal>
   )
 }

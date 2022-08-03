@@ -68,20 +68,24 @@ const bicoinSlice = createSlice({
     data_btc: null,
     status_btc: null,
     list_connection_btc: null,
-    holding_btc: []
+    holding_btc: [],
+    res_btc: null
   },
   extraReducers: {
     // post connection wallet bitcoins
     [importConnectionBtc.pending]: (state, action) => {
       state.status_btc = LOADING_IMPORT_CONNECTION
+      state.res_btc = action.payload
     },
     [importConnectionBtc.fulfilled]: (state, action) => {
       state.data_btc = action.payload
       state.status_btc = SUCCESS_IMPORT_CONNECTION
       state.list_connection_btc = null
+      state.res_btc = action.payload
     },
     [importConnectionBtc.rejected]: (state, action) => {
       state.status_btc = FAILED_IMPORT_CONNECTION
+      state.res_btc = action.payload
     },
 
     // get all connection wallet bitcoins

@@ -1,32 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { setCookie, STORAGEKEY } from '../../../utils/storage'
 import { Form, Input, Checkbox, Row, Col, Typography, notification, Modal } from 'antd'
 import { post } from '../../../api/accountService'
-import { useDispatch } from 'react-redux/es/exports'
-import { getUserInfo } from '../../../redux/useInfo'
+import { SmileOutlined } from '@ant-design/icons'
 import { validateEmail, validatePassword } from '../../../utils/regex'
 import './style.scss'
-import { SUCCESS_REQUEST } from '../../../constants/statusCode'
+import { accountSignupStatus } from '../../../constants/statusCode'
 import SignIn from '../login'
 
 const { Text } = Typography
 export default function Signup({ setIsModalSignup }) {
-  const [message, setMessage] = useState()
-  const [statusCode, setStatusCode] = useState()
-  // const [image, setImage] = useState()
-  const [open, setOpen] = useState(false)
-  // const [countryCode, setCountryCode] = useState()
-  // const [listPhoneCode, setListPhoneCode] = useState(phones)
-  // const [phoneCode, setPhoneCode] = useState()
-  // const [typeSearch, setTypeSearch] = useState('number')
-  const dispatch = useDispatch()
-  // const [passwordValidate, setPasswordValidate] = useState({
-  //   minChar: null,
-  //   number: null,
-  //   upperChar: null,
-  //   lowerChar: null
-  // })
-  console.log(statusCode)
+  const [errorMessage, setErrorMessage] = useState()
   const [form] = Form.useForm()
   const [passwordValidate, setPasswordValidate] = useState([])
   const [passwordStrength, setPasswordStrength] = useState()
@@ -39,19 +22,22 @@ export default function Signup({ setIsModalSignup }) {
     }
     try {
       const res = await post('accounts/signup', data)
-      const token = res.data.token
-      await setCookie(STORAGEKEY.ACCESS_TOKEN, token)
-      await dispatch(getUserInfo())
-      setMessage('Sign up successfully! Please check your email to verify.')
-      setOpen(true)
-      setIsModalSignup(false)
-      setStatusCode('')
-      setChecked(false)
-      setPasswordStrength(0)
-      openNotificationSuccess('success')
+      res && openNotification(accountSignupStatus.map((item) => {
+        if (item.code === res.code) {
+          return item.message
+        }
+      }))
+      res && setIsModalSignup(false)
+      res && setErrorMessage()
+      res && setChecked(false)
+      res && setPasswordStrength()
       form.resetFields()
     } catch (error) {
-      error?.response?.data && setStatusCode(error.response.data.code !== SUCCESS_REQUEST && 'Email already exists')
+      error?.response?.data && setErrorMessage(accountSignupStatus.map((item) => {
+        if (item.code === error.response.data.code) {
+          return item.message
+        }
+      }))
     }
   }
 
@@ -80,11 +66,18 @@ export default function Signup({ setIsModalSignup }) {
     setPasswordStrength((passwordValidate && passwordValidate.filter((item) => item.status === true)).length)
   }, [passwordValidate])
 
-  const openNotificationSuccess = (type) => {
-    notification[type]({
-      message: 'Sign Up',
-      description: message,
-      duration: 2
+  const openNotification = (messageRes) => {
+    notification.open({
+      message: 'Signup successfully',
+      description: messageRes,
+      duration: 2,
+      icon: (
+        <SmileOutlined
+          style={{
+            color: '#108ee9'
+          }}
+        />
+      )
     })
   }
 
@@ -92,13 +85,6 @@ export default function Signup({ setIsModalSignup }) {
     setIsModalSignup(false)
     setIsModalSignin(true)
   }
-
-  // const openNotificationFailed = (type) => {
-  //   notification[type]({
-  //     message: 'Failed',
-  //     description: statusCode
-  //   })
-  // }
 
   return (
     <div className='register-form'>
@@ -109,36 +95,9 @@ export default function Signup({ setIsModalSignup }) {
         onFinish={onFinish}
         form = {form}
         onValuesChange = {() =>{
-          // setStatusCode('')
-          setPasswordStrength()
+          setErrorMessage()
         }}
       >
-        {/* {message && message} */}
-        {open && open}
-        {/* <div>
-          <Image
-            width={200}
-            src={image ? (URL.createObjectURL(image)) : '/images/user.png'}
-          />
-        </div>
-        <div>
-          <Input
-            type='file'
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-        </div> */}
-        {/* <Form.Item
-          name={['user', 'name']}
-          label='Name'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your name!'
-            }
-          ]}
-        >
-          <Input />
-        </Form.Item> */}
         <Form.Item
           name={['user', 'email']}
           label='Email'
@@ -154,65 +113,9 @@ export default function Signup({ setIsModalSignup }) {
           hasFeedback
         >
           <div className='input-item'>
-            {/* <MailOutlined className='input-item-icon'/> */}
             <Input />
           </div>
-          {/* <Input size='large' placeholder='large size' prefix={<MailOutlined />} /> */}
         </Form.Item>
-        {/* <Form.Item
-          name={['user', 'phone']}
-          label='Phone'
-          rules={[
-            {
-              required: true,
-              pattern: new RegExp(validatePhone),
-              message: 'Format is wrong'
-            },
-            {
-              pattern: validateMaxLength,
-              message: 'Số điện thoại tối đa 12 số'
-            }
-          ]}
-        >
-          <Input
-            addonBefore={prefixSelector}
-            style={{
-              width: '100%'
-            }}
-          />
-        </Form.Item> */}
-        {/* <Form.Item
-          name={['user', 'address']}
-          label='Address'
-          rules={[
-            {
-              required: true,
-              message: 'Please input your address!',
-              pattern: new RegExp(validateAddress)
-            }
-          ]}
-        >
-          <Input />
-        </Form.Item> */}
-        {/* <Form.Item
-          name='password'
-          label='Password'
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: 'Mật khẩu bao gồm cả chữ hoa, chữ thường, số và ít nhất 8 kỹ tự!',
-              pattern: new RegExp(validatePassword)
-              // pattern: new RegExp('(?=(.*[0-9]))([\!@#$%^&*()\\[\]{}\-_+=~`|:;'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}')
-            }
-          ]}
-        >
-          <div className='input-item'>
-            <LockOutlined className='input-item-icon'/>
-            <Input.Password />
-          </div>
-        </Form.Item> */}
-
         <Form.Item
           name={['user', 'password']}
           label='Password'
@@ -263,13 +166,12 @@ export default function Signup({ setIsModalSignup }) {
           hasFeedback
         >
           <div className='input-item'>
-            {/* <LockOutlined className='input-item-icon'/> */}
             <Input.Password />
           </div>
         </Form.Item>
-        {statusCode !== ''
+        {errorMessage !== ''
           ? <Typography className='message-error'>
-            <Text type='danger'>{statusCode && statusCode}</Text>
+            <Text type='danger'>{errorMessage && errorMessage}</Text>
           </Typography>
           : ''
         }

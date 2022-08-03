@@ -122,6 +122,11 @@
 
 .dashboard {
     padding: 40px 0;
+    height: 100vh;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
     > .ant-row > .ant-col {
         padding-bottom: 20px;
     }

@@ -50,6 +50,7 @@
                     margin-left: 15px;
                     background-color: rgba(255,53,53,0.1);
                     border-radius: 8px;
+                    color: $color-pecent;
                 }
             }
             &-market{
@@ -60,6 +61,7 @@
                     margin-left: 15px;
                     background-color: rgba(52,199,89,0.1);
                     border-radius: 8px;
+                    color: #6ccf59;
                 }
             }
             &-overview{
@@ -119,6 +121,22 @@
                     font-size: 20px;
                     color: $font__color--white;
                     font-weight: 600;
+                }
+            }
+        }
+        &-swap{
+            & .swap-page__container .swap-page__modal{
+                width: 100%;
+                transform: translate(0);
+                margin-top: 0;
+                left: 0;
+                top: 0;
+            }
+        }
+        &-content{
+            & .ant-col-18{
+                & div{
+                    background-color: #000 !important;
                 }
             }
         }

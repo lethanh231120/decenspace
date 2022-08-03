@@ -2,13 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'antd'
 import './styles.scss'
 import WalletAddress from '../../components/portfolio/WalletAddress'
-import Analyst from '../../components/portfolio/Analyst'
+import Analyst from '../../components/portfolio/analyst/Analyst'
 import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
-// import { getAllHoldingBtc } from '../../redux/bitcoinSlice'
-// import { getAllHoldingEvm } from '../../redux/evmSlice'
-// import { SUCCESS_DELETE_CONNECTION_EVM, SUCCESS_DELETE_CONNECTION } from '../../constants/StatusMessageConstants'
-// import { get } from '../../api/coinPriceService'
 import { getPriceCoinByPeriod } from '../../redux/coinsPriceSlice'
 import { useQuery } from '@tanstack/react-query'
 import { get } from '../../api/bitcoinService'
@@ -36,8 +32,6 @@ const Portfolio = () => {
     }
   )
 
-  console.log('HOLDING BTC', holding_btc)
-
   const { data: holding_evm } = useQuery(
     ['holding_evm'],
     async() => {
@@ -46,7 +40,7 @@ const Portfolio = () => {
     }
   )
 
-  const { data: list_nft_nvm } = useQuery(
+  const { data: list_nft_nvm, isLoading } = useQuery(
     ['list_nft_nvm'],
     async() => {
       const dataNFT = await getNFT('nft/nfts')
@@ -55,12 +49,14 @@ const Portfolio = () => {
   )
 
   useEffect(() => {
-    if (holding_btc && holding_evm) {
-      setHoldings([
-        ...holding_btc,
-        ...holding_evm
-      ])
+    const data = []
+    if (holding_btc) {
+      data.push(...holding_btc)
     }
+    if (holding_evm) {
+      data.push(...holding_evm)
+    }
+    setHoldings(data)
   }, [holding_evm, holding_btc])
 
   useEffect(() => {
@@ -96,12 +92,25 @@ const Portfolio = () => {
     }
   }, [connectionName, holdings, list_nft_nvm])
 
+  const addDataIntoCache = (cacheName, url, response) => {
+    const data = new Response(JSON.stringify(response))
+    if ('caches' in window) {
+      caches.open(cacheName).then((cache) => {
+        cache.put(url, data)
+      })
+    }
+  }
+
+  useEffect(() => {
+    holdings && addDataIntoCache('MyCache', 'https://localhost:3000', holdings)
+  }, [holdings])
+
   const handleTabClick = (e) => {
     setConnectionName(e)
   }
 
   return (
-    <div>
+    <div style={{ overflowY: 'hidden' }}>
       <Row>
         <Col span={6}>
           <WalletAddress
@@ -122,6 +131,7 @@ const Portfolio = () => {
             dataConnection={!_.isEmpty(dataConnection) && dataConnection}
             setIsGroupNFT={setIsGroupNFT}
             isGroupNFT={isGroupNFT}
+            isLoading={isLoading}
           />
         </Col>
       </Row>

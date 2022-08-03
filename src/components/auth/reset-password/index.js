@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, Modal, Result } from 'antd'
 import { validatePassword } from '../../../utils/regex'
-// import { useDispatch } from 'react-redux'
-// import { updatePassword } from '../../../redux/profileSlice'
+import { accountForgotPassStatus } from '../../../constants/statusCode'
 import axios from 'axios'
 
 export default function ResetPassword() {
   const [message, setMessage] = useState()
+  const [openModalNoti, setOpenModalNoti] = useState(false)
+  const [loading, setLoading] = useState(false)
   const queryParams = new URLSearchParams(window.location.search)
   const uuid = queryParams.get('uuid')
   const token = queryParams.get('token')
 
-  console.log(uuid)
-  console.log(token)
   const resetPasswordSubmit = async(value) =>{
     const instance = axios.create({
       baseURL: '/accountService'
@@ -21,11 +20,22 @@ export default function ResetPassword() {
       instance.defaults.headers.common['Authorization'] = token
     }
     try {
+      setLoading(true)
       const res = await instance.patch(`/accounts/forgot-password/uuid=${uuid}`, { newPassword: value.user.newPassword })
-      setMessage(res?.message)
+      res && (accountForgotPassStatus.map((item) => {
+        if (res.code === item.code) {
+          setMessage({
+            message: item.message
+          })
+          setOpenModalNoti(true)
+          setLoading(false)
+        }
+      }))
     } catch (error) {
-      setMessage(error?.response?.data?.message)
-      console.log(error?.response?.data?.message)
+      setLoading(false)
+      setMessage({
+        error: error?.response?.data?.message
+      })
     }
   }
 
@@ -71,7 +81,7 @@ export default function ResetPassword() {
           <Input.Password/>
         </Form.Item>
         <div style={{ color: 'red' }}>
-          {message && message}
+          {message?.error && message?.error}
         </div>
         <Form.Item
           wrapperCol={{
@@ -79,11 +89,22 @@ export default function ResetPassword() {
             span: 16
           }}
         >
-          <Button type='primary' htmlType='submit'>
+          <Button type='primary' htmlType='submit' loading={loading}>
             Send
           </Button>
         </Form.Item>
       </Form>
+      <Modal
+        className='reset-password-modal'
+        visible={openModalNoti}
+        onOk={() => setOpenModalNoti(false)}
+        onCancel={() => setOpenModalNoti(false)}
+      >
+        <Result
+          status='success'
+          title={message?.message}
+        />
+      </Modal>
     </div>
   )
 }

@@ -2,10 +2,10 @@ import { Form, Input, Button, Modal, Typography, Result } from 'antd'
 import React, { useState } from 'react'
 import { validateEmail } from '../../../utils/regex'
 import { post } from '../../../api/mailService'
-import { mailForgotPassStatus } from '../../../constants/statusCode'
+import { mailValidateStatus } from '../../../constants/statusCode'
 const { Text } = Typography
 
-const ForgotPassword = ({ setIsModalForgotPassword }) => {
+const RecendEmail = ({ setOpenModalRecend }) => {
   const [errorMessage, setErrorMessage] = useState()
   const [message, setMessage] = useState()
   const [openModalNoti, setOpanModalNoti] = useState(false)
@@ -13,17 +13,17 @@ const ForgotPassword = ({ setIsModalForgotPassword }) => {
   const onFinish = async(values) => {
     try {
       setLoading(true)
-      const res = await post('mails/forgot-password', values)
-      res && setMessage(mailForgotPassStatus.map((item) => {
+      const res = await post('mails/validate-email', values)
+      res && setMessage(mailValidateStatus.map((item) => {
         if (item.code === res.code) {
           return item.message
         }
       }))
       res && setOpanModalNoti(true)
-      res && setIsModalForgotPassword(false)
+      res && setOpenModalRecend(false)
       res && setLoading(false)
     } catch (error) {
-      error?.response?.data && setErrorMessage(mailForgotPassStatus.map((item) => {
+      error?.response?.data && setErrorMessage(mailValidateStatus.map((item) => {
         if (item.code === error.response.data.code) {
           return item.message
         }
@@ -38,9 +38,6 @@ const ForgotPassword = ({ setIsModalForgotPassword }) => {
         name='basic'
         initialss={{ remember: true }}
         onFinish={onFinish}
-        onValuesChange = {() =>{
-          setErrorMessage()
-        }}
       >
         <Form.Item
           label='email'
@@ -83,4 +80,4 @@ const ForgotPassword = ({ setIsModalForgotPassword }) => {
   )
 }
 
-export default ForgotPassword
+export default RecendEmail

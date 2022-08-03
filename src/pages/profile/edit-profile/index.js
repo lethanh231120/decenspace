@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserInfo } from '../../../redux/useInfo'
-import { Form, Input, Button, Select, Layout, Row, Col, Typography, Image, DatePicker, Spin } from 'antd'
+import { Form, Input, Button, Select, Layout, Row, Col, Typography, Image, DatePicker, Spin, Modal, Result } from 'antd'
 import { patch } from '../../../api/accountService'
 import { useNavigate } from 'react-router-dom'
 import './index.scss'
+import { accountProfileStatus } from '../../../constants/statusCode'
 import { validatePhone, validateEmail, validateMaxLength } from '../../../utils/regex'
 import phones from '../../../utils/phoneCode.json'
 import axios from 'axios'
 
 const { Option } = Select
 const { Content } = Layout
+const { Text } = Typography
 
 const EditProfile = () => {
-  // const [error, setError] = useState()
-  // const [image, setImage] = useState()
-  // const [message, setMessage] = useState()
-  // const [open, setOpen] = useState(false)
   const [phoneCode, setPhoneCode] = useState('+1')
   const [countryCode, setCountryCode] = useState()
   const [listPhoneCode, setListPhoneCode] = useState(phones)
   const [typeSearch, setTypeSearch] = useState('number')
-
+  const [openModalNoti, setOpanModalNoti] = useState(false)
+  const [message, setMessage] = useState()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user } = useSelector(state => state.userInfo)
@@ -48,6 +47,7 @@ const EditProfile = () => {
       }
     })
   }
+
   useEffect(() => {
     axios.get(`https://ip.nf/me.json`).then(({ data }) => setCountryCode({ ...data.ip })).catch((error) => console.log(error))
   }, [])
@@ -81,6 +81,7 @@ const EditProfile = () => {
       </Select>
     </Form.Item>
   )
+
   const onFinish = async(fieldsValue) => {
     const config = {
       headers: {
@@ -98,15 +99,31 @@ const EditProfile = () => {
       'dob': fieldsValue['dob']?.format('DD/MM/YYYY') ? fieldsValue['dob']?.format('DD/MM/YYYY') : user.dob
     }
     try {
-      await patch('accounts/profile/current-profile', values, config)
-      navigate(-1)
+      const res = await patch('accounts/profile/current-profile', values, config)
+      res && accountProfileStatus.map((item) => {
+        if (item.code === res.code) {
+          setMessage({
+            message: item.message
+          })
+          setOpanModalNoti(true)
+        }
+      })
     } catch (error) {
-      // error?.response?.data && setError(error.response.data.message)
+      error?.response?.data && setMessage({
+        error: error.response.data.message
+      })
     }
   }
+
+  const handleNoti = () => {
+    setOpanModalNoti(false)
+    navigate(-1)
+  }
+
   const handleCancel = () => {
     navigate('/')
   }
+
   return (
     <>
       <Content className='profile'>
@@ -278,6 +295,12 @@ const EditProfile = () => {
                 </Col>
               </Row>
             </div>
+            {message?.error !== ''
+              ? <Typography className='message-error'>
+                <Text type='danger'>{message?.error && message?.error}</Text>
+              </Typography>
+              : ''
+            }
             <Form.Item>
               <Button type='primary' htmlType='submit'>
                 Cập nhật
@@ -300,6 +323,17 @@ const EditProfile = () => {
           <Spin size='large' />
         </div>)}
       </Content>
+      <Modal
+        className='reset-password-modal'
+        visible={openModalNoti}
+        onOk={() => handleNoti()}
+        onCancel={() => handleNoti()}
+      >
+        <Result
+          status='success'
+          title={message?.message}
+        />
+      </Modal>
     </>
   )
 }

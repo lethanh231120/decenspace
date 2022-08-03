@@ -1,9 +1,0 @@
-{
-    "rewrites": [
-        {"source": "/accountService/:match*", "destination": "https://accounts.nika.guru/:match*"},
-        {"source": "/coinPriceService/:match*", "destination": "https://coinsprices.nika.guru/:match*"},
-        {"source": "/addressService/:match*", "destination": "https://bitcoin.nika.guru/:match*"},
-        {"source": "/mailService/:match*", "destination": "https://mail.nika.guru/:match*"},
-        {"source": "/evmService/:match*", "destination": "https://evm.nika.guru/:match*"}
-    ]
-}

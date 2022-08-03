@@ -8,7 +8,7 @@ import '../portfolio/styles.scss'
 import { EXCHANGE } from '../../constants/TypeConstants'
 import { ListNFT } from '../nft-evm/ListNFT'
 const { TabPane } = Tabs
-const table = ({ dataConnection, isGroupNFT, setIsGroupNFT }) => {
+const table = ({ dataConnection, isGroupNFT, setIsGroupNFT, isLoading }) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState(['rank', 'name', 'price', 'marketCap', 'volume', 'priceChange1w', 'priceChange7d', 'priceGraph', 'priceChange24h', 'priceChange1h'])
   const columnsPopover = [
     {
@@ -326,29 +326,32 @@ const table = ({ dataConnection, isGroupNFT, setIsGroupNFT }) => {
   //   })
   // }
 
+  console.log(data2)
   return (
     <Tabs defaultActiveKey='1'>
       <TabPane tab='Holdings' key='1'>
         <Table
           columns={columns}
           dataSource={data2 && data2}
-          scroll={{
-            x: 'max-content'
-          }}
+          // scroll={{
+          //   x: 'max-content',
+          //   y: '50vh'
+          // }}
           showSorterTooltip={false}
-          pagination={{
-            position: ['bottomCenter'],
-            total: 1000,
-            defaultCurrent: 1,
-            // defaultPageSize: 10,
-            showSizeChanger: false
-            // onChange: handleChangePage
-          }}
+          pagination={false}
         />
       </TabPane>
-      <TabPane tab='NFT' key='2'>
-        <ListNFT dataConnection={dataConnection} isGroupNFT={isGroupNFT} setIsGroupNFT={setIsGroupNFT}/>
-      </TabPane>
+      {(dataConnection && dataConnection?.nft[0]) ? (
+        <TabPane tab='NFT' key='2'>
+          <ListNFT
+            dataConnection={dataConnection}
+            isGroupNFT={isGroupNFT}
+            setIsGroupNFT={setIsGroupNFT}
+            isLoading={isLoading}
+          />
+        </TabPane>
+      )
+        : ''}
       <TabPane tab='Charts' key='3'>
         Content of Tab Pane 3
       </TabPane>
